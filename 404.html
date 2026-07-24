@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>Página no encontrada | Video Inspección</title>
+  <meta name="description" content="Parece que te has perdido. Vuelve al inicio para agendar tu video inspección."/>
+  <meta content="noindex,follow" name="robots"/>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <link href="./styles.css" rel="stylesheet"/>
+  <meta content="#070F1E" name="theme-color"/>
+  <link href="assets/solo-icono.png" rel="icon" type="image/png"/>
+  <link href="assets/solo-icono.png" rel="apple-touch-icon"/>
+  
+  <style>
+    .error-section {
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(22,163,74,.05) 0%, transparent 70%), var(--dark-base);
+      color: #fff;
+    }
+    .error-section h1 {
+      font-family: "Poppins", sans-serif;
+      font-size: clamp(60px, 12vw, 120px);
+      font-weight: 800;
+      color: #4ADE80;
+      margin: 0;
+      line-height: 1;
+    }
+    .error-section h2 {
+      font-family: "Poppins", sans-serif;
+      font-size: clamp(24px, 4vw, 32px);
+      margin: 16px 0 24px;
+    }
+    .error-section p {
+      color: var(--dark-muted);
+      font-size: 18px;
+      max-width: 50ch;
+      margin: 0 auto 32px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header" data-header>
+  <div class="container container--wide">
+    <div class="nav">
+      <a class="brand" href="./index.html" aria-label="Inicio">
+        <img class="brand-logo" src="./assets/logo-sin-fondo.png" alt="Video Inspección" width="220" height="70"/>
+      </a>
+      <nav class="navlinks" aria-label="Navegación principal">
+        <a href="./index.html#servicio">Servicio</a>
+        <a href="./index.html#casos">Casos</a>
+        <a href="./index.html#faq">FAQ</a>
+      </nav>
+      <button class="btn btn-cta" type="button" data-whatsapp data-placement="header_cta"
+        data-message="Hola, me perdí en la web pero necesito una video inspección en Santiago.">
+        Hablemos
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="error-section">
+    <div class="container">
+      <h1>404</h1>
+      <h2>Ruta sin salida</h2>
+      <p>Al igual que una tubería obstruida, parece que este enlace no lleva a ninguna parte. Volvamos al inicio para encontrar el problema real.</p>
+      
+      <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a href="./index.html" class="btn btn-primary">
+          Volver al Inicio
+        </a>
+        <button class="btn" style="background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.2);" type="button" data-whatsapp data-placement="404_cta" data-message="Hola, llegué a un error 404 pero quiero consultar por una inspección.">
+          Pedir Ayuda
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="./app.js"></script>
+</body>
+</html>

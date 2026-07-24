@@ -228,34 +228,6 @@ function initScrollAnimations() {
   }
 }
 
-/* ---------- Lazy loading: portfolio thumbnails ---------- */
-function initPortfolioLazyLoad() {
-  const thumbs = document.querySelectorAll(".caso-thumb--lazyload[data-src]");
-  if (!thumbs.length) return;
-
-  const load = el => {
-    const src = el.getAttribute("data-src");
-    if (!src) return;
-    el.style.backgroundImage = `url(${src})`;
-    el.classList.remove("caso-thumb--lazyload");
-    el.removeAttribute("data-src");
-  };
-
-  if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver((entries, observer) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          load(e.target);
-          observer.unobserve(e.target);
-        }
-      });
-    }, { rootMargin: "200px 0px" }); // pre-load 200px before visible
-    thumbs.forEach(t => io.observe(t));
-  } else {
-    // Fallback for old browsers
-    thumbs.forEach(load);
-  }
-}
 
 /* ---------- Init ---------- */
 persistUTMs();
@@ -266,5 +238,4 @@ document.addEventListener("DOMContentLoaded", () => {
   bindFooter();
   animateCounters();
   initScrollAnimations();
-  initPortfolioLazyLoad();
 });
