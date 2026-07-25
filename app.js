@@ -238,4 +238,150 @@ document.addEventListener("DOMContentLoaded", () => {
   bindFooter();
   animateCounters();
   initScrollAnimations();
+  initQuoteModal();
+  initExitIntent();
+  initSocialProof();
+  initBASlider();
 });
+
+/* ---------- Cotizador Interactivo ---------- */
+function initQuoteModal() {
+  const btnOpen = document.getElementById("openQuoteModal");
+  const modal = document.getElementById("quoteModal");
+  const btnClose = document.getElementById("closeQuoteModal");
+  if (!btnOpen || !modal || !btnClose) return;
+
+  const steps = [
+    document.getElementById("quoteStep1"),
+    document.getElementById("quoteStep2"),
+    document.getElementById("quoteStep3")
+  ];
+  
+  let userChoices = { property: "", symptom: "" };
+
+  btnOpen.addEventListener("click", () => {
+    modal.removeAttribute("hidden");
+    steps[0].removeAttribute("hidden");
+    steps[1].setAttribute("hidden", "");
+    steps[2].setAttribute("hidden", "");
+  });
+
+  btnClose.addEventListener("click", () => {
+    modal.setAttribute("hidden", "");
+  });
+
+  // Step 1 buttons
+  steps[0].querySelectorAll(".btn-outline").forEach(btn => {
+    btn.addEventListener("click", () => {
+      userChoices.property = btn.getAttribute("data-value");
+      steps[0].setAttribute("hidden", "");
+      steps[1].removeAttribute("hidden");
+    });
+  });
+
+  // Step 2 buttons
+  steps[1].querySelectorAll(".btn-outline").forEach(btn => {
+    btn.addEventListener("click", () => {
+      userChoices.symptom = btn.getAttribute("data-value");
+      steps[1].setAttribute("hidden", "");
+      
+      // Calculate basic price
+      let basePrice = 45000;
+      if (userChoices.property.includes("Edificio")) basePrice += 30000;
+      if (userChoices.symptom.includes("Obstrucción")) basePrice += 15000;
+      
+      document.getElementById("quoteResultPrice").textContent = `Desde $${basePrice.toLocaleString("es-CL")}`;
+      
+      // Prepare WhatsApp button in Step 3
+      const waBtn = document.getElementById("btnQuoteWhatsApp");
+      const msg = `Hola, utilicé el cotizador interactivo.\nPropiedad: ${userChoices.property}\nSíntoma: ${userChoices.symptom}\nQuiero agendar la inspección.`;
+      waBtn.setAttribute("data-message", msg);
+      
+      // Re-bind just this button so it uses the new message
+      waBtn.addEventListener("click", () => {
+        trackEvent("whatsapp_click", { placement: waBtn.getAttribute("data-placement") });
+        window.open(buildWhatsAppLink(msg), "_blank", "noopener,noreferrer");
+      });
+      
+      steps[2].removeAttribute("hidden");
+    });
+  });
+}
+
+/* ---------- Exit Intent Popup ---------- */
+function initExitIntent() {
+  const modal = document.getElementById("exitIntentModal");
+  const btnClose = document.getElementById("closeExitModal");
+  const btnDecline = document.getElementById("declineExitModal");
+  if (!modal || !btnClose || !btnDecline) return;
+
+  if (sessionStorage.getItem("exitIntentShown")) return;
+
+  const showModal = (e) => {
+    if (e.clientY < 10) {
+      modal.removeAttribute("hidden");
+      sessionStorage.setItem("exitIntentShown", "true");
+      document.removeEventListener("mouseleave", showModal);
+    }
+  };
+
+  document.addEventListener("mouseleave", showModal);
+
+  const hideModal = () => modal.setAttribute("hidden", "");
+  btnClose.addEventListener("click", hideModal);
+  btnDecline.addEventListener("click", hideModal);
+}
+
+/* ---------- Social Proof Toast ---------- */
+function initSocialProof() {
+  const container = document.getElementById("toastContainer");
+  if (!container) return;
+
+  const events = [
+    "Alguien en Las Condes acaba de agendar una inspección",
+    "Edificio en Providencia descargó informe técnico",
+    "Constructora en Ñuñoa cotizó una auditoría de red",
+    "Alguien en Santiago Centro detectó una fuga sin romper"
+  ];
+
+  const showToast = () => {
+    const text = events[Math.floor(Math.random() * events.length)];
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerHTML = `
+      <div class="toast-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <strong style="display:block; margin-bottom:4px; font-weight:600;">Actividad Reciente</strong>
+        <span style="color:var(--dark-muted)">${text}</span>
+      </div>
+    `;
+    container.appendChild(toast);
+    setTimeout(() => toast.classList.add("show"), 100);
+    setTimeout(() => {
+      toast.classList.remove("show");
+      setTimeout(() => toast.remove(), 500);
+    }, 5000);
+  };
+
+  setTimeout(() => {
+    showToast();
+    setInterval(showToast, 35000);
+  }, 10000);
+}
+
+/* ---------- Before/After Slider ---------- */
+function initBASlider() {
+  const slider = document.getElementById("baSliderInput");
+  const beforeImage = document.getElementById("baImageBefore");
+  const sliderLine = document.getElementById("baSliderLine");
+  
+  if (!slider || !beforeImage || !sliderLine) return;
+  
+  slider.addEventListener("input", (e) => {
+    const value = e.target.value;
+    beforeImage.style.width = `${value}%`;
+    sliderLine.style.left = `${value}%`;
+  });
+}
