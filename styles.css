@@ -47,6 +47,12 @@
 /* ========================= RESET ========================= */
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--dark-base); }
+::-webkit-scrollbar-thumb { background: var(--dark-dim); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: #4ADE80; }
+
 body{
   margin:0;
   background:var(--bg-white);
@@ -171,9 +177,20 @@ section[id],div[id],aside[id]{scroll-margin-top:calc(var(--headerH) + 20px)}
 }
 .heroContent h1{
   font-family:"Poppins",sans-serif;font-size:clamp(32px, 5vw, 48px);font-weight:800;
-  letter-spacing:-.8px;line-height:1.08;margin:14px 0 14px;color:#fff;
+  letter-spacing:-.8px;line-height:1.08;margin:14px 0 14px;
+  background: linear-gradient(to right, #ffffff 20%, #4ADE80 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: shine 6s linear infinite;
 }
-.heroHeading--accent{color:#4ADE80}
+@keyframes shine {
+  to { background-position: 200% center; }
+}
+.heroHeading--accent{
+  -webkit-text-fill-color: #4ADE80;
+}
 .heroContent>p{
   margin:0 0 24px;font-size:16.5px;line-height:1.80;
   color:rgba(255,255,255,.80);max-width:58ch;
@@ -258,9 +275,17 @@ textarea{min-height:86px;resize:vertical}
 .card{
   background:var(--bg-white);border:1px solid var(--border-light);
   border-radius:var(--radius);padding:30px;box-shadow:var(--shadow-card);
-  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+  transition:transform .4s cubic-bezier(0.165, 0.84, 0.44, 1),box-shadow .4s cubic-bezier(0.165, 0.84, 0.44, 1),border-color .4s ease;
+  position: relative; overflow: hidden;
 }
-.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);border-color:rgba(15,23,42,.14)}
+.card::before {
+  content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(74, 222, 128, 0.08), transparent 40%);
+  opacity: 0; transition: opacity 0.4s ease; pointer-events: none; z-index: 1;
+}
+.card:hover::before { opacity: 1; }
+.card > * { position: relative; z-index: 2; }
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover);border-color:rgba(74, 222, 128, 0.3)}
 .card-icon{
   width:52px;height:52px;display:flex;align-items:center;justify-content:center;
   background:var(--navy-tint);border:1px solid var(--navy-border);
@@ -494,16 +519,22 @@ footer{
 @media(max-width:820px){.sticky-cta{display:block}}
 
 /* ========================= SCROLL ANIMATIONS ========================= */
-[data-anim]{
-  opacity:0;transform:translateY(22px);
-  transition:opacity .60s ease,transform .60s ease;
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  will-change: opacity, transform;
 }
-[data-anim].is-visible{opacity:1;transform:translateY(0)}
-[data-anim]:nth-child(2){transition-delay:.08s}
-[data-anim]:nth-child(3){transition-delay:.16s}
-[data-anim]:nth-child(4){transition-delay:.24s}
-[data-anim]:nth-child(5){transition-delay:.32s}
-[data-anim]:nth-child(6){transition-delay:.40s}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Cascading delay for grid items */
+.reveal:nth-child(2) { transition-delay: 0.15s; }
+.reveal:nth-child(3) { transition-delay: 0.30s; }
+.reveal:nth-child(4) { transition-delay: 0.45s; }
+.reveal:nth-child(5) { transition-delay: 0.60s; }
+.reveal:nth-child(6) { transition-delay: 0.75s; }
 
 /* ========================= BLOG ========================= */
 .card h1{

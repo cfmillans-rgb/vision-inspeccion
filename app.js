@@ -206,26 +206,39 @@ function initScrollAnimations() {
   // Find all containers marked data-animate-children and tag their children
   document.querySelectorAll("[data-animate-children]").forEach(container => {
     Array.from(container.children).forEach(child => {
-      child.setAttribute("data-anim", "");
+      child.classList.add("reveal");
     });
   });
 
-  const els = document.querySelectorAll("[data-anim]");
+  const els = document.querySelectorAll(".reveal");
   if (!els.length) return;
 
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver((entries, observer) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          e.target.classList.add("is-visible");
+          e.target.classList.add("reveal-visible");
           observer.unobserve(e.target);
         }
       });
     }, { threshold: 0.10, rootMargin: "0px 0px -40px 0px" });
     els.forEach(el => io.observe(el));
   } else {
-    els.forEach(el => el.classList.add("is-visible"));
+    els.forEach(el => el.classList.add("reveal-visible"));
   }
+}
+
+/* ---------- Card Hover Glow Effect ---------- */
+function initCardGlow() {
+  document.querySelectorAll(".card").forEach(card => {
+    card.addEventListener("mousemove", e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty("--mouse-x", `${x}px`);
+      card.style.setProperty("--mouse-y", `${y}px`);
+    });
+  });
 }
 
 
@@ -238,6 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
   bindFooter();
   animateCounters();
   initScrollAnimations();
+  initCardGlow();
   initQuoteModal();
   initExitIntent();
   initSocialProof();
