@@ -972,3 +972,19 @@ h1, h2, h3 {
 }
 .reveal-slide-up.reveal-visible { opacity: 1; transform: translateY(0); }
 .reveal-delay-6 { transition-delay: 0.75s; }
+
+/* FIX CASOS READABILITY AND MOBILE */
+.caso-info h3, .caso-info p, .caso-info .caso-tag {
+  color: #ffffff !important;
+}
+.caso-info p {
+  opacity: 0.9;
+}
+@media(max-width: 900px) {
+  .caso--wide .caso-info { 
+    height: auto !important; 
+    margin-top: auto !important; 
+    background: linear-gradient(to top, rgba(7,15,30,0.95) 50%, rgba(7,15,30,0.6) 80%, transparent) !important;
+    justify-content: flex-end !important;
+  }
+}
