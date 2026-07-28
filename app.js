@@ -9,7 +9,7 @@
 const BRAND = {
   name:      "Video Inspección",
   domain:    "https://videoinspeccion.cl",
-  whatsapp:  "56959492372",
+  whatsapp:  "56959501190",
   email:     "hola@videoinspeccion.cl",
   city:      "Santiago, Chile"
 };
