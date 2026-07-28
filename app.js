@@ -206,11 +206,13 @@ function initScrollAnimations() {
   // Find all containers marked data-animate-children and tag their children
   document.querySelectorAll("[data-animate-children]").forEach(container => {
     Array.from(container.children).forEach(child => {
-      child.classList.add("reveal");
+      if (!child.className.includes("reveal-")) {
+        child.classList.add("reveal");
+      }
     });
   });
 
-  const els = document.querySelectorAll(".reveal");
+  const els = document.querySelectorAll(".reveal, .reveal-fade, .reveal-blur, .reveal-scale, .reveal-right");
   if (!els.length) return;
 
   if ("IntersectionObserver" in window) {

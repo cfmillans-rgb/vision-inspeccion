@@ -164,6 +164,7 @@
 
 <!-- ========================= HERO ========================= -->
 <section class="hero" id="top" aria-labelledby="heroHeading">
+  <div class="heroParticles" id="heroParticles"></div>
   <div class="container container--wide">
     <div class="heroLayout">
 
@@ -188,8 +189,8 @@
           <strong>ubicación del punto a intervenir</strong> + <strong>cotización clara</strong> para decidir con certeza.
         </p>
 
-        <div class="heroActions">
-          <button class="btn btn-primary" type="button" data-whatsapp data-placement="hero_primary"
+        <div class="heroActions reveal-fade reveal-delay-3">
+          <button class="btn btn-primary btn-glow" type="button" data-whatsapp data-placement="hero_primary"
             data-message="Hola, quiero agendar una video inspección en Santiago. ¿Disponibilidad y valores?">
             <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><title>Ícono decorativo</title>
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
@@ -197,6 +198,13 @@
             </svg>
             Agendar por WhatsApp
           </button>
+        </div>
+
+        <div class="heroCertBadge reveal-fade reveal-delay-4">
+          <div class="certBadge-icon">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="certBadge-text">Servicio certificado en toda la <strong>Región Metropolitana</strong>, <strong>Quinta Región</strong> y <strong>Sexta Región</strong>.</span>
         </div>
 
         <div class="heroTrust" aria-label="Garantías del servicio">
@@ -318,9 +326,10 @@
     <div class="grid2" data-animate-children>
       <div class="card card--kpi">
         <div class="kpi-row">
-          <strong class="kpi-num" data-count="12">12</strong><span class="kpi-plus">+</span>
+          <strong class="kpi-num" data-count="98">0</strong><span class="kpi-plus">%</span>
         </div>
-        <div class="kpi-label">Años de experiencia en diagnóstico de tuberías</div>
+        <div class="kpi-label">Diagnósticos acertados</div>
+        <p class="kpi-desc">"Gracias al uso de cámaras de alta definición y experiencia técnica."</p>
       </div>
 
       <div class="card">
@@ -364,6 +373,13 @@
           </div>
         </div>
       </div>
+      <ul class="comp-features reveal-fade">
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Menor tiempo</li>
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Sin romper pisos</li>
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Diagnóstico preciso</li>
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Menor costo de reparación</li>
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Informe técnico</li>
+      </ul>
     </div>
     
   </div>
@@ -493,6 +509,7 @@
         <figcaption>
           <div class="testimonial-avatar" aria-hidden="true">MR</div>
           <div>
+            <div class="stars" aria-hidden="true">★★★★★</div>
             <strong>María R.</strong>
             <span>Propietaria, í‘uñoa</span>
           </div>
@@ -506,6 +523,7 @@
         <figcaption>
           <div class="testimonial-avatar" aria-hidden="true">CL</div>
           <div>
+            <div class="stars" aria-hidden="true">★★★★★</div>
             <strong>Carlos L.</strong>
             <span>Administrador de edificio, Las Condes</span>
           </div>
@@ -519,6 +537,7 @@
         <figcaption>
           <div class="testimonial-avatar" aria-hidden="true">AP</div>
           <div>
+            <div class="stars" aria-hidden="true">★★★★★</div>
             <strong>Andrea P.</strong>
             <span>Propietaria, Providencia</span>
           </div>
@@ -576,6 +595,28 @@
         <summary>¿Pueden indicar el punto exacto para reparar?</summary>
         <p>Sí. Según el acceso y condiciones, identificamos el tramo y ubicación del problema para reducir demoliciones y enfocar la reparación donde corresponde.</p>
       </details>
+      
+      <!-- Nuevas preguntas FAQ -->
+      <details>
+        <summary>¿Atienden urgencias el mismo día?</summary>
+        <p>Sí, ofrecemos atención de urgencias el mismo día dependiendo de la disponibilidad y el horario de solicitud. Contáctanos por WhatsApp para coordinar rápidamente.</p>
+      </details>
+      <details>
+        <summary>¿Qué comunas de Santiago cubren?</summary>
+        <p>Cubrimos toda la Región Metropolitana de Santiago, además de la Quinta Región y la Sexta Región. Confirma tu ubicación por WhatsApp para asignar el equipo más cercano.</p>
+      </details>
+      <details>
+        <summary>¿Realizan inspecciones en edificios y condominios?</summary>
+        <p>Sí. Trabajamos frecuentemente con administradores de edificios, condominios, constructoras e inmobiliarias, entregando diagnósticos formales para las comunidades.</p>
+      </details>
+      <details>
+        <summary>¿Cómo recibo el informe técnico?</summary>
+        <p>El informe técnico profesional se envía en formato digital (PDF) con imágenes claras y videos (cuando sea necesario) evidenciando los hallazgos y nuestra recomendación experta.</p>
+      </details>
+      <details>
+        <summary>¿La videoinspección evita romper pisos y muros?</summary>
+        <p>Exactamente. Al usar cámaras de alta definición, podemos detectar el problema exacto y su ubicación, permitiendo intervenciones precisas y evitando demoliciones a ciegas.</p>
+      </details>
     </div>
   </div>
 </section>
@@ -600,35 +641,48 @@
 <!-- ========================= FOOTER ========================= -->
 <footer role="contentinfo">
   <div class="container container--wide">
-    <div class="footerGrid">
-      <div>
+    <div class="footerGrid4">
+      <div class="footerCol">
         <a class="brand" href="./index.html" aria-label="Inicio">
           <img alt="Video Inspección" class="brand-logo" src="./assets/logo-sin-fondo.png" width="200" height="64"/>
         </a>
-        <p class="small" style="margin-top:12px">
-          Atención Santiago, Chile.<br/>
-          <a href="mailto:hola@videoinspeccion.cl" style="color:inherit">hola@videoinspeccion.cl</a> â€¢
-          <a href="https://wa.me/56959492372" style="color:inherit" target="_blank" rel="noopener">+56 9 5949 2372</a>
-        </p>
-        <p class="small">
-          <span>Â© <span id="year"></span> videoinspeccion.cl. Todos los derechos reservados.</span>
-        </p>
-        <div class="coverage">
-          <div class="coverageTitle">Cobertura para edificios y obras en:</div>
-          <div class="coverageList">Santiago Centro â€¢ Providencia â€¢ Las Condes â€¢ í‘uñoa â€¢ La Florida â€¢ Maipú â€¢ San Miguel â€¢ Estación Central â€¢ Peñalolén â€¢ Puente Alto y alrededores</div>
-        </div>
+        <p class="footerDesc">Empresa líder en videoinspección técnica de tuberías. Evitamos daños innecesarios mediante diagnósticos certeros y tecnología de vanguardia.</p>
       </div>
 
-      <nav class="footerLinks" aria-label="Navegación pie de página">
-        <a href="#top">Inicio</a>
-        <a href="#servicio">Servicio</a>
-        <a href="#beneficios">Beneficios</a>
-        <a href="#proceso">Proceso</a>
-        <a href="#casos">Casos</a>
-        <a href="#testimonios">Testimonios</a>
-        <a href="#faq">FAQ</a>
-        <a href="./blog/index.html">Blog</a>
-      </nav>
+      <div class="footerCol">
+        <h4>Servicios</h4>
+        <ul class="footerLinksList">
+          <li><a href="#servicio">Videoinspección</a></li>
+          <li><a href="#servicio">Detección de fugas</a></li>
+          <li><a href="#servicio">Diagnóstico de tuberías</a></li>
+        </ul>
+      </div>
+
+      <div class="footerCol">
+        <h4>Cobertura</h4>
+        <ul class="footerLinksList">
+          <li>Región Metropolitana</li>
+          <li>Quinta Región</li>
+          <li>Sexta Región</li>
+        </ul>
+      </div>
+
+      <div class="footerCol">
+        <h4>Contacto</h4>
+        <ul class="footerContactList">
+          <li><a href="https://wa.me/56959492372" target="_blank" rel="noopener">WhatsApp: +56 9 5949 2372</a></li>
+          <li><a href="mailto:hola@videoinspeccion.cl">hola@videoinspeccion.cl</a></li>
+        </ul>
+        <div class="footerHours">
+          <strong>Horario</strong>
+          <span>Lunes a Viernes: 08:00 a 19:00</span>
+          <span>Sábado: 09:00 a 14:00</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footerBottom">
+      <p>Â© 2026 Vision Inspección. Todos los derechos reservados.</p>
     </div>
   </div>
 </footer>
