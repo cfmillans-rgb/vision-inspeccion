@@ -212,7 +212,7 @@ function initScrollAnimations() {
     });
   });
 
-  const els = document.querySelectorAll(".reveal, .reveal-fade, .reveal-blur, .reveal-scale, .reveal-right");
+  const els = document.querySelectorAll(".reveal, .reveal-fade, .reveal-blur, .reveal-scale, .reveal-right, .reveal-slide-up");
   if (!els.length) return;
 
   if ("IntersectionObserver" in window) {
