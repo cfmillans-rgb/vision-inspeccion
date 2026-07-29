@@ -1011,6 +1011,201 @@ h1, h2, h3 {
   margin-top: 40px;
   padding: 16px 24px;
   border-radius: 12px;
+}
+.modal-close {
+  position: absolute; top: 15px; right: 15px; background: none; border: none;
+  color: var(--dark-muted); font-size: 28px; cursor: pointer; line-height: 1;
+}
+.quote-options { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+.btn-outline { background: transparent; border: 1px solid var(--border-light); color: #fff; justify-content: center;}
+/* ========================= ART DIRECTION: EXTREME REFINEMENT ========================= */
+
+
+
+
+/* Base Typographic Refinements */
+h1, h2, h3 {
+  letter-spacing: var(--tracking-tight);
+}
+
+.hero {
+  background-image: 
+    url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.05"/></svg>'),
+    linear-gradient(to bottom, transparent, var(--dark-base)),
+    linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 100px 100px, 100% 100%, 40px 40px, 40px 40px;
+}
+
+.glass-surface {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), var(--shadow-premium);
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.glass-surface:hover {
+  border-color: rgba(74, 222, 128, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), var(--shadow-glow);
+  transform: translateY(-4px);
+}
+
+/* BENTO GRID (Servicios) */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 24px;
+}
+.bento-main {
+  grid-column: span 2;
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.bento-main h3 { font-size: 28px; margin-bottom: 16px; }
+.bento-main p { font-size: 17px; max-width: 400px; color: var(--dark-muted); }
+.bento-sub {
+  grid-column: span 1;
+  padding: 32px;
+}
+.bento-image-wrapper {
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  width: 55%;
+  height: 80%;
+  border-radius: 20px 0 0 0;
+  overflow: hidden;
+  box-shadow: -10px -10px 30px rgba(0,0,0,0.5);
+}
+.bento-img { width: 100%; height: 100%; object-fit: cover; }
+.bento-overlay-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom right, transparent, rgba(7, 15, 30, 0.8));
+}
+
+@media(max-width: 900px) {
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-main, .bento-sub { grid-column: span 1; grid-row: auto; }
+  .bento-image-wrapper { position: relative; right: 0; bottom: 0; width: 100%; height: 200px; margin-top: 24px; border-radius: 12px; }
+}
+
+/* MAGAZINE GRID (Casos) */
+.magazine-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.caso {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  grid-column: span 2;
+  min-height: 400px;
+}
+.caso--large { grid-column: span 2; grid-row: span 2; min-height: 600px; }
+.caso--tall { grid-column: span 2; grid-row: span 2; }
+.caso--wide { grid-column: span 4; flex-direction: row; align-items: center; }
+
+.caso-thumb-wrapper {
+  position: absolute; inset: 0; z-index: 1;
+}
+.caso-thumb {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.caso:hover .caso-thumb { transform: scale(1.05); }
+.caso-info {
+  position: relative; z-index: 2; margin-top: auto;
+  padding: 32px; background: linear-gradient(to top, rgba(7,15,30,0.95) 20%, transparent);
+}
+.caso--wide .caso-info { width: 50%; background: linear-gradient(to right, rgba(7,15,30,0.95) 40%, transparent); height: 100%; display: flex; flex-direction: column; justify-content: center;}
+
+@media(max-width: 900px) {
+  .magazine-grid { grid-template-columns: 1fr; }
+  .caso, .caso--large, .caso--tall, .caso--wide { grid-column: span 1; grid-row: auto; min-height: 350px; flex-direction: column; }
+  .caso--wide .caso-info { width: 100%; background: linear-gradient(to top, rgba(7,15,30,0.95) 20%, transparent); }
+}
+
+/* HERO CHECKLIST */
+.hero-checklist {
+  list-style: none; padding: 0; margin: 32px 0 0;
+  display: flex; flex-wrap: wrap; gap: 16px 24px;
+}
+.hero-checklist li {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.8);
+}
+.hero-checklist svg { width: 18px; height: 18px; color: #4ADE80; }
+
+/* TESTIMONIALS GRID */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.testimonial { padding: 40px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
+.testimonial--offset { transform: translateY(40px); }
+.testimonial blockquote { font-size: 16px; font-style: italic; line-height: 1.8; color: var(--dark-muted); }
+.testimonial-author { display: flex; flex-direction: column; gap: 4px; }
+.testimonial-author strong { color: #fff; font-size: 15px; }
+.testimonial-author span { color: var(--dark-dim); font-size: 13px; }
+
+@media(max-width: 900px) {
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .testimonial--offset { transform: translateY(0); }
+}
+
+/* ANIMATIONS */
+.reveal-slide-up {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+  will-change: opacity, transform;
+}
+.reveal-slide-up.reveal-visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-6 { transition-delay: 0.75s; }
+
+/* FIX CASOS READABILITY AND MOBILE */
+.magazine-grid .caso .caso-info h3,
+.magazine-grid .caso .caso-info p,
+.magazine-grid .caso .caso-info .caso-tag {
+  color: #ffffff;
+}
+.magazine-grid .caso .caso-info p {
+  opacity: 0.9;
+}
+.magazine-grid .caso .caso-info {
+  background: linear-gradient(to top, rgba(7,15,30,0.95) 40%, rgba(7,15,30,0.5) 75%, transparent);
+}
+@media(max-width: 900px) {
+  .magazine-grid .caso--wide .caso-info {
+    height: auto;
+    margin-top: auto;
+    width: 100%;
+    background: linear-gradient(to top, rgba(7,15,30,0.95) 50%, rgba(7,15,30,0.6) 80%, transparent);
+    justify-content: flex-end;
+  }
+}
+
+/* TESTIMONIALS SOURCE */
+.testimonials-source {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 40px;
+  padding: 16px 24px;
+  border-radius: 12px;
   background: var(--bg-light);
   border: 1px solid var(--border-light);
   color: var(--text-muted);
@@ -1019,4 +1214,42 @@ h1, h2, h3 {
 .testimonials-source svg {
   flex-shrink: 0;
   color: var(--green);
+}
+
+/* SMOOTH FAQ ACCORDION */
+.faqList details .faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), padding 0.4s ease;
+  overflow: hidden;
+}
+.faqList details[open] .faq-answer {
+  grid-template-rows: 1fr;
+}
+.faqList details .faq-answer > div {
+  overflow: hidden;
+}
+.faqList details .faq-answer p {
+  padding: 0 22px 20px;
+  margin: 0;
+}
+
+/* CTA GUARANTEE */
+.cta-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 14px 24px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--dark-border);
+  color: var(--dark-muted);
+  font-size: 13.5px;
+  text-align: center;
+}
+.cta-guarantee svg {
+  flex-shrink: 0;
+  color: #4ADE80;
 }

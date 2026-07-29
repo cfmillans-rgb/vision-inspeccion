@@ -257,6 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initQuoteModal();
   initExitIntent();
   initBASlider();
+  initSmoothFAQ();
 });
 
 /* ---------- Cotizador Interactivo ---------- */
@@ -359,5 +360,48 @@ function initBASlider() {
     const value = e.target.value;
     beforeImage.style.width = `${value}%`;
     sliderLine.style.left = `${value}%`;
+  });
+}
+
+/* ---------- Smooth FAQ Accordion ---------- */
+function initSmoothFAQ() {
+  document.querySelectorAll('.faqList details').forEach(details => {
+    const summary = details.querySelector('summary');
+    const content = details.querySelector('p');
+    if (!summary || !content) return;
+    
+    // Wrap p in animation container
+    const wrapper = document.createElement('div');
+    wrapper.className = 'faq-answer';
+    const inner = document.createElement('div');
+    inner.appendChild(content);
+    wrapper.appendChild(inner);
+    details.appendChild(wrapper);
+    
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (details.open) {
+        // Closing
+        details.style.overflow = 'hidden';
+        wrapper.style.gridTemplateRows = '0fr';
+        setTimeout(() => {
+          details.open = false;
+          details.style.overflow = '';
+        }, 400);
+      } else {
+        // Opening - close others first
+        details.parentElement.querySelectorAll('details[open]').forEach(other => {
+          if (other !== details) {
+            const otherWrapper = other.querySelector('.faq-answer');
+            if (otherWrapper) otherWrapper.style.gridTemplateRows = '0fr';
+            setTimeout(() => { other.open = false; }, 400);
+          }
+        });
+        details.open = true;
+        requestAnimationFrame(() => {
+          wrapper.style.gridTemplateRows = '1fr';
+        });
+      }
+    });
   });
 }
