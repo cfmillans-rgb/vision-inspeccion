@@ -256,7 +256,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initCardGlow();
   initQuoteModal();
   initExitIntent();
-  initSocialProof();
   initBASlider();
 });
 
@@ -302,9 +301,7 @@ function initQuoteModal() {
       steps[1].setAttribute("hidden", "");
       
       // Calculate basic price
-      let basePrice = 45000;
-      if (userChoices.property.includes("Edificio")) basePrice += 30000;
-      if (userChoices.symptom.includes("Obstrucción")) basePrice += 15000;
+      let basePrice = 250000;
       
       document.getElementById("quoteResultPrice").textContent = `Desde $${basePrice.toLocaleString("es-CL")}`;
       
@@ -348,44 +345,7 @@ function initExitIntent() {
   btnDecline.addEventListener("click", hideModal);
 }
 
-/* ---------- Social Proof Toast ---------- */
-function initSocialProof() {
-  const container = document.getElementById("toastContainer");
-  if (!container) return;
 
-  const events = [
-    "Alguien en Las Condes acaba de agendar una inspección",
-    "Edificio en Providencia descargó informe técnico",
-    "Constructora en Ñuñoa cotizó una auditoría de red",
-    "Alguien en Santiago Centro detectó una fuga sin romper"
-  ];
-
-  const showToast = () => {
-    const text = events[Math.floor(Math.random() * events.length)];
-    const toast = document.createElement("div");
-    toast.className = "toast";
-    toast.innerHTML = `
-      <div class="toast-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div>
-        <strong style="display:block; margin-bottom:4px; font-weight:600;">Actividad Reciente</strong>
-        <span style="color:var(--dark-muted)">${text}</span>
-      </div>
-    `;
-    container.appendChild(toast);
-    setTimeout(() => toast.classList.add("show"), 100);
-    setTimeout(() => {
-      toast.classList.remove("show");
-      setTimeout(() => toast.remove(), 500);
-    }, 5000);
-  };
-
-  setTimeout(() => {
-    showToast();
-    setInterval(showToast, 35000);
-  }, 10000);
-}
 
 /* ---------- Before/After Slider ---------- */
 function initBASlider() {
