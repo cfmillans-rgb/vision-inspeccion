@@ -91,18 +91,14 @@ function bindLeadForm() {
   form.addEventListener("submit", e => {
     e.preventDefault();
     const fd = new FormData(form);
-    const nombre   = (fd.get("nombre")   || "").toString().trim();
-    const comuna   = (fd.get("comuna")   || "").toString().trim();
     const problema = (fd.get("problema") || "").toString().trim();
-    const urgencia = (fd.get("urgencia") || "").toString().trim();
 
     const msg =
-`Hola, soy ${nombre || "—"}.
-Comuna/sector: ${comuna || "—"}
-Motivo: ${problema || "—"}
-Urgencia: ${urgencia || "—"}
+`Hola, quiero saber qué tiene mi tubería.
 
-Quiero agendar una video inspección y recibir informe técnico.`;
+${problema || "Necesito una inspección."}
+
+¿Disponibilidad y valores?`;
 
     trackEvent("generate_lead", {
       method: "form_to_whatsapp",
