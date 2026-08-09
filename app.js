@@ -240,6 +240,56 @@ function initCardGlow() {
 }
 
 
+/* ---------- Sticky Scroll Process Steps ---------- */
+function initStickySteps() {
+  const steps = document.querySelectorAll(".steps-scrollable .step[data-step]");
+  const stepNum = document.getElementById("stickyStepNum");
+  const stepLabel = document.getElementById("stickyStepLabel");
+  const stickyImg = document.querySelector(".steps-sticky__img");
+  
+  if (!steps.length || !stepNum || !stepLabel) return;
+
+  /* Subtle image transforms per step for visual variety */
+  const stepStyles = [
+    { scale: 1.00, brightness: 0.85 },
+    { scale: 1.05, brightness: 0.90 },
+    { scale: 1.10, brightness: 0.95 }
+  ];
+
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const stepEl = entry.target;
+          const idx = parseInt(stepEl.getAttribute("data-step"), 10) || 1;
+          const title = stepEl.querySelector("h3")?.textContent || "";
+
+          /* Update sticky panel indicator */
+          stepNum.textContent = idx;
+          stepLabel.textContent = title;
+
+          /* Subtle image transformation per step */
+          if (stickyImg && stepStyles[idx - 1]) {
+            const s = stepStyles[idx - 1];
+            stickyImg.style.transform = `scale(${s.scale})`;
+            stickyImg.style.filter = `brightness(${s.brightness})`;
+          }
+
+          /* Toggle active class on steps */
+          steps.forEach(s => s.classList.remove("step--active"));
+          stepEl.classList.add("step--active");
+        }
+      });
+    }, {
+      threshold: 0.5,
+      rootMargin: "-20% 0px -30% 0px"
+    });
+
+    steps.forEach(step => io.observe(step));
+  }
+}
+
+
 /* ---------- Init ---------- */
 persistUTMs();
 document.addEventListener("DOMContentLoaded", () => {
@@ -254,6 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initExitIntent();
   initBASlider();
   initSmoothFAQ();
+  initStickySteps();
 });
 
 /* ---------- Cotizador Interactivo ---------- */

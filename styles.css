@@ -1722,3 +1722,758 @@ h1, h2, h3 {
   filter: brightness(1);
   transform: scale(1.05);
 }
+
+/* ============================================================
+   COMPONENTE 1: TARJETA GLASSMORPHISM PREMIUM
+   Efecto vidrio esmerilado con acentos cian sobre fondo oscuro.
+   Usa backdrop-filter + bordes semitransparentes + inner glow.
+   ============================================================ */
+
+/* Variable cian del sistema de diseño premium */
+:root {
+  --cyan:          #00F0FF;
+  --cyan-mid:      #00C4D6;
+  --cyan-glow:     rgba(0, 240, 255, 0.18);
+  --cyan-tint:     rgba(0, 240, 255, 0.06);
+  --cyan-border:   rgba(0, 240, 255, 0.15);
+}
+
+/* Tarjeta glassmorphism — se aplica sobre el formulario del hero */
+.glass-card {
+  background: rgba(11, 22, 40, 0.55) !important;
+  border: 1px solid rgba(0, 240, 255, 0.12) !important;
+  border-radius: var(--radius) !important;
+  backdrop-filter: blur(28px) saturate(1.6) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(1.6) !important;
+  box-shadow:
+    /* Inner glow superior — simula reflejo de vidrio */
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+    /* Sombra exterior profunda */
+    0 24px 48px rgba(0, 0, 0, 0.40),
+    /* Glow cian sutil */
+    0 0 60px rgba(0, 240, 255, 0.04) !important;
+  transition: 
+    border-color 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    box-shadow 0.5s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Reflejo diagonal animado sobre el glass card */
+.glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(0, 240, 255, 0.03) 45%,
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(0, 240, 255, 0.03) 55%,
+    transparent 70%
+  );
+  transform: skewX(-15deg);
+  transition: left 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.glass-card:hover::before {
+  left: 150%;
+}
+
+/* Hover state — borde cian brilla + sombra se expande */
+.glass-card:hover {
+  border-color: rgba(0, 240, 255, 0.28) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.10),
+    0 32px 64px rgba(0, 0, 0, 0.45),
+    0 0 80px rgba(0, 240, 255, 0.08) !important;
+  transform: translateY(-4px) !important;
+}
+
+/* Inputs dentro del glass card — heredan estética */
+.glass-card input:focus,
+.glass-card textarea:focus,
+.glass-card select:focus {
+  border-color: var(--cyan) !important;
+  box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.12) !important;
+  background: rgba(11, 22, 40, 0.7) !important;
+}
+
+
+/* ============================================================
+   COMPONENTE 2: BOTÓN CON GLOW EFFECT (LED CIAN)
+   Brillo sutil en reposo. En hover, el box-shadow se expande
+   simulando emisión de luz LED. Animación de pulso idle.
+   ============================================================ */
+
+/* Redefine el botón primario con estética cian premium */
+.btn-primary {
+  background: linear-gradient(135deg, #00C4D6 0%, #00F0FF 100%) !important;
+  color: #070F1E !important;
+  font-weight: 800 !important;
+  box-shadow:
+    0 0 12px rgba(0, 240, 255, 0.20),
+    0 4px 16px rgba(0, 240, 255, 0.15),
+    0 8px 24px rgba(0, 0, 0, 0.20) !important;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 240, 255, 0.30);
+  transition:
+    box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1),
+    border-color 0.3s ease !important;
+}
+
+/* Shimmer sweep animado */
+.btn-primary::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 60% !important;
+  height: 100% !important;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.30),
+    transparent
+  ) !important;
+  transform: skewX(-20deg) !important;
+  transition: left 0.8s cubic-bezier(0.19, 1, 0.22, 1) !important;
+}
+
+.btn-primary:hover::after {
+  left: 160% !important;
+}
+
+/* HOVER: Glow LED expansion — el botón "emite luz" */
+.btn-primary:hover {
+  transform: translateY(-3px) !important;
+  border-color: rgba(0, 240, 255, 0.50) !important;
+  box-shadow:
+    0 0 20px rgba(0, 240, 255, 0.35),
+    0 0 40px rgba(0, 240, 255, 0.20),
+    0 0 80px rgba(0, 240, 255, 0.10),
+    0 12px 32px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Active: compresión táctil + brillo máximo */
+.btn-primary:active {
+  transform: translateY(1px) scale(0.97) !important;
+  box-shadow:
+    0 0 10px rgba(0, 240, 255, 0.40),
+    0 0 20px rgba(0, 240, 255, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.30) !important;
+  transition: transform 0.1s ease, box-shadow 0.1s ease !important;
+}
+
+/* Focus visible accesible */
+.btn-primary:focus-visible {
+  outline: 3px solid var(--cyan) !important;
+  outline-offset: 4px !important;
+}
+
+/* Pulso LED sutil en idle — atrae la mirada */
+@keyframes led-pulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(0,240,255,0.20), 0 4px 16px rgba(0,240,255,0.15), 0 8px 24px rgba(0,0,0,0.20); }
+  50%      { box-shadow: 0 0 20px rgba(0,240,255,0.30), 0 4px 24px rgba(0,240,255,0.20), 0 8px 32px rgba(0,0,0,0.25); }
+}
+
+.btn-primary {
+  animation: led-pulse 3s ease-in-out infinite;
+}
+
+/* Desactivar animación durante hover (el glow manual toma control) */
+.btn-primary:hover {
+  animation: none;
+}
+
+/* También aplicar glow al CTA header */
+.btn-cta {
+  background: linear-gradient(135deg, #00C4D6 0%, #00F0FF 100%) !important;
+  color: #070F1E !important;
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.15), 0 8px 22px rgba(0, 0, 0, 0.20) !important;
+  transition: box-shadow 0.4s ease, transform 0.3s ease !important;
+}
+.btn-cta:hover {
+  box-shadow:
+    0 0 20px rgba(0, 240, 255, 0.30),
+    0 0 40px rgba(0, 240, 255, 0.15),
+    0 14px 32px rgba(0, 0, 0, 0.25) !important;
+  transform: translateY(-2px) !important;
+  filter: none !important;
+}
+
+
+/* ============================================================
+   COMPONENTE 3: STICKY SCROLL LAYOUT (PROCESO)
+   Layout split-screen: texto scrolleable a la izquierda,
+   imagen sticky a la derecha que cambia sutilmente por paso.
+   Usa position:sticky + IntersectionObserver para el cambio.
+   ============================================================ */
+
+/* Redefine .steps para layout sticky en vez de grid 3 columnas */
+.steps {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 0 !important;
+  counter-reset: step !important;
+  align-items: start !important;
+  min-height: 80vh;
+}
+
+/* Columna izquierda: los 3 pasos scrolleables */
+.steps-scrollable {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-right: 48px;
+}
+
+/* Columna derecha: imagen sticky */
+.steps-sticky {
+  position: sticky;
+  top: calc(var(--headerH) + 40px);
+  height: calc(100vh - var(--headerH) - 80px);
+  border-radius: var(--radius);
+  overflow: hidden;
+  /* Glassmorphism sutil en el contenedor de imagen */
+  background: rgba(11, 22, 40, 0.4);
+  border: 1px solid rgba(0, 240, 255, 0.10);
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.25),
+    0 0 60px rgba(0, 240, 255, 0.03);
+  transition: border-color 0.6s ease, box-shadow 0.6s ease;
+}
+
+.steps-sticky:hover {
+  border-color: rgba(0, 240, 255, 0.20);
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.30),
+    0 0 80px rgba(0, 240, 255, 0.06);
+}
+
+/* Imagen dentro del sticky */
+.steps-sticky__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1),
+              transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Overlay gradient sobre la imagen */
+.steps-sticky__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(7, 15, 30, 0.80) 0%,
+    rgba(7, 15, 30, 0.20) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Número de paso activo superpuesto en la imagen */
+.steps-sticky__step-indicator {
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.steps-sticky__step-num {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #00C4D6, #00F0FF);
+  color: #070F1E;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.30), 0 8px 16px rgba(0, 0, 0, 0.30);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.steps-sticky__step-label {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.90);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.50);
+}
+
+/* Redefinir cada paso individual como un bloque scroll */
+.step {
+  background: var(--bg-white) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: var(--radius) !important;
+  padding: 36px 32px !important;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-card) !important;
+  position: relative !important;
+  transition:
+    transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    border-color 0.4s ease !important;
+}
+
+/* Paso activo (interceptado por IntersectionObserver) */
+.step.step--active {
+  border-color: rgba(0, 240, 255, 0.25) !important;
+  box-shadow:
+    var(--shadow-hover),
+    0 0 40px rgba(0, 240, 255, 0.06) !important;
+  transform: translateX(8px) !important;
+}
+
+/* Línea de progreso cian en el paso activo */
+.step::after {
+  background: linear-gradient(90deg, var(--cyan-mid), var(--cyan)) !important;
+}
+
+.step.step--active::after {
+  width: 100% !important;
+}
+
+/* Número del paso — ahora cian en vez de navy */
+.step::before {
+  background: linear-gradient(135deg, #00C4D6, #00F0FF) !important;
+  color: #070F1E !important;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.20), 0 6px 16px rgba(0, 0, 0, 0.20) !important;
+}
+
+.step.step--active::before {
+  box-shadow: 0 0 24px rgba(0, 240, 255, 0.35), 0 6px 16px rgba(0, 0, 0, 0.25) !important;
+  transform: scale(1.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Barra de progreso vertical entre pasos */
+.steps-scrollable .step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 42px;
+  bottom: -24px;
+  width: 2px;
+  height: 24px;
+  background: rgba(0, 240, 255, 0.12);
+  border-radius: 1px;
+  z-index: 5;
+}
+
+/* RESPONSIVO: en mobile vuelve a un layout de columna simple */
+@media (max-width: 980px) {
+  .steps {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+
+  .steps-scrollable {
+    padding-right: 0;
+    order: 2;
+  }
+
+  .steps-sticky {
+    position: relative !important;
+    top: 0 !important;
+    height: 300px;
+    order: 1;
+    margin-bottom: 32px;
+  }
+
+  .step.step--active {
+    transform: translateX(0) !important;
+  }
+}
+
+/* ============================================================
+   AJUSTES GLOBALES: Acentos cian para coherencia visual
+   ============================================================ */
+
+/* Badge del hero — ahora cian */
+.badge {
+  border-color: rgba(0, 240, 255, 0.28) !important;
+  background: rgba(0, 240, 255, 0.07) !important;
+  color: var(--cyan) !important;
+}
+
+/* Accent text en el hero */
+.heroHeading--accent {
+  -webkit-text-fill-color: var(--cyan) !important;
+}
+
+/* Gradient del H1 */
+.heroContent h1 {
+  background: linear-gradient(to right, #ffffff 20%, var(--cyan) 80%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+/* Hero checklist icons — cian */
+.hero-checklist svg {
+  color: var(--cyan) !important;
+}
+
+/* Scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyan) !important;
+}
+
+/* Stars en testimonios */
+.stars {
+  color: var(--cyan) !important;
+}
+
+/* Section title underline */
+.sectionTitle h2::after {
+  background: linear-gradient(90deg, var(--cyan-mid), var(--cyan)) !important;
+}
+
+/* Cert badge icon */
+.certBadge-icon {
+  background: rgba(0, 240, 255, 0.15) !important;
+  color: var(--cyan) !important;
+}
+
+/* Hero radial gradients — cian tint */
+.hero {
+  background:
+    radial-gradient(900px 500px at 0% 0%, rgba(0, 240, 255, 0.06) 0%, transparent 60%),
+    radial-gradient(700px 400px at 100% 20%, rgba(0, 196, 214, 0.08) 0%, transparent 55%),
+    var(--dark-base) !important;
+}
+
+/* Hero content card — cian subtle glow */
+.heroContent::after {
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.08), transparent 70%) !important;
+}
+
+/* Input focus — cian */
+input:focus, textarea:focus, select:focus {
+  border-color: var(--cyan) !important;
+  box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.12) !important;
+}
+
+/* Nav link hover underline */
+.navlinks a::after {
+  background: var(--cyan) !important;
+}
+
+/* Heroic chips svg */
+.heroChip svg {
+  color: var(--cyan) !important;
+}
+
+/* Card hover border — cian */
+.card:hover {
+  border-color: rgba(0, 240, 255, 0.20) !important;
+}
+
+/* Card ::before radial glow — cian */
+.card::before {
+  background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(0, 240, 255, 0.06), transparent 40%) !important;
+}
+
+/* KPI number — cian */
+.kpi-num {
+  color: var(--cyan) !important;
+  text-shadow: 0 0 30px rgba(0, 240, 255, 0.30) !important;
+}
+
+/* KPI plus */
+.kpi-plus {
+  color: var(--cyan) !important;
+}
+
+/* Bento card hovers */
+.bento-sub:hover,
+.bento-main:hover {
+  border-color: rgba(0, 240, 255, 0.25) !important;
+}
+
+/* Glass surface hover */
+.glass-surface:hover {
+  border-color: rgba(0, 240, 255, 0.18) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 0 40px rgba(0,240,255,0.10) !important;
+}
+
+/* Testimonial hover */
+.testimonial:hover {
+  border-color: rgba(0, 240, 255, 0.20) !important;
+}
+
+/* FAQ hover */
+.faqList details summary:hover {
+  color: var(--cyan) !important;
+}
+
+/* Equipo glow */
+.equipo-photo-wrapper:hover {
+  box-shadow: 0 20px 60px rgba(0, 240, 255, 0.12) !important;
+}
+
+/* Floating WhatsApp — cian accent */
+.floating-whatsapp .btn,
+.wa-float .btn {
+  background: linear-gradient(135deg, #00C4D6, #00F0FF) !important;
+  color: #070F1E !important;
+  box-shadow: 0 0 16px rgba(0,240,255,0.20), 0 12px 32px rgba(0,0,0,0.25) !important;
+}
+
+.floating-whatsapp .btn:hover,
+.wa-float .btn:hover {
+  box-shadow: 0 0 28px rgba(0,240,255,0.30), 0 18px 44px rgba(0,0,0,0.30) !important;
+  filter: none !important;
+}
+
+/* Hero urgency dot — cian */
+.hero-urgency__dot {
+  background: var(--cyan) !important;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.40) !important;
+}
+
+/* Hero price — cian accent */
+.hero-price__amount {
+  color: var(--cyan) !important;
+}
+
+/* ============================================================
+   PULIDO PROFESIONAL: Detalles finales de producción
+   ============================================================ */
+
+/* Glass Card Title — reemplaza inline styles */
+.glass-card__title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  position: relative;
+  z-index: 2;
+}
+
+/* Glass card paragraph z-index fix */
+.glass-card > p,
+.glass-card > form {
+  position: relative;
+  z-index: 2;
+}
+
+/* CTA Botón variante grande para sección final */
+.btn-primary--lg {
+  padding: 18px 36px !important;
+  font-size: 17px !important;
+  border-radius: 16px !important;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Guarantee Items — layout profesional con SVG icons */
+.guarantee-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.guarantee-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.guarantee-item svg {
+  color: var(--cyan);
+  flex-shrink: 0;
+  opacity: 0.80;
+}
+
+.guarantee-item span {
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .guarantee-items {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* Counter reset fix — aplicar al wrapper scrollable */
+.steps-scrollable {
+  counter-reset: step;
+}
+
+/* CTA Box — radial gradient actualizado a cian */
+.ctaBox::before {
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.08), transparent 70%) !important;
+}
+
+/* CTA Box border hover cian */
+.ctaBox {
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.ctaBox:hover {
+  border-color: rgba(0, 240, 255, 0.15);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.40), 0 0 60px rgba(0, 240, 255, 0.04);
+}
+
+/* CTA guarantee bar styling */
+.cta-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Step vertical connector — fix conflicto con ::after accent line */
+.steps-scrollable .step::after {
+  /* Reset la línea de acento horizontal del .step original */
+  content: '' !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 0 !important;
+  height: 3px !important;
+  background: linear-gradient(90deg, var(--cyan-mid), var(--cyan)) !important;
+  border-radius: 0 0 var(--radius) var(--radius) !important;
+  transition: width 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  z-index: 1 !important;
+}
+
+.steps-scrollable .step.step--active::after {
+  width: 100% !important;
+}
+
+/* Sticky panel — ensure proper stacking */
+.steps-sticky {
+  position: sticky;
+  z-index: 1;
+}
+
+.steps-sticky__img {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero stat numbers — cian */
+.hero-stat__num {
+  color: var(--cyan) !important;
+}
+
+/* Hero stats divider — cian subtle */
+.hero-stats__divider {
+  background: rgba(0, 240, 255, 0.15) !important;
+}
+
+/* Testimonial verified badge — cian */
+.testimonial-verified {
+  color: var(--cyan) !important;
+}
+
+.testimonial-verified svg {
+  color: var(--cyan) !important;
+}
+
+/* Testimonial context icon — cian */
+.testimonial-context svg {
+  color: var(--cyan) !important;
+}
+
+/* Caso tags — cian accent */
+.caso-tag {
+  background: rgba(0, 240, 255, 0.12) !important;
+  color: var(--cyan) !important;
+  border: 1px solid rgba(0, 240, 255, 0.20) !important;
+}
+
+/* Footer links hover — cian */
+.footerLinksList a:hover {
+  color: var(--cyan) !important;
+}
+
+/* Footer contact hover */
+.footerContactList a:hover {
+  color: var(--cyan) !important;
+}
+
+/* Beneficios list check icons — cian */
+.beneficiosList li svg {
+  color: var(--cyan) !important;
+}
+
+/* Comp features icons — cian */
+.comp-features li svg {
+  color: var(--cyan) !important;
+}
+
+/* Card icon backgrounds — cian tint */
+.card-icon {
+  background: rgba(0, 240, 255, 0.06) !important;
+  border-color: rgba(0, 240, 255, 0.14) !important;
+  color: var(--cyan-mid) !important;
+}
+
+/* Bento content text on dark surfaces */
+.bento-main h3,
+.bento-sub h3 {
+  color: #fff !important;
+}
+
+.bento-main p,
+.bento-sub p {
+  color: var(--dark-muted) !important;
+}
+
+/* KPI dark card adjustments */
+.card--kpi {
+  border-color: rgba(0, 240, 255, 0.10) !important;
+}
+
+.card--kpi .kpi-desc {
+  color: var(--dark-muted) !important;
+}
+
+.card--kpi:hover {
+  border-color: rgba(0, 240, 255, 0.25) !important;
+  box-shadow: var(--shadow-hover), 0 0 40px rgba(0, 240, 255, 0.05) !important;
+}
+
+/* Smooth page feel */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(0, 240, 255, 0.25);
+  color: #fff;
+}
