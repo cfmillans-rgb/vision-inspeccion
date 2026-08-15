@@ -1430,3 +1430,70 @@ details[open] .faq__icon::after {
   background-color: var(--accent-muted);
   color: var(--white);
 }
+
+/* ==========================================================================
+   22. Formularios (Añadido post-auditoria)
+   ========================================================================== */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+}
+@media (min-width: 640px) {
+  .form-grid { grid-template-columns: 1fr 1fr; }
+  .form-group--full { grid-column: 1 / -1; }
+}
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.form-label { font-size: 0.9rem; font-weight: 600; color: var(--zinc-300); }
+.form-control {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--steel);
+  color: var(--white);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+.form-control:focus { outline: none; border-color: var(--accent); }
+.form-control::placeholder { color: var(--zinc-600); }
+textarea.form-control { resize: vertical; min-height: 100px; }
+
+/* Microcopy y Social Proof */
+.hero__social-proof {
+  font-size: 0.9rem; font-weight: 600; color: var(--accent);
+  margin-bottom: 1rem; letter-spacing: 0.05em; text-transform: uppercase;
+}
+.hero__microcopy {
+  font-size: 0.85rem; color: var(--zinc-400); margin-top: 1rem;
+}
+.b2b-trust {
+  font-size: 0.9rem; color: var(--zinc-500); text-align: center;
+  margin-top: 2rem; font-weight: 500;
+}
+.google-reviews {
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  font-weight: 600; color: var(--slate-900); margin-bottom: 2rem;
+}
+.star-icon { color: #F59E0B; }
+
+/* Blog Section */
+.blog-grid {
+  display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 3rem;
+}
+@media (min-width: 768px) { .blog-grid { grid-template-columns: repeat(3, 1fr); } }
+.blog-card {
+  background: var(--white); border: 1px solid var(--zinc-200);
+  border-radius: var(--radius-card); padding: 1.5rem; text-decoration: none;
+  color: var(--carbon); transition: border-color 0.2s, transform 0.2s;
+}
+.blog-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.blog-card__tag {
+  font-size: 0.75rem; font-weight: 700; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; display: block;
+}
+.blog-card__title { font-size: 1.1rem; margin-bottom: 0.5rem; line-height: 1.4; }
+.blog-card__desc { font-size: 0.9rem; color: var(--zinc-500); }

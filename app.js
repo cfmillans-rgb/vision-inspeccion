@@ -72,8 +72,19 @@ function bindLeadForm() {
   form.addEventListener("submit", e => {
     e.preventDefault();
     const fd = new FormData(form);
+    const nombre = (fd.get("nombre") || "").toString().trim();
+    const telefono = (fd.get("telefono") || "").toString().trim();
+    const comuna = (fd.get("comuna") || "").toString().trim();
     const problema = (fd.get("problema") || "").toString().trim();
-    const msg = "Hola, quiero saber que tiene mi tuberia.\n\n" + (problema || "Necesito una inspeccion.") + "\n\nDisponibilidad y valores?";
+    
+    let parts = ["Hola, necesito una inspección de tuberías."];
+    if (nombre) parts.push("Nombre: " + nombre);
+    if (telefono) parts.push("Teléfono: " + telefono);
+    if (comuna) parts.push("Comuna: " + comuna);
+    if (problema) parts.push("Problema: " + problema);
+    parts.push("\n¿Tienen disponibilidad y cuál es el valor de la visita?");
+
+    const msg = parts.join("\n");
     trackEvent("generate_lead", { method: "form_to_whatsapp", page: location.pathname });
     window.open(buildWhatsAppLink(msg), "_blank", "noopener,noreferrer");
     form.reset();
