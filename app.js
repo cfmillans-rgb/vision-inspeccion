@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    Vision Inspeccion - app.js (Cleaned)
    Core: UTMs, WhatsApp, Form, Counters, Scroll Reveal,
    Exit Intent, FAQ, Footer
@@ -178,18 +178,25 @@ function initExitIntent() {
   const modal = document.getElementById("exitIntentModal");
   const btnClose = document.getElementById("closeExitModal");
   const btnDecline = document.getElementById("declineExitModal");
+  
   if (!modal || !btnClose || !btnDecline) return;
+  
+  // Bind close buttons ALWAYS
+  btnClose.addEventListener("click", () => modal.style.display = "none");
+  btnDecline.addEventListener("click", () => modal.style.display = "none");
+
+  // Only show if not shown in this session
   if (sessionStorage.getItem("exitIntentShown")) return;
+  
   const showModal = (e) => {
     if (e.clientY < 10) {
-      modal.removeAttribute("hidden");
+      modal.style.display = "flex";
       sessionStorage.setItem("exitIntentShown", "true");
       document.removeEventListener("mouseleave", showModal);
     }
   };
+  
   document.addEventListener("mouseleave", showModal);
-  btnClose.addEventListener("click", () => modal.setAttribute("hidden", ""));
-  btnDecline.addEventListener("click", () => modal.setAttribute("hidden", ""));
 }
 
 /* ---------- Smooth FAQ ---------- */
