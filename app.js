@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    Visión Inspección — app.js
    - UTMs persist (localStorage)
    - WhatsApp links con UTMs
@@ -7,10 +7,10 @@
    ============================================================ */
 
 const BRAND = {
-  name:      "Video Inspección",
-  domain:    "https://videoinspeccion.cl",
+  name:      "Visión Inspección",
+  domain:    "https://visioninspeccion.cl",
   whatsapp:  "56959501190",
-  email:     "hola@videoinspeccion.cl",
+  email:     "hola@visioninspeccion.cl",
   city:      "Santiago, Chile"
 };
 
