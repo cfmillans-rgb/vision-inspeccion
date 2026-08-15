@@ -149,13 +149,13 @@ function animateCounters() {
   function closeMobile() {
     if (!toggle || !mobileNav) return;
     toggle.setAttribute("aria-expanded", "false");
-    mobileNav.hidden = true;
+    header.classList.remove("is-open");
   }
   if (toggle && mobileNav) {
     toggle.addEventListener("click", () => {
-      const open = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!open));
-      mobileNav.hidden = open;
+      const isCurrentlyOpen = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!isCurrentlyOpen));
+      header.classList.toggle("is-open", !isCurrentlyOpen);
     });
     mobileNav.addEventListener("click", e => {
       if (e.target && e.target.matches("a, button")) closeMobile();
