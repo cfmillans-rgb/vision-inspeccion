@@ -37,15 +37,15 @@ function readUTMs() {
 function utmString() {
   const utms = readUTMs();
   const keys = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid"];
-  return keys.filter(k=>utms[k]).map(k=>${"$"}{k}={encodeURIComponent(utms[k])}).join("&");
+  return keys.filter(k=>utms[k]).map(k=>`${k}=${encodeURIComponent(utms[k])}`).join("&");
 }
 
 /* ---------- WhatsApp builder ---------- */
 function buildWhatsAppLink(message) {
-  const base = https://wa.me/{BRAND.whatsapp};
+  const base = `https://wa.me/${BRAND.whatsapp}`;
   const utm = utmString();
-  const finalMsg = utm ? ${"$"}{message}\n\n---\nReferencia: {BRAND.domain}/?{utm} : message;
-  return ${"$"}{base}?text={encodeURIComponent(finalMsg)};
+  const finalMsg = utm ? `${message}\n\n---\nReferencia: ${BRAND.domain}/?${utm}` : message;
+  return `${base}?text=${encodeURIComponent(finalMsg)}`;
 }
 
 /* ---------- Analytics shim ---------- */
