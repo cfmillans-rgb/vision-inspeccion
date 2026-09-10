@@ -65,29 +65,77 @@ function bindWhatsAppButtons() {
   });
 }
 
-/* ---------- Lead form -> WhatsApp ---------- */
+/* ---------- Lead form -> WhatsApp (Multi-step wizard) ---------- */
 function bindLeadForm() {
   const form = document.querySelector("#leadForm");
   if (!form) return;
+
+  const steps = form.querySelectorAll(".form-step");
+  const progressSteps = document.querySelectorAll(".form-progress__step");
+  const formData = { propiedad: "", situacion: "" };
+  let currentStep = 1;
+
+  function showStep(n) {
+    steps.forEach(s => {
+      s.classList.toggle("is-active", parseInt(s.dataset.formStep) === n);
+    });
+    progressSteps.forEach(ps => {
+      const sn = parseInt(ps.dataset.step);
+      ps.classList.toggle("is-active", sn === n);
+      ps.classList.toggle("is-done", sn < n);
+    });
+    currentStep = n;
+  }
+
+  // Card clicks (steps 1 & 2): select + auto-advance
+  form.querySelectorAll(".form-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const field = card.dataset.field;
+      const value = card.dataset.value;
+      formData[field] = value;
+      // Visual: highlight selected card
+      card.closest(".form-cards").querySelectorAll(".form-card").forEach(c => c.classList.remove("is-selected"));
+      card.classList.add("is-selected");
+      // Auto-advance after brief delay
+      setTimeout(() => showStep(currentStep + 1), 250);
+    });
+  });
+
+  // Back buttons
+  form.querySelectorAll("[data-back]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (currentStep > 1) showStep(currentStep - 1);
+    });
+  });
+
+  // Submit
   form.addEventListener("submit", e => {
     e.preventDefault();
     const fd = new FormData(form);
     const nombre = (fd.get("nombre") || "").toString().trim();
     const telefono = (fd.get("telefono") || "").toString().trim();
     const comuna = (fd.get("comuna") || "").toString().trim();
-    const problema = (fd.get("problema") || "").toString().trim();
-    
-    let parts = ["Hola, necesito una inspección de tuberías."];
+    const urgencia = (fd.get("urgencia") || "").toString().trim();
+    const detalles = (fd.get("detalles") || "").toString().trim();
+
+    let parts = ["Solicitud de cotización — Visión Inspección"];
+    if (formData.propiedad) parts.push("Propiedad: " + formData.propiedad);
+    if (formData.situacion) parts.push("Situación: " + formData.situacion);
+    if (urgencia) parts.push("Urgencia: " + urgencia);
+    if (comuna) parts.push("Comuna: " + comuna);
     if (nombre) parts.push("Nombre: " + nombre);
     if (telefono) parts.push("Teléfono: " + telefono);
-    if (comuna) parts.push("Comuna: " + comuna);
-    if (problema) parts.push("Problema: " + problema);
-    parts.push("\n¿Tienen disponibilidad y cuál es el valor de la visita?");
+    if (detalles) parts.push("Detalles: " + detalles);
+    parts.push("\nQuedo atento/a al valor de la inspección.");
 
     const msg = parts.join("\n");
-    trackEvent("generate_lead", { method: "form_to_whatsapp", page: location.pathname });
+    trackEvent("generate_lead", { method: "form_wizard_to_whatsapp", page: location.pathname, propiedad: formData.propiedad, situacion: formData.situacion, urgencia: urgencia });
     window.open(buildWhatsAppLink(msg), "_blank", "noopener,noreferrer");
     form.reset();
+    formData.propiedad = "";
+    formData.situacion = "";
+    form.querySelectorAll(".form-card").forEach(c => c.classList.remove("is-selected"));
+    showStep(1);
   });
 }
 
