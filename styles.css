@@ -1728,3 +1728,64 @@ textarea.form-control { resize: vertical; min-height: 100px; }
   background-position: right 12px center;
   padding-right: 36px;
 }
+
+/* ==========================================================================
+   Sticky Mobile Bar (Call + WhatsApp)
+   ========================================================================== */
+
+.sticky-mobile-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 998;
+  background: var(--carbon);
+  border-top: 1px solid var(--steel);
+  padding: 0;
+}
+@media (max-width: 768px) {
+  .sticky-mobile-bar {
+    display: flex;
+  }
+  /* Hide the floating WhatsApp button on mobile to avoid overlap */
+  .floating-whatsapp {
+    display: none !important;
+  }
+  /* Add bottom padding to body so content isn't hidden behind sticky bar */
+  body {
+    padding-bottom: 60px;
+  }
+}
+.sticky-mobile-bar__btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: var(--font-body);
+}
+.sticky-mobile-bar__btn--call {
+  background: var(--graphite);
+  color: #fff;
+}
+.sticky-mobile-bar__btn--call:hover {
+  background: var(--steel);
+}
+.sticky-mobile-bar__btn--wa {
+  background: var(--accent);
+  color: #fff;
+}
+.sticky-mobile-bar__btn--wa:hover {
+  background: var(--accent-hover);
+}
+.sticky-mobile-bar__btn svg {
+  flex-shrink: 0;
+}

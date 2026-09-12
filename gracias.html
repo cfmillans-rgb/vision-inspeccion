@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>Solicitud Recibida | Visión Inspección</title>
+  <meta name="robots" content="noindex,nofollow"/>
+  <meta content="#070F1E" name="theme-color"/>
+  <link href="assets/nuevo-favicon.png" rel="icon" type="image/png"/>
+  <link href="./styles.css?v=2" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="site-header" data-header>
+  <div class="site-header__inner container container--wide">
+    <a class="site-header__logo" href="/">
+      <img alt="Visión Inspección" class="brand-logo" src="./assets/logo-sin-fondo.png" style="height: 50px; width: auto; object-fit: contain;"/>
+    </a>
+    <div class="site-header__cta">
+      <a class="btn btn--primary" href="./index.html#formulario">Solicitar Cotización</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section style="padding: 120px 0 80px; text-align: center; min-height: 60vh; display: flex; align-items: center;">
+    <div class="container" style="max-width: 600px;">
+      <div style="font-size: 48px; margin-bottom: 24px;">✓</div>
+      <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 16px;">Solicitud recibida</h1>
+      <p style="color: var(--zinc-600); font-size: 18px; line-height: 1.7; margin-bottom: 32px;">
+        Le responderemos por WhatsApp en menos de 30 minutos con el valor exacto para su caso.
+      </p>
+      <div style="background: var(--zinc-50); border: 1px solid var(--zinc-200); border-radius: var(--radius-card); padding: 24px; margin-bottom: 40px; text-align: left;">
+        <p style="font-weight: 600; margin-bottom: 12px;">Mientras tanto:</p>
+        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; color: var(--zinc-600);">
+          <li><span style="color: var(--accent);">✓</span> Revise nuestros <a href="./index.html#casos" style="color: var(--accent);">diagnósticos reales</a> para conocer cómo trabajamos</li>
+          <li><span style="color: var(--accent);">✓</span> Consulte las <a href="./index.html#faq" style="color: var(--accent);">preguntas frecuentes</a> si tiene dudas</li>
+          <li><span style="color: var(--accent);">✓</span> Lea nuestras <a href="./blog/index.html" style="color: var(--accent);">guías de diagnóstico</a> para entender mejor su situación</li>
+        </ul>
+      </div>
+      <a class="btn btn--ghost" href="./index.html">← Volver al inicio</a>
+    </div>
+  </section>
+</main>
+
+<footer role="contentinfo" style="background-color: #050a14; padding: 32px 0; color: #aaa;">
+  <div class="container" style="text-align: center;">
+    <p>&copy; <span id="year">2026</span> Visión Inspección. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+  const y = document.querySelector("#year");
+  if (y) y.textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
