@@ -1789,3 +1789,70 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .sticky-mobile-bar__btn svg {
   flex-shrink: 0;
 }
+
+/* ==========================================================================
+   Intent Selector (below hero)
+   ========================================================================== */
+
+.intent-selector {
+  padding: 40px 0;
+  background: var(--zinc-50);
+  border-bottom: 1px solid var(--zinc-200);
+}
+.intent-selector__label {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--zinc-600);
+  margin-bottom: 24px;
+}
+.intent-selector__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+@media (max-width: 640px) {
+  .intent-selector__grid { grid-template-columns: 1fr; }
+}
+.intent-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 28px 20px;
+  background: var(--white);
+  border: 2px solid var(--zinc-200);
+  border-radius: var(--radius-card);
+  text-decoration: none;
+  color: var(--carbon);
+  transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  cursor: pointer;
+  text-align: center;
+}
+.intent-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(6,182,212,0.12);
+}
+.intent-card__icon {
+  font-size: 32px;
+  line-height: 1;
+}
+.intent-card__title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--carbon);
+}
+.intent-card__desc {
+  font-size: 13px;
+  color: var(--zinc-500);
+  line-height: 1.4;
+}
+.intent-card__arrow {
+  font-size: 18px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-top: 4px;
+}

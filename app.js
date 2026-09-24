@@ -137,6 +137,18 @@ function bindLeadForm() {
     form.querySelectorAll(".form-card").forEach(c => c.classList.remove("is-selected"));
     showStep(1);
   });
+
+  // Expose intent selector helper for the intent cards above the hero
+  window._selectIntent = function(field, value) {
+    formData[field] = value;
+    // Highlight the matching card if visible
+    form.querySelectorAll(`.form-card[data-field="${field}"][data-value="${value}"]`).forEach(c => {
+      c.closest(".form-cards").querySelectorAll(".form-card").forEach(cc => cc.classList.remove("is-selected"));
+      c.classList.add("is-selected");
+    });
+    // Skip to step 3 (contact) since situation is pre-selected
+    showStep(3);
+  };
 }
 
 /* ---------- Call link tracking ---------- */

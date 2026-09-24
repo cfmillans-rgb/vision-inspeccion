@@ -184,6 +184,32 @@
   </div>
 </section>
 
+<section class="intent-selector" aria-label="Seleccione su situación">
+  <div class="container">
+    <p class="intent-selector__label">¿Cuál es su situación?</p>
+    <div class="intent-selector__grid">
+      <a href="#formulario" class="intent-card" data-intent="Filtración o humedad" onclick="if(window._selectIntent)window._selectIntent('situacion','Filtración o humedad')">
+        <span class="intent-card__icon">💧</span>
+        <span class="intent-card__title">Filtración o humedad</span>
+        <span class="intent-card__desc">Manchas, goteras, humedad en muros o pisos</span>
+        <span class="intent-card__arrow">→</span>
+      </a>
+      <a href="#formulario" class="intent-card" data-intent="Atasco o drenaje lento" onclick="if(window._selectIntent)window._selectIntent('situacion','Atasco o drenaje lento')">
+        <span class="intent-card__icon">🚿</span>
+        <span class="intent-card__title">Atasco recurrente</span>
+        <span class="intent-card__desc">Drenaje lento, tapones que vuelven, olores</span>
+        <span class="intent-card__arrow">→</span>
+      </a>
+      <a href="./empresas.html" class="intent-card">
+        <span class="intent-card__icon">🏢</span>
+        <span class="intent-card__title">Edificio u obra</span>
+        <span class="intent-card__desc">Administración, constructora o proyecto</span>
+        <span class="intent-card__arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <div class="stats-bar">
   <div class="container">
     <div class="stats-bar__grid">
