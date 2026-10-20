@@ -478,8 +478,8 @@ ul, ol {
   }
   
   .hero__visual {
-    order: -1;
     max-width: 600px;
+    width: 100%;
     margin: 0 auto;
   }
 }
@@ -1927,3 +1927,12 @@ textarea.form-control { resize: vertical; min-height: 100px; }
   text-align: center;
   margin-top: 40px;
 }
+/* ---------- Ajustes de consistencia ---------- */
+.blog-main { padding-top: var(--header-height); }
+.detection--light { background-color: var(--zinc-100); color: var(--carbon); }
+.detection--light .detection__title,
+.detection--light .detection__item-title { color: var(--carbon); }
+.detection--light .detection__grid { background-color: var(--zinc-200); border-color: var(--zinc-200); }
+.detection--light .detection__item { background-color: var(--white); }
+.detection--light .detection__item:hover { background-color: var(--zinc-50, #fafafa); }
+.detection--light .detection__item-desc { color: var(--zinc-600); }
