@@ -12,10 +12,10 @@
 <meta content="Le explicamos qué determina el valor, por qué no hay precio fijo y cómo obtener una cotización exacta." property="og:description"/>
 <meta content="https://visioninspeccion.cl/blog/cuanto-cuesta-videoinspeccion-tuberias.html" property="og:url"/>
 <meta content="https://visioninspeccion.cl/assets/portfolio/caso-colector-pelota.jpg" property="og:image"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"/>
-<link href="../styles.css?v=3" rel="stylesheet"/>
+<link href="../styles.css?v=4" rel="stylesheet"/>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -84,17 +84,18 @@
 <header class="site-header" data-header>
   <div class="site-header__inner container container--wide">
     <a class="site-header__logo" href="../index.html">
-      <img alt="Visión Inspección" class="brand-logo" src="../assets/logo-sin-fondo.png" style="height: 40px; width: auto; object-fit: contain;"/>
+      <img alt="Visión Inspección" class="brand-logo" src="../assets/logo-sin-fondo.png" width="216" height="40" style="height: 40px; width: auto;"/>
     </a>
-    <nav class="site-header__nav" id="mobileNav">
-      <a class="site-header__nav-link" href="../index.html#servicio">Servicio</a>
-      <a class="site-header__nav-link" href="../index.html#proceso">Proceso</a>
-      <a class="site-header__nav-link" href="../index.html#casos">Casos</a>
-      <a class="site-header__nav-link" href="../index.html#faq">FAQ</a>
-      <a class="site-header__nav-link" href="./index.html">Blog</a>
+    <nav class="site-header__nav" id="mobileNav" aria-label="Navegación principal">
+      <a class="site-header__nav-link" href="../index.html#proceso">Cómo funciona</a>
+      <a class="site-header__nav-link" href="../empresas.html">Edificios</a>
+      <a class="site-header__nav-link" href="../constructoras.html">Constructoras</a>
+      <a class="site-header__nav-link" href="../peritaje-sanitario.html">Compraventa</a>
+      <a class="site-header__nav-link" href="../index.html#precio">Precio</a>
+      <a class="site-header__nav-link" href="../blog/index.html" aria-current="page">Blog</a>
     </nav>
     <div class="site-header__cta">
-      <a class="btn btn--primary" href="../index.html#formulario">Solicitar Cotización</a>
+      <a class="btn btn--primary" href="../index.html#formulario">Pedir cotización</a>
     </div>
     <button class="site-header__toggle nav-toggle" aria-expanded="false" aria-label="Abrir menú">
       <span class="site-header__toggle-icon"></span>
@@ -285,59 +286,67 @@
 </article>
 </main>
 
-<footer role="contentinfo" style="background-color: #050a14; padding: 64px 0 32px; color: #aaa;">
+<footer class="site-footer" role="contentinfo">
   <div class="container container--wide">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin-bottom: 48px;">
+    <div class="site-footer__grid">
       <div>
-        <a class="brand" href="../index.html" aria-label="Inicio">
-          <img alt="Visión Inspección" class="brand-logo" src="../assets/logo-sin-fondo.png" style="height: 44px; width: auto; max-width: 100%; object-fit: contain; margin-bottom: 1rem;"/>
+        <a href="../index.html" aria-label="Inicio">
+          <img alt="Visión Inspección" src="../assets/logo-sin-fondo.png" width="238" height="44" style="height: 44px; width: auto; max-width: 100%;"/>
         </a>
-        <p style="line-height: 1.6;">Inspección de tuberías y alcantarillado con cámara en Santiago, la V y la VI Región. Vemos el problema antes de romper.</p>
+        <p class="site-footer__about">Inspección de tuberías y alcantarillado con cámara en Santiago, la V y la VI Región. Vemos el problema antes de romper.</p>
       </div>
       <div>
-        <h4 style="color: #fff; margin-bottom: 1rem;">Servicios</h4>
-        <ul style="list-style: none; padding: 0; line-height: 2;">
-          <li><a href="../index.html#servicio" style="color: inherit; text-decoration: none;">Videoinspección</a></li>
-          <li><a href="../index.html#servicio" style="color: inherit; text-decoration: none;">Diagnóstico de tuberías</a></li>
+        <h2 class="site-footer__title">Servicios</h2>
+        <ul class="site-footer__list">
+          <li><a href="../index.html">Videoinspección de tuberías</a></li>
+          <li><a href="../empresas.html">Edificios y condominios</a></li>
+          <li><a href="../constructoras.html">Constructoras</a></li>
+          <li><a href="../peritaje-sanitario.html">Peritaje pre-compra</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
         </ul>
       </div>
       <div>
-        <h4 style="color: #fff; margin-bottom: 1rem;">Cobertura</h4>
-        <ul style="list-style: none; padding: 0; line-height: 2;">
+        <h2 class="site-footer__title">Cobertura</h2>
+        <ul class="site-footer__list">
           <li>Región Metropolitana</li>
-          <li>Quinta Región</li>
-          <li>Sexta Región</li>
+          <li>V Región</li>
+          <li>VI Región</li>
         </ul>
       </div>
       <div>
-        <h4 style="color: #fff; margin-bottom: 1rem;">Contacto</h4>
-        <ul style="list-style: none; padding: 0; line-height: 2; margin-bottom: 1rem;">
-          <li><a href="https://wa.me/56959501190" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">WhatsApp: +56 9 5950 1190</a></li>
-          <li><a href="mailto:hola@visioninspeccion.cl" style="color: inherit; text-decoration: none;">hola@visioninspeccion.cl</a></li>
+        <h2 class="site-footer__title">Contacto</h2>
+        <ul class="site-footer__list">
+          <li><a href="https://wa.me/56959501190" target="_blank" rel="noopener">WhatsApp +56 9 5950 1190</a></li>
+          <li><a href="tel:+56959501190">Llamar +56 9 5950 1190</a></li>
+          <li><a href="mailto:hola@visioninspeccion.cl">hola@visioninspeccion.cl</a></li>
+          <li>Lunes a viernes de 8:00 a 19:00<br/>Sábados de 9:00 a 14:00</li>
         </ul>
       </div>
     </div>
-    <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center;">
-      <p>&copy; <span id="year">2026</span> Visión Inspección. Todos los derechos reservados.</p>
-    </div>
+    <p class="site-footer__comunas">Comunas: <a href="../comunas/las-condes.html">Las Condes</a> · <a href="../comunas/providencia.html">Providencia</a> · <a href="../comunas/nunoa.html">Ñuñoa</a> · <a href="../comunas/vitacura.html">Vitacura</a> · <a href="../comunas/lo-barnechea.html">Lo Barnechea</a> · <a href="../comunas/la-florida.html">La Florida</a> · <a href="../comunas/maipu.html">Maipú</a> · <a href="../comunas/santiago-centro.html">Santiago Centro</a> · <a href="../comunas/san-miguel.html">San Miguel</a></p>
+    <p class="site-footer__legal">&copy; <span id="year">2026</span> Visión Inspección</p>
   </div>
 </footer>
-<script src="../app.js?v=2"></script>
-<div class="floating-whatsapp" aria-label="Contactar por WhatsApp" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-  <button class="btn btn--primary" type="button" data-whatsapp data-placement="floating" data-message="Hola, necesito una cotización para videoinspección de tuberías." style="border-radius: 50px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.524 5.842L0 24l6.335-1.524A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.796 9.796 0 01-4.994-1.365l-.358-.212-3.76.904.921-3.665-.233-.376A9.797 9.797 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg> Solicitar Cotización
+
+<div class="floating-whatsapp">
+  <button class="btn btn--primary floating-whatsapp__btn" type="button" data-whatsapp data-placement="floating" data-message="Hola, quiero cotizar una inspección de tuberías.">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.524 5.842L0 24l6.335-1.524A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.796 9.796 0 01-4.994-1.365l-.358-.212-3.76.904.921-3.665-.233-.376A9.797 9.797 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg> Escribir por WhatsApp
   </button>
 </div>
 
 <div class="sticky-mobile-bar">
-  <a href="tel:+56959501190" class="sticky-mobile-bar__btn sticky-mobile-bar__btn--call">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-    Llamar
+  <a href="tel:+56959501190" class="sticky-mobile-bar__btn sticky-mobile-bar__btn--call" data-call data-placement="sticky_bar">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Llamar
   </a>
-  <button type="button" class="sticky-mobile-bar__btn sticky-mobile-bar__btn--wa" data-whatsapp data-placement="sticky_bar" data-message="Hola, necesito una cotización para videoinspección de tuberías.">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.524 5.842L0 24l6.335-1.524A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.796 9.796 0 01-4.994-1.365l-.358-.212-3.76.904.921-3.665-.233-.376A9.797 9.797 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-    WhatsApp
+  <button type="button" class="sticky-mobile-bar__btn sticky-mobile-bar__btn--wa" data-whatsapp data-placement="sticky_bar" data-message="Hola, quiero cotizar una inspección de tuberías.">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.524 5.842L0 24l6.335-1.524A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.796 9.796 0 01-4.994-1.365l-.358-.212-3.76.904.921-3.665-.233-.376A9.797 9.797 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg> WhatsApp
   </button>
 </div>
+
+
+
+
+<script src="../app.js?v=3"></script>
+
 </body>
 </html>

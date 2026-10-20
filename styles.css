@@ -1936,3 +1936,32 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .detection--light .detection__item { background-color: var(--white); }
 .detection--light .detection__item:hover { background-color: var(--zinc-50, #fafafa); }
 .detection--light .detection__item-desc { color: var(--zinc-600); }
+
+/* ---------- Componentes compartidos (encabezado, pie, flotante) ---------- */
+.site-header__nav-link[aria-current="page"] { color: var(--white); box-shadow: inset 0 -2px 0 var(--accent); padding-bottom: 4px; }
+
+.floating-whatsapp { position: fixed; right: 20px; bottom: 20px; z-index: 1000; }
+.floating-whatsapp__btn { border-radius: 999px; padding: 14px 22px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+
+.site-footer { background: #050a14; color: #a1a1aa; padding: 64px 0 32px; }
+.site-footer__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin-bottom: 40px; }
+.site-footer__about { line-height: 1.6; margin-top: 16px; font-size: 14px; }
+.site-footer__title { color: var(--white); font-size: 15px; font-weight: 600; margin-bottom: 14px; font-family: var(--font-body); }
+.site-footer__list { list-style: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.6; display: grid; gap: 8px; }
+.site-footer a { color: inherit; text-decoration: none; }
+.site-footer a:hover { color: var(--white); }
+.site-footer__comunas { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; font-size: 13px; line-height: 1.8; }
+.site-footer__legal { font-size: 13px; margin-top: 12px; }
+
+/* ---------- Lista numerada y tarjetas ---------- */
+.numbered-list { display: flex; flex-direction: column; gap: 32px; max-width: 800px; margin: 0 auto; }
+.numbered-item { display: flex; gap: 24px; border-bottom: 1px solid var(--zinc-200); padding-bottom: 32px; }
+.numbered-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.numbered-item__n { font-size: 24px; color: var(--accent); }
+.numbered-item h3 { font-size: 20px; margin-bottom: 10px; }
+.numbered-item p { color: var(--zinc-600); line-height: 1.6; }
+.process__number { display: flex; align-items: center; justify-content: center; color: var(--accent); font-weight: 600; }
+
+/* ---------- Íconos de línea en lugar de emojis ---------- */
+.form-card__icon svg, .intent-card__icon svg { display: block; margin: 0 auto; color: var(--accent); }
+.icon-badge { width: 52px; height: 52px; margin: 0 auto 12px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--accent-muted); color: var(--accent-hover); }
