@@ -288,8 +288,9 @@ def form_section(heading, sub):
 
 
 COMMON_FAQ = [
-    ("¿Qué incluye la inspección?", "Recorrido de la red con cámara, video completo, fotos de cada hallazgo e informe técnico. Si hay que reparar, le enviamos una cotización aparte."),
+    ("¿Qué incluye la inspección?", "Recorrido de la red con cámara, video completo, fotos de cada hallazgo e informe técnico. Si hay que reparar, incluye además la cotización de la reparación."),
     ("¿Pueden indicar dónde está el problema?", "Indicamos en qué tramo está y a cuántos metros del punto de acceso, según las marcas del cable. Con eso la reparación se hace solo en esa zona."),
+    ("¿Pueden ir a ver antes de la inspección?", "Sí, si lo prefiere. Un ingeniero en construcción hace una visita previa para revisar su caso y orientarle, por $30.000. Si después contrata la videoinspección, ese valor se descuenta del servicio."),
     ("¿Qué necesitan para la visita?", "Acceso libre a cámaras de registro, rejillas o tapas, y que no se usen los artefactos que descargan a la red mientras revisamos."),
     ("¿Emiten factura?", "Sí. Emitimos factura electrónica y podemos trabajar con orden de compra."),
     ("¿En qué comunas trabajan?", "En toda la Región Metropolitana, la V Región y la VI Región. Escríbanos su comuna y confirmamos disponibilidad."),
@@ -485,7 +486,7 @@ EMPRESAS = dict(
             ("Cotización si hay que reparar", "Si hay que intervenir, cotizamos con el video a la vista.")],
     pasos=[("Coordinamos", "Nos escribe con la dirección, qué está pasando y qué accesos hay. Coordinamos con conserjería."),
            ("Inspeccionamos", "Entramos con la cámara y recorremos los tramos acordados. Usted puede ver la pantalla en terreno."),
-           ("Informamos", "Le enviamos el informe con fotos y el video. Si hay que reparar, la cotización va aparte.")],
+           ("Informamos", "Le enviamos el informe con fotos y el video. Si hay que reparar, incluye la cotización.")],
     faq=[("¿Sirve el informe para la asamblea o la aseguradora?", "Sí. Incluye fotos, video y la ubicación de cada hallazgo por tramo, que es lo que suelen pedir el comité y las aseguradoras."),
          ("¿Pueden determinar si una filtración de desagüe es del departamento o de la red común?", "En muchos casos sí: recorremos el ramal del departamento hasta la bajada general y vemos de qué lado está el daño.")] + COMMON_FAQ,
     form_h="Pida su cotización",
