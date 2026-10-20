@@ -64,217 +64,197 @@
 </header>
 
 <main class="blog-main">
-<article style="max-width: 800px; margin: 0 auto; padding: 60px 24px 100px;">
-  <a href="./index.html" style="display: inline-block; margin-bottom: 20px; color: var(--accent); text-decoration: none; font-weight: 500;">&larr; Volver al blog</a>
-  
-  <div style="margin-bottom: 20px; display: flex; gap: 10px;">
-    <span style="background: var(--zinc-100); padding: 4px 12px; border-radius: 100px; font-size: 14px; font-weight: 500;">Filtraciones</span>
-    <span style="background: var(--zinc-100); padding: 4px 12px; border-radius: 100px; font-size: 14px; font-weight: 500;">Diagnóstico</span>
-  </div>
+<article class="article">
+  <header class="article__header">
+    <a class="article__back" href="./index.html">← Volver al blog</a>
+    <div class="article__tags"><span class="article__tag">Filtraciones</span><span class="article__tag">Diagnóstico</span></div>
+    <h1 class="article__title">Humedad sin origen claro: cuándo revisar el desagüe con cámara</h1>
+    <p class="article__lead">Señales de una filtración oculta, cómo saber si viene del agua potable o del desagüe, y cuándo sirve la cámara.</p>
+    <p class="article__meta">Equipo Visión Inspección · Lectura de 9 min · Agosto 2026</p>
+  </header>
 
-  <h1 style="font-size: 36px; line-height: 1.2; margin-bottom: 16px; color: var(--dark-base);">Humedad sin origen claro: cuándo revisar el desagüe con cámara</h1>
-  <p style="font-size: 20px; color: var(--dark-muted); line-height: 1.5; margin-bottom: 24px;">Señales de alerta, tipos de fuga y cuándo una videoinspección permite orientar la intervención sin demoler a ciegas.</p>
-  
-  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 40px; color: var(--dark-muted); font-size: 14px;">
-    <span>Equipo Técnico Visión Inspección</span>
-    <span>&middot;</span>
-    <span>9 min</span>
-    <span>&middot;</span>
-    <span>agosto 2026</span>
-  </div>
+  <figure class="article__cover">
+    <img src="../assets/portfolio/caso-colector-escombros.jpg" alt="Escombros y bolsas con agua estancada dentro de un colector" width="1024" height="478" loading="eager"/>
+    <figcaption>Agua estancada dentro de un colector. Captura de nuestra cámara.</figcaption>
+  </figure>
 
-  <nav style="background: var(--zinc-50); border: 1px solid var(--border-color); padding: 24px; border-radius: 8px; margin-bottom: 40px;">
-    <h3 style="margin-bottom: 16px; font-size: 18px;">Contenido</h3>
-    <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 10px;">
-      <li><a href="#senales" style="color: var(--dark-base); text-decoration: none;">1. Señales de fuga</a></li>
-      <li><a href="#tipos" style="color: var(--dark-base); text-decoration: none;">2. Tipos de fuga</a></li>
-      <li><a href="#orientar" style="color: var(--dark-base); text-decoration: none;">3. Orientar búsqueda</a></li>
-      <li><a href="#que-hacer" style="color: var(--dark-base); text-decoration: none;">4. Qué hacer</a></li>
-      <li><a href="#cuando" style="color: var(--dark-base); text-decoration: none;">5. Cuándo inspeccionar</a></li>
-      <li><a href="#camara" style="color: var(--dark-base); text-decoration: none;">6. Qué detecta la cámara</a></li>
-      <li><a href="#local" style="color: var(--dark-base); text-decoration: none;">Inspección de desagües con cámara en Santiago</a></li>
-      <li><a href="#faq" style="color: var(--dark-base); text-decoration: none;">Preguntas frecuentes</a></li>
-    </ul>
+
+
+
+  <nav class="article-toc" aria-label="Contenido del artículo">
+    <p class="article-toc__title">En este artículo</p>
+    <ol>
+      <li><a href="#senales">Señales de fuga</a></li>
+      <li><a href="#tipos">Tipos de fuga</a></li>
+      <li><a href="#orientar">Orientar búsqueda</a></li>
+      <li><a href="#que-hacer">Qué hacer</a></li>
+      <li><a href="#cuando">Cuándo inspeccionar</a></li>
+      <li><a href="#camara">Qué detecta la cámara</a></li>
+      <li><a href="#local">Inspección de desagües con cámara en Santiago</a></li>
+      <li><a href="#faq">Preguntas frecuentes</a></li>
+    </ol>
   </nav>
 
-  <p style="font-size: 18px; line-height: 1.7; margin-bottom: 24px;">Las fugas de agua no detectadas a tiempo son un peligro silencioso para cualquier propiedad. Más allá del evidente desperdicio y el aumento en el costo de los servicios, el agua que se filtra constantemente puede generar moho tóxico, debilitar los cimientos y causar daños estructurales severos en muros y losas.</p>
+  <p>Las fugas de agua no detectadas a tiempo son un peligro silencioso para cualquier propiedad. Más allá del evidente desperdicio y el aumento en el costo de los servicios, el agua que se filtra constantemente puede generar moho tóxico, debilitar los cimientos y causar daños estructurales severos en muros y losas.</p>
   
-  <p style="font-size: 18px; line-height: 1.7; margin-bottom: 40px;">Tradicionalmente, ante la primera señal de humedad, el método consistía en empezar a romper a ciegas hasta dar con el problema, una práctica costosa y destructiva. Hoy en día, la importancia de diagnosticar antes de demoler es fundamental: con las herramientas adecuadas es posible orientar la intervención con mucha más precisión, evitando gastos innecesarios y destrucción en el hogar.</p>
+  <p>Tradicionalmente, ante la primera señal de humedad, el método consistía en empezar a romper a ciegas hasta dar con el problema, una práctica costosa y destructiva. Hoy en día, la importancia de diagnosticar antes de demoler es fundamental: con las herramientas adecuadas es posible orientar la intervención con mucha más precisión, evitando gastos innecesarios y destrucción en el hogar.</p>
 
-  <h2 id="senales" style="font-size: 28px; margin-bottom: 24px; color: var(--dark-base);">1. Señales de una fuga oculta</h2>
+  <h2 id="senales">1. Señales de una fuga oculta</h2>
   
-  <div style="border-left: 3px solid var(--accent); padding-left: 20px; margin-bottom: 24px;">
-    <h3 style="font-size: 20px; margin-bottom: 8px;">Manchas de humedad en muros o techos</h3>
-    <p style="font-size: 16px; line-height: 1.6; margin: 0;">Son el indicio más evidente. La ubicación de estas manchas puede ayudar a identificar el nivel de origen; por ejemplo, si están en el techo, probablemente vengan del piso superior, mientras que si están en la parte baja del muro pueden provenir del suelo o de tuberías a nivel de piso.</p>
+  <div class="article-step">
+    <h3>Manchas de humedad en muros o techos</h3>
+    <p>Son el indicio más evidente. La ubicación de estas manchas puede ayudar a identificar el nivel de origen; por ejemplo, si están en el techo, probablemente vengan del piso superior, mientras que si están en la parte baja del muro pueden provenir del suelo o de tuberías a nivel de piso.</p>
   </div>
   
-  <div style="border-left: 3px solid var(--accent); padding-left: 20px; margin-bottom: 24px;">
-    <h3 style="font-size: 20px; margin-bottom: 8px;">Aumento en cuenta de agua sin explicación aparente</h3>
-    <p style="font-size: 16px; line-height: 1.6; margin: 0;">Si sus hábitos de consumo no han cambiado, compare su boleta actual con las de meses anteriores. Un salto drástico suele indicar una pérdida de agua constante.</p>
+  <div class="article-step">
+    <h3>Aumento en cuenta de agua sin explicación aparente</h3>
+    <p>Si sus hábitos de consumo no han cambiado, compare su boleta actual con las de meses anteriores. Un salto drástico suele indicar una pérdida de agua constante.</p>
   </div>
   
-  <div style="border-left: 3px solid var(--accent); padding-left: 20px; margin-bottom: 24px;">
-    <h3 style="font-size: 20px; margin-bottom: 8px;">Baldosas levantadas o piso caliente</h3>
-    <p style="font-size: 16px; line-height: 1.6; margin: 0;">Una fuga en una tubería de agua caliente puede transmitir calor radiante hacia la superficie, haciendo que una zona específica del piso se sienta inusualmente cálida. Además, la humedad puede despegar el adhesivo de las cerámicas.</p>
+  <div class="article-step">
+    <h3>Baldosas levantadas o piso caliente</h3>
+    <p>Una fuga en una tubería de agua caliente puede transmitir calor radiante hacia la superficie, haciendo que una zona específica del piso se sienta inusualmente cálida. Además, la humedad puede despegar el adhesivo de las cerámicas.</p>
   </div>
   
-  <div style="border-left: 3px solid var(--accent); padding-left: 20px; margin-bottom: 24px;">
-    <h3 style="font-size: 20px; margin-bottom: 8px;">Olor persistente a humedad o moho</h3>
-    <p style="font-size: 16px; line-height: 1.6; margin: 0;">Incluso sin manchas visibles, un olor cerrado a moho puede indicar que existe humedad acumulada a largo plazo dentro de paredes, entretechos o bajo el piso.</p>
+  <div class="article-step">
+    <h3>Olor persistente a humedad o moho</h3>
+    <p>Incluso sin manchas visibles, un olor cerrado a moho puede indicar que existe humedad acumulada a largo plazo dentro de paredes, entretechos o bajo el piso.</p>
   </div>
   
-  <div style="border-left: 3px solid var(--accent); padding-left: 20px; margin-bottom: 40px;">
-    <h3 style="font-size: 20px; margin-bottom: 8px;">Humedad en la base de muros sin lluvia reciente</h3>
-    <p style="font-size: 16px; line-height: 1.6; margin: 0;">Si nota que el muro se humedece desde abajo hacia arriba y no ha llovido, es probable que la humedad provenga de cañerías subterráneas o de las propias instalaciones sanitarias de la vivienda.</p>
-  </div>
-
-  <div style="margin: 40px 0; padding: 24px 32px; background: linear-gradient(135deg, #070F1E, #18181B); border-radius: 8px; border-left: 3px solid #06B6D4; text-align: center;">
-    <p style="color: #fff; font-weight: 600; font-size: 16px; margin-bottom: 8px;">¿Detecta estos síntomas en su propiedad?</p>
-    <p style="color: #a1a1aa; font-size: 14px; margin-bottom: 16px;">Cuéntenos su caso por WhatsApp y le indicamos si corresponde una inspección con cámara.</p>
-    <a href="https://wa.me/56959501190?text=Hola%2C%20necesito%20solicitar%20una%20cotizaci%C3%B3n%20para%20inspecci%C3%B3n%20de%20tuber%C3%ADas." style="display: inline-block; padding: 12px 24px; background: #06B6D4; color: #fff; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 14px;">Escribir por WhatsApp</a>
+  <div class="article-step">
+    <h3>Humedad en la base de muros sin lluvia reciente</h3>
+    <p>Si nota que el muro se humedece desde abajo hacia arriba y no ha llovido, es probable que la humedad provenga de cañerías subterráneas o de las propias instalaciones sanitarias de la vivienda.</p>
   </div>
 
-  <h2 id="tipos" style="font-size: 28px; margin-bottom: 24px; color: var(--dark-base);">2. Tipos de fuga según su origen</h2>
-  
-  <h3 style="font-size: 20px; margin-bottom: 12px;">Fuga en red de agua potable (fría o caliente)</h3>
-  <p style="font-size: 16px; line-height: 1.6; margin-bottom: 24px;">Estas redes están presurizadas, por lo que las fugas suelen ser constantes (el agua no para de salir) y pueden detectarse cerrando todas las llaves y observando si el medidor sigue corriendo. El diagnóstico de estas fugas puede requerir pruebas de presión o detección acústica.</p>
-  
-  <h3 style="font-size: 20px; margin-bottom: 12px;">Fuga en sistema de alcantarillado o desagüe</h3>
-  <p style="font-size: 16px; line-height: 1.6; margin-bottom: 24px;">Estas redes funcionan por gravedad y no tienen presión, por lo que el agua solo se filtra cuando se utilizan los artefactos (WC, lavamanos, duchas). <strong>Aquí es donde la cámara de inspección es más relevante</strong>, ya que permite navegar el interior del tubo y ver dónde está la rotura, desconexión o falla estructural.</p>
-  
-  <h3 style="font-size: 20px; margin-bottom: 12px;">Fuga en losa de techo o terraza</h3>
-  <p style="font-size: 16px; line-height: 1.6; margin-bottom: 40px;">Las filtraciones desde terrazas o techos hacia el interior suelen estar relacionadas con fallas en la impermeabilización o en los sumideros de aguas lluvias. Este tipo de problema puede requerir un enfoque diagnóstico diferente, como pruebas de inundación o termografía, además de revisar los ductos de desagüe.</p>
+  <div class="article-cta">
+    <p>¿Detecta estos síntomas en su propiedad?</p>
+    <p>Cuéntenos su caso por WhatsApp y le indicamos si corresponde una inspección con cámara.</p>
+    <a class="btn btn--primary" href="https://wa.me/56959501190?text=Hola%2C%20necesito%20solicitar%20una%20cotizaci%C3%B3n%20para%20inspecci%C3%B3n%20de%20tuber%C3%ADas." target="_blank" rel="noopener">Escribir por WhatsApp</a>
+  </div>
 
-  <h2 id="orientar" style="font-size: 28px; margin-bottom: 24px; color: var(--dark-base);">3. ¿Cómo orientar la búsqueda?</h2>
-  <div style="overflow-x: auto; margin-bottom: 16px;">
-    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+  <h2 id="tipos">2. Tipos de fuga según su origen</h2>
+  
+  <h3>Fuga en red de agua potable (fría o caliente)</h3>
+  <p>Estas redes están presurizadas, por lo que las fugas suelen ser constantes (el agua no para de salir) y pueden detectarse cerrando todas las llaves y observando si el medidor sigue corriendo. El diagnóstico de estas fugas puede requerir pruebas de presión o detección acústica.</p>
+  
+  <h3>Fuga en sistema de alcantarillado o desagüe</h3>
+  <p>Estas redes funcionan por gravedad y no tienen presión, por lo que el agua solo se filtra cuando se utilizan los artefactos (WC, lavamanos, duchas). <strong>Aquí es donde la cámara de inspección es más relevante</strong>, ya que permite navegar el interior del tubo y ver dónde está la rotura, desconexión o falla estructural.</p>
+  
+  <h3>Fuga en losa de techo o terraza</h3>
+  <p>Las filtraciones desde terrazas o techos hacia el interior suelen estar relacionadas con fallas en la impermeabilización o en los sumideros de aguas lluvias. Este tipo de problema puede requerir un enfoque diagnóstico diferente, como pruebas de inundación o termografía, además de revisar los ductos de desagüe.</p>
+
+  <h2 id="orientar">3. ¿Cómo orientar la búsqueda?</h2>
+  <div class="article-table">
+    <table>
       <thead>
-        <tr style="background: var(--carbon); color: white;">
-          <th style="padding: 12px 16px; border: 1px solid var(--border-color);">Síntoma</th>
-          <th style="padding: 12px 16px; border: 1px solid var(--border-color);">Posible tramo afectado</th>
+        <tr>
+          <th>Síntoma</th>
+          <th>Posible tramo afectado</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="background: var(--zinc-100);">
-          <td style="padding: 12px 16px; border: 1px solid var(--border-color);">Mancha en techo bajo un baño superior</td>
-          <td style="padding: 12px 16px; border: 1px solid var(--border-color);">Desagüe o alcantarillado del baño superior</td>
+        <tr>
+          <td>Mancha en techo bajo un baño superior</td>
+          <td>Desagüe o alcantarillado del baño superior</td>
         </tr>
         <tr>
-          <td style="padding: 12px 16px; border: 1px solid var(--border-color);">Mancha en muro interior junto a ducto</td>
-          <td style="padding: 12px 16px; border: 1px solid var(--border-color);">Ramal agua potable o desagüe</td>
-        </tr>
-        <tr style="background: var(--zinc-100);">
-          <td style="padding: 12px 16px; border: 1px solid var(--border-color);">Piso húmedo sin relación con lluvia</td>
-          <td style="padding: 12px 16px; border: 1px solid var(--border-color);">Tubería bajo radier</td>
+          <td>Mancha en muro interior junto a ducto</td>
+          <td>Ramal agua potable o desagüe</td>
         </tr>
         <tr>
-          <td style="padding: 12px 16px; border: 1px solid var(--border-color);">Humedad recurrente en esquina baja de muro</td>
-          <td style="padding: 12px 16px; border: 1px solid var(--border-color);">Posible fuga subterránea o de piso</td>
+          <td>Piso húmedo sin relación con lluvia</td>
+          <td>Tubería bajo radier</td>
         </tr>
-        <tr style="background: var(--zinc-100);">
-          <td style="padding: 12px 16px; border: 1px solid var(--border-color);">Olor a aguas servidas en interior</td>
-          <td style="padding: 12px 16px; border: 1px solid var(--border-color);">Posible fuga en alcantarillado</td>
+        <tr>
+          <td>Humedad recurrente en esquina baja de muro</td>
+          <td>Posible fuga subterránea o de piso</td>
+        </tr>
+        <tr>
+          <td>Olor a aguas servidas en interior</td>
+          <td>Posible fuga en alcantarillado</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <p style="font-size: 14px; color: var(--dark-muted); font-style: italic; margin-bottom: 40px;">* Esta tabla es orientativa. Un diagnóstico definitivo requiere inspección directa.</p>
+  <p>* Esta tabla es orientativa. Un diagnóstico definitivo requiere inspección directa.</p>
 
-  <h2 id="que-hacer" style="font-size: 28px; margin-bottom: 24px; color: var(--dark-base);">4. Qué hacer si sospecha una fuga</h2>
-  <ol style="font-size: 18px; line-height: 1.7; margin-bottom: 40px; padding-left: 20px;">
-    <li style="margin-bottom: 12px;">Cierre la llave de paso si cree que es agua potable.</li>
-    <li style="margin-bottom: 12px;">No abra la estructura a ciegas.</li>
-    <li style="margin-bottom: 12px;">Anote dónde están las manchas y cuánto abarcan.</li>
-    <li style="margin-bottom: 12px;">Evite usar los artefactos afectados (en caso de ser alcantarillado).</li>
-    <li style="margin-bottom: 12px;">Consulte con un especialista antes de intervenir.</li>
+  <h2 id="que-hacer">4. Qué hacer si sospecha una fuga</h2>
+  <ol>
+    <li>Cierre la llave de paso si cree que es agua potable.</li>
+    <li>No abra la estructura a ciegas.</li>
+    <li>Anote dónde están las manchas y cuánto abarcan.</li>
+    <li>Evite usar los artefactos afectados (en caso de ser alcantarillado).</li>
+    <li>Consulte con un especialista antes de intervenir.</li>
   </ol>
 
-  <h2 id="cuando" style="font-size: 28px; margin-bottom: 24px; color: var(--dark-base);">5. ¿Cuándo conviene una videoinspección?</h2>
-  <ul style="font-size: 18px; line-height: 1.7; margin-bottom: 40px; padding-left: 20px;">
-    <li style="margin-bottom: 12px;">Cuando la fuga sospechada está en la red de alcantarillado o desagüe (aquí la cámara es más aplicable).</li>
-    <li style="margin-bottom: 12px;">Cuando la humedad es recurrente y no tiene un origen visible.</li>
-    <li style="margin-bottom: 12px;">Para compra o venta de propiedades, asegurando el estado real de la red sanitaria.</li>
-    <li style="margin-bottom: 12px;">Cuando un gasfíter o plomero no ha podido encontrar el origen del problema.</li>
-    <li style="margin-bottom: 12px;">Antes de tomar una decisión que implique reparaciones o demoliciones mayores.</li>
+  <h2 id="cuando">5. ¿Cuándo conviene una videoinspección?</h2>
+  <ul>
+    <li>Cuando la fuga sospechada está en la red de alcantarillado o desagüe (aquí la cámara es más aplicable).</li>
+    <li>Cuando la humedad es recurrente y no tiene un origen visible.</li>
+    <li>Para compra o venta de propiedades, asegurando el estado real de la red sanitaria.</li>
+    <li>Cuando un gasfíter o plomero no ha podido encontrar el origen del problema.</li>
+    <li>Antes de tomar una decisión que implique reparaciones o demoliciones mayores.</li>
   </ul>
 
-  <div style="margin: 40px 0; padding: 24px 32px; background: linear-gradient(135deg, #070F1E, #18181B); border-radius: 8px; border-left: 3px solid #06B6D4; text-align: center;">
-    <p style="color: #fff; font-weight: 600; font-size: 16px; margin-bottom: 8px;">¿Detecta estos síntomas en su propiedad?</p>
-    <p style="color: #a1a1aa; font-size: 14px; margin-bottom: 16px;">Cuéntenos su caso por WhatsApp y le indicamos si corresponde una inspección con cámara.</p>
-    <a href="https://wa.me/56959501190?text=Hola%2C%20necesito%20solicitar%20una%20cotizaci%C3%B3n%20para%20inspecci%C3%B3n%20de%20tuber%C3%ADas." style="display: inline-block; padding: 12px 24px; background: #06B6D4; color: #fff; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 14px;">Escribir por WhatsApp</a>
+  <div class="article-cta">
+    <p>¿Detecta estos síntomas en su propiedad?</p>
+    <p>Cuéntenos su caso por WhatsApp y le indicamos si corresponde una inspección con cámara.</p>
+    <a class="btn btn--primary" href="https://wa.me/56959501190?text=Hola%2C%20necesito%20solicitar%20una%20cotizaci%C3%B3n%20para%20inspecci%C3%B3n%20de%20tuber%C3%ADas." target="_blank" rel="noopener">Escribir por WhatsApp</a>
   </div>
 
-  <h2 id="camara" style="font-size: 28px; margin-bottom: 24px; color: var(--dark-base);">6. ¿Qué puede visualizar una cámara de inspección?</h2>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px;">
-    <div style="display: flex; align-items: center; gap: 10px; background: var(--zinc-100); padding: 12px 16px; border-radius: 6px; font-size: 14px;">
-      <span style="color: var(--accent); font-weight: bold;">&#10003;</span> Fisuras y micro-grietas
+  <h2 id="camara">6. ¿Qué puede visualizar una cámara de inspección?</h2>
+  <div class="article-grid">
+    <div class="article-check">
+      <span>&#10003;</span> Fisuras y micro-grietas
     </div>
-    <div style="display: flex; align-items: center; gap: 10px; background: var(--zinc-100); padding: 12px 16px; border-radius: 6px; font-size: 14px;">
-      <span style="color: var(--accent); font-weight: bold;">&#10003;</span> Uniones defectuosas
+    <div class="article-check">
+      <span>&#10003;</span> Uniones defectuosas
     </div>
-    <div style="display: flex; align-items: center; gap: 10px; background: var(--zinc-100); padding: 12px 16px; border-radius: 6px; font-size: 14px;">
-      <span style="color: var(--accent); font-weight: bold;">&#10003;</span> Raíces en el interior
+    <div class="article-check">
+      <span>&#10003;</span> Raíces en el interior
     </div>
-    <div style="display: flex; align-items: center; gap: 10px; background: var(--zinc-100); padding: 12px 16px; border-radius: 6px; font-size: 14px;">
-      <span style="color: var(--accent); font-weight: bold;">&#10003;</span> Sedimentos y corrosión
+    <div class="article-check">
+      <span>&#10003;</span> Sedimentos y corrosión
     </div>
-    <div style="display: flex; align-items: center; gap: 10px; background: var(--zinc-100); padding: 12px 16px; border-radius: 6px; font-size: 14px;">
-      <span style="color: var(--accent); font-weight: bold;">&#10003;</span> Deformaciones
+    <div class="article-check">
+      <span>&#10003;</span> Deformaciones
     </div>
-    <div style="display: flex; align-items: center; gap: 10px; background: var(--zinc-100); padding: 12px 16px; border-radius: 6px; font-size: 14px;">
-      <span style="color: var(--accent); font-weight: bold;">&#10003;</span> Desplazamientos de tramos
+    <div class="article-check">
+      <span>&#10003;</span> Desplazamientos de tramos
     </div>
-    <div style="display: flex; align-items: center; gap: 10px; background: var(--zinc-100); padding: 12px 16px; border-radius: 6px; font-size: 14px;">
-      <span style="color: var(--accent); font-weight: bold;">&#10003;</span> Obstrucciones
+    <div class="article-check">
+      <span>&#10003;</span> Obstrucciones
     </div>
-    <div style="display: flex; align-items: center; gap: 10px; background: var(--zinc-100); padding: 12px 16px; border-radius: 6px; font-size: 14px;">
-      <span style="color: var(--accent); font-weight: bold;">&#10003;</span> Estado general de la red
+    <div class="article-check">
+      <span>&#10003;</span> Estado general de la red
     </div>
   </div>
-  <p style="font-size: 18px; line-height: 1.7; margin-bottom: 40px;">Además de ver el interior, la cámara registra cuántos metros de cable se han recorrido desde el punto de acceso. Con ese dato y el trazado de la red se acota dónde está el problema, y la rotura se limita a esa zona.</p>
+  <p>Además de ver el interior, la cámara registra cuántos metros de cable se han recorrido desde el punto de acceso. Con ese dato y el trazado de la red se acota dónde está el problema, y la rotura se limita a esa zona.</p>
 
-  <div id="local" style="background: var(--carbon); color: white; padding: 32px; border-radius: 8px; margin-bottom: 48px;">
-    <h3 style="font-size: 24px; margin-bottom: 16px; color: white;">Inspección de desagües con cámara en Santiago</h3>
-    <p style="font-size: 16px; line-height: 1.6; margin-bottom: 24px; opacity: 0.9;">Atendemos en toda la Región Metropolitana con equipos especializados para diagnóstico de redes de alcantarillado. Si tiene humedad sospechosa, le ayudamos a encontrar el origen del problema para reparar con seguridad.</p>
-    <button class="btn btn-primary" type="button" data-whatsapp data-placement="blog_fugas_mid" data-message="Hola, leí su artículo sobre humedad y filtraciones y quisiera información sobre videoinspección." style="display: inline-block; padding: 12px 24px; font-weight: 600; border-radius: 6px; border: none; cursor: pointer; text-decoration: none;">
+  <div id="local" class="article-cta">
+    <h3>Inspección de desagües con cámara en Santiago</h3>
+    <p>Atendemos en toda la Región Metropolitana con equipos especializados para diagnóstico de redes de alcantarillado. Si tiene humedad sospechosa, le ayudamos a encontrar el origen del problema para reparar con seguridad.</p>
+    <button class="btn btn--primary" type="button" data-whatsapp data-placement="blog_fugas_mid" data-message="Hola, leí su artículo sobre humedad y filtraciones y quisiera información sobre videoinspección.">
       Escribir por WhatsApp
     </button>
   </div>
 
-  <h2 id="faq" style="font-size: 28px; margin-bottom: 24px; color: var(--dark-base);">Preguntas frecuentes</h2>
+  <h2 id="faq">Preguntas frecuentes</h2>
   
-  <details style="margin-bottom: 16px; border: 1px solid var(--border-color); border-radius: 6px; padding: 16px;">
-    <summary style="font-weight: 600; font-size: 18px; cursor: pointer;">¿Una cámara puede detectar fugas en tuberías de agua potable?</summary>
-    <p style="margin-top: 12px; font-size: 16px; line-height: 1.6;">No, las cámaras de empuje se introducen en redes de alcantarillado o desagüe sin presión. Para redes de agua potable a presión se requieren otros métodos acústicos o de gases trazadores.</p>
-  </details>
-  <details style="margin-bottom: 16px; border: 1px solid var(--border-color); border-radius: 6px; padding: 16px;">
-    <summary style="font-weight: 600; font-size: 18px; cursor: pointer;">¿La videoinspección requiere cortar el suministro de agua?</summary>
-    <p style="margin-top: 12px; font-size: 16px; line-height: 1.6;">Durante el proceso de inspección de alcantarillado, se solicita no usar los artefactos que descargan a la tubería que se está inspeccionando (WC, duchas) para tener una visión clara del tubo.</p>
-  </details>
-  <details style="margin-bottom: 16px; border: 1px solid var(--border-color); border-radius: 6px; padding: 16px;">
-    <summary style="font-weight: 600; font-size: 18px; cursor: pointer;">¿Cómo sé si la fuga está en mi propiedad o en la matriz exterior?</summary>
-    <p style="margin-top: 12px; font-size: 16px; line-height: 1.6;">Si vive en un departamento, la cámara puede recorrer su ramal hasta la conexión con la matriz vertical, permitiendo documentar de qué lado está el daño para deslindar responsabilidades con la comunidad.</p>
-  </details>
-  <details style="margin-bottom: 16px; border: 1px solid var(--border-color); border-radius: 6px; padding: 16px;">
-    <summary style="font-weight: 600; font-size: 18px; cursor: pointer;">¿La cámara indica dónde está el daño?</summary>
-    <p style="margin-top: 12px; font-size: 16px; line-height: 1.6;">Indica en qué tramo del desagüe está y a cuántos metros del punto de acceso. Con eso y el trazado de la red se define dónde abrir, en vez de picar a ciegas.</p>
-  </details>
-  <details style="margin-bottom: 16px; border: 1px solid var(--border-color); border-radius: 6px; padding: 16px;">
-    <summary style="font-weight: 600; font-size: 18px; cursor: pointer;">¿Cuándo conviene inspeccionar antes de comprar una propiedad?</summary>
-    <p style="margin-top: 12px; font-size: 16px; line-height: 1.6;">Es altamente recomendado para propiedades usadas de más de 15-20 años, o si ve reparaciones parche, marcas de humedad recientes o recién pintadas antes de la venta. Le puede ahorrar comprar un problema grave.</p>
-  </details>
-  <details style="margin-bottom: 48px; border: 1px solid var(--border-color); border-radius: 6px; padding: 16px;">
-    <summary style="font-weight: 600; font-size: 18px; cursor: pointer;">¿Qué daño puede causar una fuga no detectada a tiempo?</summary>
-    <p style="margin-top: 12px; font-size: 16px; line-height: 1.6;">Puede corroer armaduras en la losa, levantar revestimientos de piso, generar moho riesgoso para la salud, socavar el terreno en casas y, eventualmente, comprometer la integridad estructural en el área afectada.</p>
-  </details>
+  <details class="article-faq"><summary>¿Una cámara puede detectar fugas en tuberías de agua potable?</summary><div class="article-faq__body"><p>No, las cámaras de empuje se introducen en redes de alcantarillado o desagüe sin presión. Para redes de agua potable a presión se requieren otros métodos acústicos o de gases trazadores.</p></div></details>
+  <details class="article-faq"><summary>¿La videoinspección requiere cortar el suministro de agua?</summary><div class="article-faq__body"><p>Durante el proceso de inspección de alcantarillado, se solicita no usar los artefactos que descargan a la tubería que se está inspeccionando (WC, duchas) para tener una visión clara del tubo.</p></div></details>
+  <details class="article-faq"><summary>¿Cómo sé si la fuga está en mi propiedad o en la matriz exterior?</summary><div class="article-faq__body"><p>Si vive en un departamento, la cámara puede recorrer su ramal hasta la conexión con la matriz vertical, permitiendo documentar de qué lado está el daño para deslindar responsabilidades con la comunidad.</p></div></details>
+  <details class="article-faq"><summary>¿La cámara indica dónde está el daño?</summary><div class="article-faq__body"><p>Indica en qué tramo del desagüe está y a cuántos metros del punto de acceso. Con eso y el trazado de la red se define dónde abrir, en vez de picar a ciegas.</p></div></details>
+  <details class="article-faq"><summary>¿Cuándo conviene inspeccionar antes de comprar una propiedad?</summary><div class="article-faq__body"><p>Es altamente recomendado para propiedades usadas de más de 15-20 años, o si ve reparaciones parche, marcas de humedad recientes o recién pintadas antes de la venta. Le puede ahorrar comprar un problema grave.</p></div></details>
+  <details class="article-faq"><summary>¿Qué daño puede causar una fuga no detectada a tiempo?</summary><div class="article-faq__body"><p>Puede corroer armaduras en la losa, levantar revestimientos de piso, generar moho riesgoso para la salud, socavar el terreno en casas y, eventualmente, comprometer la integridad estructural en el área afectada.</p></div></details>
 
-  <div style="border-top: 1px solid var(--border-color); text-align: center; padding-top: 40px;">
-    <h3 style="font-size: 24px; margin-bottom: 16px; color: var(--dark-base);">¿Tiene manchas de humedad y no sabe de dónde vienen?</h3>
-    <p style="font-size: 18px; line-height: 1.6; margin-bottom: 24px;">Antes de romper, inspeccionar permite orientar la intervención al tramo correcto y evitar demoliciones innecesarias.</p>
-    <button class="btn btn-primary" type="button" data-whatsapp data-placement="blog_fugas_final" data-message="Hola, tengo una fuga o mancha de humedad y quisiera información sobre videoinspección de tuberías." style="display: inline-block; padding: 16px 32px; font-size: 18px; font-weight: 600; border-radius: 6px; border: none; cursor: pointer; text-decoration: none; margin-bottom: 16px;">
+  <div class="article-end">
+    <h3>¿Tiene manchas de humedad y no sabe de dónde vienen?</h3>
+    <p>Antes de romper, inspeccionar permite orientar la intervención al tramo correcto y evitar demoliciones innecesarias.</p>
+    <button class="btn btn--primary" type="button" data-whatsapp data-placement="blog_fugas_final" data-message="Hola, tengo una fuga o mancha de humedad y quisiera información sobre videoinspección de tuberías.">
       Escribir por WhatsApp
     </button>
-    <p style="font-size: 14px; color: var(--dark-muted);">Atención en Santiago, V y VI Región.</p>
+    <p>Atención en Santiago, V y VI Región.</p>
   </div>
 
 </article>
@@ -335,6 +315,8 @@
     <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.524 5.842L0 24l6.335-1.524A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.796 9.796 0 01-4.994-1.365l-.358-.212-3.76.904.921-3.665-.233-.376A9.797 9.797 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg> WhatsApp
   </button>
 </div>
+
+
 
 
 

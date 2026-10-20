@@ -164,7 +164,7 @@
             <a class="btn btn--primary btn--lg" href="#formulario">Pedir cotización</a>
             <a class="btn btn--ghost" href="#proceso">Ver cómo funciona</a>
           </div>
-          <p class="hero__microcopy">✓ Cotización sin costo · ✓ Informe técnico incluido · ✓ Respuesta en menos de 30 minutos</p>
+          <p class="hero__microcopy">✓ Cotización sin costo · ✓ Informe técnico incluido · ✓ Respuesta en 24 horas hábiles</p>
         </div>
       </div>
       <div class="hero__visual">
@@ -663,7 +663,7 @@
             <button type="button" class="form-wizard__back" data-back>← Volver</button>
             <button type="submit" class="btn btn--primary" style="flex:1; justify-content:center; font-size:1.1rem; padding:16px;">Pedir cotización</button>
           </div>
-          <p style="text-align:center; font-size:0.85rem; color:var(--zinc-500); margin-top:1rem;">Al enviar se abrirá WhatsApp con los datos de su caso ya completados. Recibirá el valor exacto en menos de 30 minutos.</p>
+          <p style="text-align:center; font-size:0.85rem; color:var(--zinc-500); margin-top:1rem;">Al enviar se abrirá WhatsApp con los datos de su caso ya completados. Le enviaremos el valor dentro de 24 horas hábiles.</p>
         </div>
 
       </form>
@@ -678,19 +678,29 @@
       <p style="color: var(--zinc-600);">Para entender qué le pasa a su red y cuándo conviene revisarla.</p>
     </div>
     <div class="blog-grid">
-      <a href="./blog/deteccion-fugas-sin-romper.html" class="blog-card">
-        <span class="blog-card__tag">Filtraciones</span><h3 class="blog-card__title">Humedad sin origen claro: cuándo revisar el desagüe</h3>
-        <p class="blog-card__desc">Señales de una filtración y cómo confirmarla con cámara antes de romper.</p>
-      </a>
-      <a href="./blog/senales-obstruccion-alcantarillado.html" class="blog-card">
-        <span class="blog-card__tag">Alcantarillado</span><h3 class="blog-card__title">5 señales de obstrucción en el alcantarillado</h3>
+      <a class="blog-card blog-card--rich" href="./blog/senales-obstruccion-alcantarillado.html">
+        <span class="blog-card__icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h10a4 4 0 014 4v8"/><path d="M4 12h8a2 2 0 012 2v6"/><circle cx="9" cy="10" r="1.5"/></svg></span>
+        <span class="blog-card__tag">Alcantarillado</span>
+        <h3 class="blog-card__title">5 señales de una obstrucción en el alcantarillado</h3>
         <p class="blog-card__desc">Cómo darse cuenta a tiempo de que el alcantarillado se está tapando.</p>
+        <span class="blog-card__meta">Lectura de 9 min · Leer artículo →</span>
       </a>
-      <a href="./blog/mantencion-ductos-edificios.html" class="blog-card">
-        <span class="blog-card__tag">Edificios</span><h3 class="blog-card__title">Mantención preventiva de ductos en edificios</h3>
-        <p class="blog-card__desc">Para administradores: cuándo revisar los ductos del edificio y qué se suele encontrar.</p>
+      <a class="blog-card blog-card--rich" href="./blog/deteccion-fugas-sin-romper.html">
+        <span class="blog-card__icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z"/></svg></span>
+        <span class="blog-card__tag">Filtraciones</span>
+        <h3 class="blog-card__title">Humedad sin origen claro: cuándo revisar el desagüe con cámara</h3>
+        <p class="blog-card__desc">Señales de una filtración y cómo confirmarla con cámara antes de romper.</p>
+        <span class="blog-card__meta">Lectura de 9 min · Leer artículo →</span>
+      </a>
+      <a class="blog-card blog-card--rich" href="./blog/mantencion-ductos-edificios.html">
+        <span class="blog-card__icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="8" height="14" rx="1"/><rect x="11" y="3" width="10" height="18" rx="1"/><path d="M14 7h4M14 11h4M14 15h4M6 11h2M6 15h2"/></svg></span>
+        <span class="blog-card__tag">Edificios</span>
+        <h3 class="blog-card__title">Mantención preventiva de ductos en edificios: guía para administradores</h3>
+        <p class="blog-card__desc">Cuándo revisar los ductos del edificio y qué se suele encontrar.</p>
+        <span class="blog-card__meta">Lectura de 8 min · Leer artículo →</span>
       </a>
     </div>
+    <div class="text-center blog-more"><a class="btn btn--ghost" href="./blog/index.html">Ver todos los artículos</a></div>
   </div>
 </section>
 
@@ -766,6 +776,8 @@
     <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.524 5.842L0 24l6.335-1.524A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.796 9.796 0 01-4.994-1.365l-.358-.212-3.76.904.921-3.665-.233-.376A9.797 9.797 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg> WhatsApp
   </button>
 </div>
+
+
 
 
 
