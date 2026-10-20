@@ -32,7 +32,7 @@ FRASES = {
     "*": [
         ("¿Pueden indicar el punto exacto para reparar?", "¿Pueden indicar dónde está el problema?"),
         ("Sí. Según el acceso y condiciones, identificamos el tramo y ubicación del problema para reducir demoliciones y enfocar la reparación donde corresponde.",
-         "Sí. Indicamos en qué tramo está y a cuántos metros del punto de acceso, según el cable recorrido. Con eso la reparación se hace solo en esa zona."),
+         "Sí. Indicamos en qué tramo está y a cuántos metros del punto de acceso, según las marcas del cable. Con eso la reparación se hace solo en esa zona."),
         ("Señales de que tienes una obstrucción en el alcantarillado", "Señales de una obstrucción en el alcantarillado"),
         ("5 Señales de Obstrucción de Alcantarillado", "5 señales de obstrucción en el alcantarillado"),
         ("Importancia de la Mantención de Ductos", "Mantención preventiva de ductos en edificios"),

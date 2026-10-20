@@ -132,6 +132,7 @@ def normalize_body(b):
         q = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', q)).strip()
         rest = inner[sm.end():].strip()
         rest = re.sub(r'(?s)^<div class="faq__content">(.*)</div>$', r'<p>\1</p>', rest)
+        rest = re.sub(r'(?s)^<div class="article-faq__body">(.*)</div>$', r'\1', rest)
         return f'<details class="article-faq"><summary>{q}</summary><div class="article-faq__body">{rest}</div></details>'
     b = re.sub(r'(?s)<details\b[^>]*>(.*?)</details>', faq, b)
 

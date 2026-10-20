@@ -289,7 +289,7 @@ def form_section(heading, sub):
 
 COMMON_FAQ = [
     ("¿Qué incluye la inspección?", "Recorrido de la red con cámara, video completo, fotos de cada hallazgo e informe técnico. Si hay que reparar, le enviamos una cotización aparte."),
-    ("¿Pueden indicar dónde está el problema?", "Indicamos en qué tramo está y a cuántos metros del punto de acceso, según el cable recorrido. Con eso la reparación se hace solo en esa zona."),
+    ("¿Pueden indicar dónde está el problema?", "Indicamos en qué tramo está y a cuántos metros del punto de acceso, según las marcas del cable. Con eso la reparación se hace solo en esa zona."),
     ("¿Qué necesitan para la visita?", "Acceso libre a cámaras de registro, rejillas o tapas, y que no se usen los artefactos que descargan a la red mientras revisamos."),
     ("¿Emiten factura?", "Sí. Emitimos factura electrónica y podemos trabajar con orden de compra."),
     ("¿En qué comunas trabajan?", "En toda la Región Metropolitana, la V Región y la VI Región. Escríbanos su comuna y confirmamos disponibilidad."),
