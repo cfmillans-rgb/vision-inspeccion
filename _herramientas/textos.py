@@ -90,7 +90,7 @@ FRASES = {
         ("visualizar exactamente dónde está la rotura", "ver dónde está la rotura"),
     ],
     "blog/cuanto-cuesta-videoinspeccion-tuberias.html": [
-        ("la visita. Agenda en 24 a 48 horas", "la visita. Se agenda en 24 a 48 horas"),
+        ("la visita. Agenda en 24 a 48 horas", "la visita."),
         ("Bajo: el video muestra exactamente dónde está el problema", "Bajo: el video muestra en qué tramo está el problema"),
     ],
     "blog/video-inspeccion-tuberias-santiago.html": [
