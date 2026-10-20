@@ -21,7 +21,7 @@ WA = "56959501190"
 TEL = "+56959501190"
 TEL_VISIBLE = "+56 9 5950 1190"
 EMAIL = "hola@visioninspeccion.cl"
-CSS_VER = "5"
+CSS_VER = "6"
 JS_VER = "4"
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"/>\n'

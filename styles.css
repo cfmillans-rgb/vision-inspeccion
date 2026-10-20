@@ -2076,3 +2076,35 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 img { max-width: 100%; }
 .stats-bar__number { white-space: nowrap; font-size: clamp(24px, 3.2vw, 32px); }
 .casosGrid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+
+/* ---------- Pasos en círculos ---------- */
+.process__number {
+  border-radius: 50%;
+  background-color: var(--white);
+  border: 1.5px solid var(--accent);
+  color: var(--accent-hover) !important;
+  font-size: 15px;
+  font-weight: 600;
+  justify-content: center;
+}
+.process__line { display: none; }
+.process__content { padding-top: 12px; margin-left: 20px; }
+.process__item { margin-bottom: 40px; }
+@media (max-width: 768px) {
+  .process__number { font-size: 13px; }
+  .process__content { padding-top: 5px; margin-left: 14px; }
+}
+
+/* ---------- Respuesta sutil de los botones ---------- */
+.btn { transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; }
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn--primary:hover { box-shadow: 0 6px 16px rgba(6, 182, 212, 0.25); }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .blog-card, .intent-card, .form-card { transition: none; }
+  .btn:hover, .blog-card:hover, .intent-card:hover, .form-card:hover { transform: none; }
+}
+.process__list::before { top: 24px; bottom: 24px; }
+@media (max-width: 768px) { .process__list::before { top: 16px; bottom: 16px; } }
