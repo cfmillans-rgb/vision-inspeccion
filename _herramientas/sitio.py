@@ -288,9 +288,10 @@ def form_section(heading, sub):
 
 
 COMMON_FAQ = [
-    ("¿Qué incluye la inspección?", "Recorrido de la red con cámara, video completo, fotos de cada hallazgo e informe técnico. Si hay que reparar, incluye además la cotización de la reparación."),
+    ("¿Qué incluye la inspección?", "Recorrido de la red con cámara, video completo, fotos de cada hallazgo, en qué tramo y a cuántos metros está cada problema, la recomendación y la cotización de la reparación. Todo va en un informe revisado por un ingeniero en construcción."),
+    ("¿Me pueden orientar antes de cotizar?", "Sí, sin costo. Envíenos por WhatsApp fotos o un video corto del problema y de la cámara de registro, y le decimos si corresponde una inspección con cámara."),
     ("¿Pueden indicar dónde está el problema?", "Indicamos en qué tramo está y a cuántos metros del punto de acceso, según las marcas del cable. Con eso la reparación se hace solo en esa zona."),
-    ("¿Pueden ir a ver antes de la inspección?", "Sí, si lo prefiere. Un ingeniero en construcción hace una visita previa para revisar su caso y orientarle, por $30.000. Si después contrata la videoinspección, ese valor se descuenta del servicio."),
+    ("¿Pueden ir a ver antes de la inspección?", "Sí, si lo prefiere. Un ingeniero en construcción hace una visita previa por $30.000 para revisar su caso y orientarle. Si usted quiere y el caso lo permite, hacemos la videoinspección en esa misma visita. Si contrata la videoinspección, los $30.000 se descuentan."),
     ("¿Qué necesitan para la visita?", "Acceso libre a cámaras de registro, rejillas o tapas, y que no se usen los artefactos que descargan a la red mientras revisamos."),
     ("¿Emiten factura?", "Sí. Emitimos factura electrónica y podemos trabajar con orden de compra."),
     ("¿En qué comunas trabajan?", "En toda la Región Metropolitana, la V Región y la VI Región. Escríbanos su comuna y confirmamos disponibilidad."),
@@ -375,7 +376,7 @@ def landing(rel, d):
           <a class="btn btn--primary btn--lg" href="#formulario">Pedir cotización</a>
           <button class="btn btn--ghost" type="button" data-whatsapp data-placement="hero" data-message="{d["msg"]}">Escribir por WhatsApp</button>
         </div>
-        <p class="hero__microcopy">✓ Cotización sin costo · ✓ Informe con fotos y video · ✓ Factura electrónica</p>
+        <p class="hero__microcopy">✓ Orientación gratis por WhatsApp · ✓ Informe revisado por un ingeniero en construcción · ✓ Factura electrónica</p>
       </div>
       <div class="hero__visual">
         {captures(p, d["order"], d["caption"])}
@@ -482,9 +483,9 @@ EMPRESAS = dict(
                ("Ductos de cocina", "Grasa solidificada que reduce el diámetro del ducto."),
                ("Después de una reparación", "Para comprobar que el trabajo quedó bien antes de pagarlo.")],
     recibe=[("Inspección con cámara", "Recorremos la red por dentro desde las cámaras de registro, rejillas o shafts, sin picar."),
-            ("Informe con fotos y video", "Qué encontramos en cada tramo, a cuántos metros del acceso y qué recomendamos. Sirve para la asamblea o el seguro."),
+            ("Informe revisado por un ingeniero", "Fotos y video de cada tramo, a cuántos metros del acceso está cada problema, la recomendación y la cotización. Sirve para la asamblea o el seguro."),
             ("Cotización si hay que reparar", "Si hay que intervenir, cotizamos con el video a la vista.")],
-    pasos=[("Coordinamos", "Nos escribe con la dirección, qué está pasando y qué accesos hay. Coordinamos con conserjería."),
+    pasos=[("Coordinamos", "Nos escribe con la dirección, qué está pasando y qué accesos hay. Le orientamos gratis y coordinamos con conserjería."),
            ("Inspeccionamos", "Entramos con la cámara y recorremos los tramos acordados. Usted puede ver la pantalla en terreno."),
            ("Informamos", "Le enviamos el informe con fotos y el video. Si hay que reparar, incluye la cotización.")],
     faq=[("¿Sirve el informe para la asamblea o la aseguradora?", "Sí. Incluye fotos, video y la ubicación de cada hallazgo por tramo, que es lo que suelen pedir el comité y las aseguradoras."),
@@ -545,7 +546,7 @@ def comuna_data(slug, name):
                    ("Tubos aplastados", "Tramos deformados por carga o mala instalación."),
                    ("Pendientes", "Tramos donde el agua no escurre y se acumulan sólidos.")],
         recibe=[("Inspección con cámara", "Entramos por un registro o una rejilla y recorremos la tubería por dentro, sin picar."),
-                ("Informe con fotos y video", "Qué encontramos en cada tramo y a cuántos metros del acceso."),
+                ("Informe revisado por un ingeniero", "Fotos y video de cada tramo, a cuántos metros del acceso está cada problema, la recomendación y la cotización."),
                 ("Cotización si hay que reparar", "Si hay que intervenir, cotizamos con el video a la vista.")],
         pasos=[("Coordinamos", f"Nos escribe con su dirección en {name} y qué está pasando. Coordinamos la visita."),
                ("Inspeccionamos", "Entramos con la cámara y recorremos la red. Usted ve en la pantalla lo mismo que nosotros."),
