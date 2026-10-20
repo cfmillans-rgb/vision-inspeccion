@@ -331,7 +331,7 @@ ul, ol {
 
 .hero__grid {
   display: grid;
-  grid-template-columns: 55% 45%;
+  grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
   gap: 48px;
   align-items: center;
 }
@@ -1855,4 +1855,75 @@ textarea.form-control { resize: vertical; min-height: 100px; }
   color: var(--accent);
   font-weight: 700;
   margin-top: 4px;
+}
+
+/* ---------- Capturas reales de camara (hero) ---------- */
+.hero-captures {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.hero-captures img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1024 / 478;
+  object-fit: cover;
+  border-radius: 2px;
+  background: var(--graphite, #1a1a1d);
+}
+.hero-captures img:first-child {
+  grid-column: 1 / -1;
+}
+.hero-captures figcaption {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--zinc-400, #a1a1aa);
+}
+
+/* ---------- Casos (empresas y comunas) ---------- */
+.casosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+.caso {
+  background: var(--white, #fff);
+  border: 1px solid var(--zinc-200, #e4e4e7);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.caso-thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1024 / 478;
+  object-fit: cover;
+}
+.caso-info {
+  padding: 20px;
+}
+.caso-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-hover, #0891B2);
+  margin-bottom: 8px;
+}
+.caso-info h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+.caso-info p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--zinc-600, #52525b);
+}
+.casosFooter {
+  text-align: center;
+  margin-top: 40px;
 }

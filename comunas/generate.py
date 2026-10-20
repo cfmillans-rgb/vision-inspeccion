@@ -39,7 +39,7 @@ comunas = [
         "slug": "vitacura",
         "angle": "Propiedades de alto valor donde la mantención preventiva protege la inversión. Inspección periódica para detectar problemas antes de que generen daño estético.",
         "p1": "En Vitacura, el estándar constructivo y el alto valor de las propiedades hacen que la mantención preventiva sea clave para proteger su inversión inmobiliaria. Las filtraciones ocultas pueden avanzar silenciosamente, generando un daño estético irreversible en pisos de madera, muros y finas terminaciones.",
-        "p2": "Con nuestro servicio de inspección periódica mediante cámara HD y sonda de localización de 512Hz, detectamos anomalías en etapas tempranas. Entregamos un informe técnico detallado para actuar preventivamente y mantener su propiedad impecable.",
+        "p2": "Con una inspección periódica con cámara HD, detectamos anomalías en etapas tempranas. Entregamos un informe técnico detallado para actuar preventivamente y mantener su propiedad impecable.",
         "meta": "Videoinspección de tuberías en Vitacura. Mantención preventiva con cámara HD para propiedades de alto valor. Evite daños estéticos y estructurales. Solicitar cotización."
     },
     {
@@ -69,10 +69,10 @@ comunas = [
     {
         "name": "Lo Barnechea",
         "slug": "lo-barnechea",
-        "angle": "Parcelas y casas con terrenos extensos. Redes largas sin cámaras de registro intermedias, donde la localización exacta con sonda es crítica.",
+        "angle": "Parcelas y casas con terrenos extensos. Redes largas sin cámaras de registro intermedias, donde conviene saber en qué tramo está la falla antes de excavar.",
         "p1": "En Lo Barnechea predominan las parcelas y casas con terrenos muy extensos, lo que se traduce en largas redes de alcantarillado que a menudo carecen de cámaras de registro intermedias. Cuando ocurre un problema, encontrar el punto de falla a ciegas es prácticamente imposible.",
-        "p2": "Aquí es donde nuestra sonda de localización de 512Hz resulta crítica. Combinada con la videoinspección HD, rastreamos la tubería bajo tierra para marcar desde la superficie el lugar exacto del daño, ahorrando días de búsqueda y costosas excavaciones innecesarias.",
-        "meta": "Videoinspección de tuberías en Lo Barnechea. Localización de fallas en redes extensas sin cámaras de registro usando sonda 512Hz y cámara HD. Solicitar cotización."
+        "p2": "Con 30 m de cable recorremos tramos largos desde un solo acceso y vemos qué hay adentro: raíces, tubos aplastados o uniones cortadas. Le decimos en qué tramo está el daño y a cuántos metros del acceso, para que la excavación sea solo donde corresponde.",
+        "meta": "Videoinspección de tuberías en Lo Barnechea. Diagnóstico con cámara HD en parcelas y casas con redes largas y pocas cámaras de registro. Solicitar cotización."
     }
 ]
 
