@@ -202,7 +202,7 @@ def replace_icons(s):
 LABEL_ICON = {
     "Casa": "casa", "Departamento": "depto", "Edificio / Condominio": "edificio", "Obra en construcción": "obra",
     "Terreno con construcción": "obra", "Atasco o drenaje lento": "atasco", "Atasco recurrente": "atasco",
-    "Filtración o humedad": "gota", "Malos olores": "olor", "Revisión preventiva o compraventa": "lupa",
+    "Filtración o humedad": "gota", "Humedad cerca de un desagüe": "gota", "Humedad por desagüe": "gota", "Malos olores": "olor", "Revisión preventiva o compraventa": "lupa",
     "Otro": "otro", "Antes de firmar promesa": "documento", "Antes de escritura": "firma",
     "Evaluando opciones": "lupa", "Edificio u obra": "edificio",
 }
@@ -293,7 +293,7 @@ COMMON_FAQ = [
     ("¿Qué necesitan para la visita?", "Acceso libre a cámaras de registro, rejillas o tapas, y que no se usen los artefactos que descargan a la red mientras revisamos."),
     ("¿Emiten factura?", "Sí. Emitimos factura electrónica y podemos trabajar con orden de compra."),
     ("¿En qué comunas trabajan?", "En toda la Región Metropolitana, la V Región y la VI Región. Escríbanos su comuna y confirmamos disponibilidad."),
-    ("¿La cámara sirve para fugas de agua potable?", "No. La cámara se usa en alcantarillado y desagües, que no tienen presión. Si su caso es de agua potable, se lo decimos antes de agendar."),
+    ("¿Revisan cañerías de agua potable?", "No. Trabajamos solo en alcantarillado y desagües. Si por lo que nos cuenta el problema parece ser de agua potable, se lo diremos antes de agendar para que llame a un gasfíter."),
 ]
 
 
@@ -468,7 +468,7 @@ EMPRESAS = dict(
     area="Región Metropolitana, V Región y VI Región, Chile",
     tag="Para administradores de edificios y condominios",
     h1="Inspección de redes sanitarias", h1_accent="para edificios y condominios.",
-    hero_desc=["Revisamos con cámara las bajadas, colectores y ramales del edificio. Le entregamos un informe con fotos y video que puede presentar a la asamblea, al comité o a la aseguradora."],
+    hero_desc=["Revisamos con cámara el alcantarillado del edificio: bajadas, colectores y ramales. Le entregamos un informe con fotos y video que puede presentar a la asamblea, al comité o a la aseguradora."],
     order=["bolsas", "escombros", "pelota"],
     caption="Capturas de nuestra cámara dentro de un colector: bolsas, escombros y una pelota que tapaban el paso.",
     msg=MSG["empresas.html"],
@@ -477,7 +477,7 @@ EMPRESAS = dict(
     revisamos=[("Bajadas", "Tapones parciales, sarro y uniones dañadas en las bajadas de baños y cocinas."),
                ("Colectores", "Obstrucciones, raíces y tramos aplastados en el colector del subterráneo o del patio."),
                ("Cámaras de registro", "Rebalses, sedimento acumulado y conexiones mal hechas."),
-               ("Ramales de departamentos", "Para saber si una filtración viene del departamento o de la red común."),
+               ("Ramales de departamentos", "Para saber si una filtración de desagüe viene del departamento o de la red común."),
                ("Ductos de cocina", "Grasa solidificada que reduce el diámetro del ducto."),
                ("Después de una reparación", "Para comprobar que el trabajo quedó bien antes de pagarlo.")],
     recibe=[("Inspección con cámara", "Recorremos la red por dentro desde las cámaras de registro, rejillas o shafts, sin picar."),
@@ -487,7 +487,7 @@ EMPRESAS = dict(
            ("Inspeccionamos", "Entramos con la cámara y recorremos los tramos acordados. Usted puede ver la pantalla en terreno."),
            ("Informamos", "Le enviamos el informe con fotos y el video. Si hay que reparar, la cotización va aparte.")],
     faq=[("¿Sirve el informe para la asamblea o la aseguradora?", "Sí. Incluye fotos, video y la ubicación de cada hallazgo por tramo, que es lo que suelen pedir el comité y las aseguradoras."),
-         ("¿Pueden determinar si una filtración es del departamento o de la red común?", "En muchos casos sí: recorremos el ramal del departamento hasta la bajada general y vemos de qué lado está el daño.")] + COMMON_FAQ,
+         ("¿Pueden determinar si una filtración de desagüe es del departamento o de la red común?", "En muchos casos sí: recorremos el ramal del departamento hasta la bajada general y vemos de qué lado está el daño.")] + COMMON_FAQ,
     form_h="Pida su cotización",
 )
 
