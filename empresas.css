@@ -2477,3 +2477,13 @@ input:focus, textarea:focus, select:focus {
   background: rgba(0, 240, 255, 0.25);
   color: #fff;
 }
+
+/* ---------- Ajustes para empresas.html y comunas ---------- */
+.casosGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:40px}
+.caso-thumb{display:block;width:100%;height:auto;aspect-ratio:1024/478;object-fit:cover}
+.site-header.is-open .nav-mobile[hidden]{display:block}
+.casosGrid .caso{grid-column:auto;min-height:0;border-radius:var(--radius,16px);background:var(--bg-white,#fff);border:1px solid var(--border-light,#e2e8f0)}
+.casosGrid .caso-thumb{height:auto;transition:none}
+.casosGrid .caso:hover .caso-thumb{transform:none}
+.casosGrid .caso-info{margin-top:0;padding:20px 22px 24px;background:none}
+.casosGrid .caso-tag{color:#0e7490;background:rgba(6,182,212,.10);border-color:rgba(6,182,212,.25)}
