@@ -1965,3 +1965,4 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 /* ---------- Íconos de línea en lugar de emojis ---------- */
 .form-card__icon svg, .intent-card__icon svg { display: block; margin: 0 auto; color: var(--accent); }
 .icon-badge { width: 52px; height: 52px; margin: 0 auto 12px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--accent-muted); color: var(--accent-hover); }
+.section.blog-main { padding-top: calc(var(--header-height) + 48px); }
