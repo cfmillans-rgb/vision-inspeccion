@@ -220,7 +220,7 @@ function animateCounters() {
     mobileNav.addEventListener("click", e => {
       if (e.target && e.target.matches("a, button")) closeMobile();
     });
-    window.addEventListener("resize", () => { if (window.innerWidth > 860) closeMobile(); });
+    window.addEventListener("resize", () => { if (window.innerWidth > 1080) closeMobile(); });
   }
 })();
 
