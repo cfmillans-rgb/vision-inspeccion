@@ -119,7 +119,7 @@ function trackEvent(name, params = {}) {
 function bindWhatsAppButtons() {
   document.querySelectorAll("[data-whatsapp]").forEach(btn => {
     btn.addEventListener("click", () => {
-      const msg = btn.getAttribute("data-message") || "Hola, quiero consultar por una revisión de aguas lluvias.";
+      const msg = btn.getAttribute("data-message") || "Hola, quiero pedir una visita técnica para revisar las aguas lluvias.";
       trackEvent("click_whatsapp", { placement: btn.getAttribute("data-placement") || "unknown", page: location.pathname });
       window.open(buildWhatsAppLink(msg), "_blank", "noopener,noreferrer");
     });

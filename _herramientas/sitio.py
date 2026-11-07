@@ -22,8 +22,8 @@ WA = "56959492372"
 TEL = "+56959492372"
 TEL_VISIBLE = "+56 9 5949 2372"
 EMAIL = "hola@visioninspeccion.cl"
-CSS_VER = "11"
-JS_VER = "8"
+CSS_VER = "12"
+JS_VER = "9"
 OG_IMG = "https://visioninspeccion.cl/assets/og-aguas-lluvias.png"  # 1200 x 630
 
 def fonts(p):
@@ -145,12 +145,12 @@ def contact_bits(msg):
 </div>'''
 
 
-MSG_DEFAULT = "Hola, quiero consultar por una revisión de aguas lluvias."
+MSG_DEFAULT = "Hola, quiero pedir una visita técnica para revisar las aguas lluvias."
 MSG = {
     "index.html": MSG_DEFAULT,
-    "constructoras.html": "Hola, soy de una constructora o inmobiliaria y quiero consultar por una revisión de aguas lluvias.",
-    "danos-por-temporal.html": "Hola, tuvimos daños por lluvia y quiero consultar por una revisión de aguas lluvias.",
-    "empresas.html": "Hola, administro un edificio o condominio y quiero consultar por una revisión de aguas lluvias.",
+    "constructoras.html": "Hola, soy de una constructora o inmobiliaria y quiero pedir una visita técnica para revisar las aguas lluvias.",
+    "danos-por-temporal.html": "Hola, tuvimos daños por lluvia y quiero pedir una visita técnica para revisar las aguas lluvias.",
+    "empresas.html": "Hola, administro un edificio o condominio y quiero pedir una visita técnica para revisar las aguas lluvias.",
 }
 
 
@@ -186,7 +186,7 @@ def apply_chrome(rel):
     msg = MSG.get(rel, MSG_DEFAULT)
     if rel.startswith("comunas/"):
         name = dict(COMUNAS)[pathlib.Path(rel).stem]
-        msg = f"Hola, quiero consultar por una revisión de aguas lluvias en {name}."
+        msg = f"Hola, quiero pedir una visita técnica para revisar las aguas lluvias en {name}."
     s = s.replace("</footer>", "</footer>\n\n" + contact_bits(msg), 1)
     # sin líneas en blanco acumuladas entre la barra móvil y lo que sigue (antes crecían en cada ejecución)
     s = re.sub(r'(?s)(<div class="sticky-mobile-bar">.*?</button>\s*</div>)\s*', lambda m: m.group(1) + "\n\n", s, count=1)
@@ -346,9 +346,9 @@ def form_section(heading, sub=None, p="./", preset=None):
 COMMON_FAQ = [
     ("¿Qué incluye la inspección?", "Recorrido con cámara de las bajadas, drenes o tramos acordados, video completo, fotos de cada hallazgo, en qué tramo y a cuántos metros está cada problema, y la recomendación. Todo va en un informe revisado por un ingeniero en construcción."),
     ("¿Cuándo conviene revisar?", "Lo ideal es en primavera o verano, con tiempo para limpiar o reparar antes de las lluvias. También después de un temporal, si aparecieron filtraciones o anegamientos."),
-    ("¿Me pueden orientar antes de la visita?", "Envíenos por WhatsApp fotos o un video corto de la mancha, el embudo, la bajada o el sumidero, e intentaremos orientarle."),
     ("¿Pueden indicar dónde está el problema?", "Indicamos en qué tramo está y a cuántos metros del punto de acceso, según las marcas del cable. Con eso la reparación se hace solo en esa zona."),
-    ("¿Cuánto cuesta la visita técnica?", "$35.000 + IVA. Un ingeniero en construcción revisa el caso en terreno y, con lo que ve, le enviamos la cotización de la inspección. Si la contrata, el valor de la visita se descuenta."),
+    ("¿Cuánto cuesta la visita técnica?", "$35.000 + IVA, y se descuenta del valor de la inspección si la contrata. En la visita, un ingeniero en construcción revisa el caso en terreno y, con lo que ve, le entregamos el valor de la inspección."),
+    ("¿Me pueden dar un valor por WhatsApp?", "No. El valor de la inspección depende de los accesos, de los metros por recorrer y del estado de la red, y eso se ve en terreno; por eso partimos con la visita técnica. Si quiere, envíenos por WhatsApp fotos o un video corto de la mancha, el embudo, la bajada o el sumidero, e intentaremos orientarle sobre qué revisar."),
     ("¿Qué necesitan para la visita?", "Acceso a la cubierta, los embudos, los registros, los sumideros o las cámaras que haya que revisar, y coordinación con la conserjería si es un edificio."),
     ("¿Qué documento emiten?", "Por ahora emitimos boleta de honorarios."),
     ("¿En qué comunas trabajan?", "En toda la Región Metropolitana, la V Región y la VI Región. Escríbanos su comuna y confirmamos disponibilidad."),
@@ -363,12 +363,31 @@ def items_html(items):
       </div>""" for t, x in items)
 
 
+VISITA_PRECIO = '<p class="ed-pasos__precio"><strong>$35.000 + IVA</strong>, que se descuenta del valor de la inspección si la contrata.</p>'
+
+# Por qué no hay valores por WhatsApp, bajo los pasos de las páginas de servicio y comuna
+NOTA_VALOR = ('El valor de la inspección depende de los accesos, de los metros de bajadas y drenes por recorrer y del estado de la red, '
+              'y eso se ve en terreno: por eso no lo damos por WhatsApp ni con fotos. Más detalle en '
+              '<a href="{p}blog/cuanto-cuesta-videoinspeccion-tuberias.html">qué determina el valor de la inspección</a>.')
+
+
 def pasos_html(items):
-    lis = "\n".join(f"""        <li>
+    """Pasos del servicio. El primero es siempre la visita técnica: va destacada, con su precio y el botón para pedirla."""
+    lis = []
+    for i, (t, x) in enumerate(items):
+        if i == 0:
+            lis.append(f"""        <li id="precio" class="ed-pasos__visita">
+          <h3>{t}</h3>
+          {VISITA_PRECIO}
+          <p>{x}</p>
+          <a class="ed-btn ed-btn--primary" href="#formulario">Pedir visita técnica</a>
+        </li>""")
+        else:
+            lis.append(f"""        <li>
           <h3>{t}</h3>
           <p>{x}</p>
-        </li>""" for t, x in items)
-    return f'      <ol class="ed-pasos">\n{lis}\n      </ol>'
+        </li>""")
+    return '      <ol class="ed-pasos">\n' + "\n".join(lis) + '\n      </ol>'
 
 
 def ed_section(sid, title, sub, body, extra_class=""):
@@ -398,7 +417,6 @@ def landing(rel, d):
     faq = d["faq"]
     h1 = (d.get("h1_full") or f'{d["h1"]} {d["h1_accent"]}').rstrip(".")
     lead = "\n      ".join(f'<p class="ed-hero__lead">{x}</p>' for x in d["hero_desc"])
-    fotos = d.get("msg_fotos", "Hola, no sé bien qué necesito revisar. Les envío fotos de lo que está pasando.")
     intro = f'      <p class="ed-sec__intro">{d["intro"]}</p>\n' if d.get("intro") else ""
     extra = "\n\n".join(ed_section(x["id"], x["title"], x.get("sub"), items_html(x["items"]) + nota(x.get("nota")))
                         for x in d.get("extra", []))
@@ -408,7 +426,7 @@ def landing(rel, d):
         ed_section("servicio", d.get("recibe_titulo", "Qué recibe"), d.get("recibe_sub", "Lo mismo en cada inspección."), items_html(d["recibe"])),
         extra,
         ed_section("proceso", d.get("pasos_titulo", "Cómo trabajamos"), d.get("pasos_sub", "Del primer mensaje al informe."),
-                   pasos_html(d["pasos"]) + nota(d.get("nota_pasos"))),
+                   pasos_html(d["pasos"]) + nota(d.get("nota_pasos", NOTA_VALOR.format(p=p)))),
         ed_section("faq", d.get("faq_titulo", "Preguntas frecuentes"),
                    f'Más respuestas en nuestras <a href="{p}blog/index.html">guías de aguas lluvias</a>.', faq_html(faq), "ed-faq"),
         form_section(d["form_h"], None, p, d.get("preset")),
@@ -454,7 +472,7 @@ def landing(rel, d):
         <a class="ed-btn ed-btn--primary" href="#formulario">Pedir visita técnica</a>
         <a class="ed-btn ed-btn--line" href="tel:{TEL}" data-call data-placement="hero">Llamar al {TEL_VISIBLE}</a>
       </div>
-      <p class="ed-hero__note">La visita técnica cuesta $35.000 + IVA y se descuenta si contrata la inspección. ¿No sabe qué necesita? <button type="button" class="ed-link" data-whatsapp data-placement="hero_fotos" data-message="{fotos}">Envíenos fotos por WhatsApp</button> e intentaremos orientarle.</p>
+      <p class="ed-hero__note"><strong>Visita técnica: $35.000 + IVA</strong>, que se descuenta del valor de la inspección si la contrata.</p>
     </div>
     <div class="ed-hero__visual">
       {esquema_figure(d["caption"])}
@@ -497,7 +515,7 @@ EMPRESAS = dict(
     recibe=[("Inspección con cámara", "Recorremos bajadas y drenes por dentro desde embudos, registros, sumideros o cámaras, sin picar."),
             ("Informe revisado por un ingeniero", "Fotos y video de cada tramo, a cuántos metros del acceso está cada problema y qué se recomienda. Sirve para el comité o la asamblea."),
             ("Prioridades para la mantención", "Qué conviene limpiar o reparar primero y qué puede esperar, para llegar al invierno con el sistema revisado.")],
-    pasos=[("Visita técnica", "Un ingeniero en construcción revisa en terreno el caso y los accesos, coordinado con la administración o la conserjería. Si contrata la inspección, la visita se descuenta."),
+    pasos=[("Visita técnica", "Un ingeniero en construcción revisa en terreno el caso y los accesos, coordinado con la administración o la conserjería. Con lo que ve, le entregamos el valor de la inspección."),
            ("Inspeccionamos", "Entramos con la cámara y recorremos los tramos acordados. Usted puede ver la pantalla en terreno."),
            ("Informamos", "Le enviamos el informe con fotos, el video del recorrido y las recomendaciones.")],
     faq=[("¿Sirve el informe para la asamblea?", "Sí. Incluye fotos, video y la ubicación de cada hallazgo por tramo, para que el comité decida con evidencia."),
@@ -527,7 +545,7 @@ DANOS = dict(
     recibe=[("Video del recorrido", "El recorrido completo de la cámara por los tramos revisados, en formato digital."),
             ("Fotos y estado de cada tramo", "Una foto de cada hallazgo, con su descripción y lo que conviene reparar primero."),
             ("Ubicación por tramo", "En qué tramo está cada hallazgo y a cuántos metros del punto de acceso, según las marcas del cable.")],
-    pasos=[("Visita técnica", "Un ingeniero en construcción revisa los daños y los accesos. Cuesta $35.000 + IVA y se descuenta si contrata la inspección."),
+    pasos=[("Visita técnica", "Un ingeniero en construcción revisa los daños y los accesos. Con lo que ve, le entregamos el valor de la inspección."),
            ("Inspeccionamos", "Recorremos con la cámara los tramos relacionados con el daño y grabamos todo el recorrido."),
            ("Informamos", "Le enviamos el informe en PDF y el video, con lo que conviene reparar y en qué tramo.")],
     faq=[("¿Pueden revisar si ya se limpió o se reparó?", "Sí, pero conviene revisar antes de intervenir: así queda registro de cómo estaba el sistema cuando ocurrió el daño."),
@@ -535,7 +553,6 @@ DANOS = dict(
     form_h="Pida una visita técnica",
     preset={"necesidad": "Daños después de una lluvia"},
     nota_revisamos="Revise antes de reparar: con la primera intervención se pierde el registro de cómo estaba el sistema.",
-    msg_fotos="Hola, tuvimos daños por lluvia. Les envío fotos de lo que está pasando.",
 )
 
 
@@ -554,7 +571,6 @@ CONSTRUCTORAS = dict(
     h1_full="Aguas lluvias documentadas antes, durante y después de la obra",
     hero_desc=["Revisamos con cámara bajadas, drenes, cámaras decantadoras y sumideros, y entregamos un informe técnico con video para la recepción de obra, el respaldo ante propietarios y la gestión de postventa."],
     caption="Esquema de un sistema de aguas lluvias: los puntos que conviene revisar antes de la entrega.",
-    msg_fotos="Hola, soy de una constructora o inmobiliaria. Les envío fotos de lo que está pasando.",
     revisamos_titulo="¿Por qué revisar las aguas lluvias de una obra?",
     intro="Una bajada embutida o un dren bajo el relleno son de los sistemas más caros de reparar cuando el edificio ya está terminado. Documentar su estado en cada etapa protege a la empresa y reduce los reclamos después del primer invierno.",
     revisamos=[("Recepción de obra", "Documente el estado de bajadas, drenes y sumideros antes de la recepción. El informe visual complementa la carpeta técnica y deja registro del estado real del sistema al momento de la entrega."),
@@ -576,19 +592,19 @@ CONSTRUCTORAS = dict(
                        ("Drenes aplastados por el relleno", "Tubos deformados por compactación o tránsito de maquinaria. Se detectan antes de que el sistema entre en servicio.")],
                 nota="Detectar un defecto antes de la entrega cuesta una fracción de repararlo después.")],
     pasos_titulo="Cómo trabajamos con constructoras", pasos_sub="De la visita técnica al informe para la carpeta de obra.",
-    pasos=[("Visita técnica", "Un ingeniero en construcción revisa el proyecto, los accesos y el alcance. Con eso le enviamos la cotización de la inspección; si la contrata, la visita se descuenta."),
+    pasos=[("Visita técnica", "Un ingeniero en construcción revisa el proyecto, los accesos y el alcance. Con eso le entregamos el valor de la inspección."),
            ("Coordinación", "Agendamos la inspección según el calendario de obra. Nos adaptamos a los horarios de faena y a los accesos disponibles."),
            ("Inspección", "Recorremos bajadas y drenes con cámara HD sumergible (IP68) y grabamos el recorrido completo."),
            ("Informe", "Informe técnico en PDF y video del recorrido, listos para la carpeta de obra o la postventa.")],
     faq_titulo="Preguntas frecuentes de constructoras",
     faq=[("¿El informe sirve para la recepción municipal?", "El informe documenta con video y fotografías el estado interno de bajadas y drenes. Es un respaldo técnico de referencia que puede complementar la documentación de recepción. Consulte con su ITO o con la DOM los requisitos específicos de su proyecto."),
          ("¿Pueden inspeccionar antes de la entrega a los propietarios?", "Sí. La inspección pre-entrega documenta el estado del sistema de aguas lluvias antes de transferir la responsabilidad al comprador. Esto protege a la constructora ante reclamos posteriores por vicios ocultos."),
-         ("¿Trabajan con volumen de unidades?", "Sí. Para proyectos con varios edificios, etapas o lotes, ofrecemos tarifas por volumen y programación de inspecciones por etapa. Contáctenos para recibir una propuesta adaptada a su proyecto."),
+         ("¿Trabajan con volumen de unidades?", "Sí. Para proyectos con varios edificios, etapas o lotes, ofrecemos tarifas por volumen y programación de inspecciones por etapa. Después de la visita técnica le enviamos una propuesta para su proyecto."),
          ("¿Qué documento emiten?", "Por ahora emitimos boleta de honorarios."),
-         ("¿Cuánto toma inspeccionar un edificio completo?", "Depende de la cantidad de bajadas, de los metros de dren y de los accesos. Al cotizar le proponemos un calendario de inspección según su proyecto."),
+         ("¿Cuánto toma inspeccionar un edificio completo?", "Depende de la cantidad de bajadas, de los metros de dren y de los accesos. Después de la visita técnica le proponemos un calendario de inspección según su proyecto."),
          ("¿Qué pasa si encuentran un problema?", "El informe documenta en qué tramo está, qué se encontró y una recomendación técnica. La decisión de intervenir es siempre del cliente."),
-         ("¿Me pueden orientar antes de la visita?", "Envíenos por WhatsApp fotos o un video corto del embudo, la bajada, el sumidero o la zona con problemas, e intentaremos orientarle."),
-         ("¿Cuánto cuesta la visita técnica?", "$35.000 + IVA. Un ingeniero en construcción revisa el proyecto en terreno y, con lo que ve, le enviamos la cotización de la inspección. Si la contrata, el valor de la visita se descuenta.")],
+         ("¿Cuánto cuesta la visita técnica?", "$35.000 + IVA, y se descuenta del valor de la inspección si la contrata. En la visita, un ingeniero en construcción revisa el proyecto en terreno y, con lo que ve, le entregamos el valor de la inspección."),
+         ("¿Me pueden dar un valor por WhatsApp?", "No. El valor de la inspección depende de los accesos, de los metros por recorrer y del estado de la red, y eso se ve en terreno; por eso partimos con la visita técnica. Si quiere, envíenos por WhatsApp fotos o un video corto del embudo, la bajada, el sumidero o la zona con problemas, e intentaremos orientarle sobre qué revisar.")],
     form_h="Pida una visita técnica para su proyecto",
     preset={"recinto": "Obra o inmobiliaria"},
 )
@@ -635,7 +651,7 @@ def comuna_data(slug, name):
         h1_full=f"Videoinspección de aguas lluvias en {name}, con cámara y sin romper",
         hero_desc=[p1, p2],
         caption="Esquema de un sistema de aguas lluvias: los puntos que revisamos con la cámara.",
-        msg=f"Hola, quiero consultar por una revisión de aguas lluvias en {name}.",
+        msg=f"Hola, quiero pedir una visita técnica para revisar las aguas lluvias en {name}.",
         revisamos_titulo="Qué detectamos",
         revisamos_sub="Lo que aparece cuando se miran bajadas y drenes por dentro.",
         revisamos=[("Obstrucciones", "Hojas, barro, nidos o restos de obra que reducen el paso del agua."),
@@ -647,7 +663,7 @@ def comuna_data(slug, name):
         recibe=[("Inspección con cámara", "Entramos por un embudo, un registro, un sumidero o una cámara, y recorremos la tubería por dentro, sin picar."),
                 ("Informe revisado por un ingeniero", "Fotos y video de cada tramo, a cuántos metros del acceso está cada problema y qué se recomienda."),
                 ("Prioridades para la mantención", "Qué conviene limpiar o reparar primero, para llegar al invierno con el sistema revisado.")],
-        pasos=[("Visita técnica", f"Coordinamos una visita en {name}: un ingeniero en construcción revisa el caso y los accesos. Si contrata la inspección, la visita se descuenta."),
+        pasos=[("Visita técnica", f"Coordinamos una visita en {name}: un ingeniero en construcción revisa el caso y los accesos. Con lo que ve, le entregamos el valor de la inspección."),
                ("Inspeccionamos", "Entramos con la cámara y recorremos bajadas y drenes. Usted ve en la pantalla lo mismo que nosotros."),
                ("Informamos", "Le enviamos el informe con fotos, el video del recorrido y las recomendaciones.")],
         faq=COMMON_FAQ,
@@ -683,7 +699,7 @@ def page_404():
   <div class="ed-wrap">
     <div class="ed-acciones">
       <a class="ed-btn ed-btn--primary" href="./index.html">Ir al inicio</a>
-      <button class="ed-btn ed-btn--line" type="button" data-whatsapp data-placement="404" data-message="Hola, quiero consultar por una revisión de aguas lluvias.">Escribir por WhatsApp</button>
+      <button class="ed-btn ed-btn--line" type="button" data-whatsapp data-placement="404" data-message="Hola, quiero pedir una visita técnica para revisar las aguas lluvias.">Escribir por WhatsApp</button>
     </div>
   </div>
 </section>
