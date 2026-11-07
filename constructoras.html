@@ -18,13 +18,13 @@
 <meta content="summary_large_image" name="twitter:card"/>
 <link rel="preload" href="./assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" href="./assets/fonts/space-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin/>
-<link href="./styles.css?v=8" rel="stylesheet"/>
+<link href="./styles.css?v=9" rel="stylesheet"/>
 
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "Service",
   "name": "Inspección de aguas lluvias para constructoras e inmobiliarias",
-  "description": "Videoinspección de bajadas de aguas lluvias, drenes, cámaras decantadoras y sumideros para recepción de obra, pre-entrega, postventa y seguros.",
+  "description": "Videoinspección de bajadas de aguas lluvias, drenes, cámaras decantadoras y sumideros para recepción de obra, pre-entrega y postventa.",
   "provider": {
     "@type": "LocalBusiness",
     "name": "Visión Inspección",
@@ -71,10 +71,10 @@
     },
     {
       "@type": "Question",
-      "name": "¿Emiten factura?",
+      "name": "¿Qué documento emiten?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sí. Emitimos factura electrónica a nombre de la empresa. También podemos trabajar con orden de compra si su proceso lo requiere."
+        "text": "Por ahora emitimos boleta de honorarios."
       }
     },
     {
@@ -95,18 +95,18 @@
     },
     {
       "@type": "Question",
-      "name": "¿Me pueden orientar antes de cotizar?",
+      "name": "¿Me pueden orientar antes de la visita?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sí, sin costo. Envíenos por WhatsApp fotos o un video corto del embudo, la bajada, el sumidero o la zona con problemas, y le decimos si corresponde una inspección con cámara."
+        "text": "Envíenos por WhatsApp fotos o un video corto del embudo, la bajada, el sumidero o la zona con problemas, e intentaremos orientarle."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Pueden ir a ver antes de la inspección?",
+      "name": "¿Cuánto cuesta la visita técnica?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sí, si lo prefiere. Un ingeniero en construcción hace una visita previa por $30.000 para revisar su caso y orientarle. Si usted quiere y el caso lo permite, hacemos la videoinspección en esa misma visita. Si contrata la videoinspección, los $30.000 se descuentan."
+        "text": "$35.000 + IVA. Un ingeniero en construcción revisa el proyecto en terreno y, con lo que ve, le enviamos la cotización de la inspección. Si la contrata, el valor de la visita se descuenta."
       }
     }
   ]
@@ -121,18 +121,20 @@
 <header class="site-header" data-header>
   <div class="site-header__inner container container--wide">
     <a class="site-header__logo" href="./index.html">
-      <img alt="Visión Inspección" class="brand-logo" src="./assets/logo-sin-fondo.png" width="216" height="40" style="height: 40px; width: auto;"/>
+      <img alt="Visión Inspección" class="brand-logo brand-logo--claro" src="./assets/logo-sin-fondo.png" width="216" height="40" style="height: 40px; width: auto;"/>
+      <img alt="Visión Inspección" class="brand-logo brand-logo--oscuro" src="./assets/logo-oscuro.png" width="216" height="40" style="height: 40px; width: auto;"/>
     </a>
     <nav class="site-header__nav" id="mobileNav" aria-label="Navegación principal">
       <a class="site-header__nav-link" href="./index.html#proceso">Cómo funciona</a>
       <a class="site-header__nav-link" href="./empresas.html">Edificios</a>
       <a class="site-header__nav-link" href="./constructoras.html" aria-current="page">Constructoras</a>
-      <a class="site-header__nav-link" href="./seguros.html">Seguros</a>
+      <a class="site-header__nav-link" href="./danos-por-temporal.html">Daños por lluvia</a>
       <a class="site-header__nav-link" href="./index.html#precio">Precio</a>
       <a class="site-header__nav-link" href="./blog/index.html">Blog</a>
     </nav>
     <div class="site-header__cta">
-      <a class="btn btn--primary" href="#formulario">Pedir cotización</a>
+      <a class="site-header__tel" href="tel:+56959492372" data-call data-placement="header">+56 9 5949 2372</a>
+      <a class="btn btn--primary" href="#formulario">Pedir visita técnica</a>
     </div>
     <button class="site-header__toggle nav-toggle" aria-expanded="false" aria-label="Abrir menú">
       <span class="site-header__toggle-icon"></span>
@@ -151,14 +153,14 @@
         <h1 class="hero__title" id="heroHeading">Aguas lluvias documentadas<br><span class="text-accent">antes, durante y después de la obra.</span></h1>
         <p class="hero__desc">Revisamos con cámara bajadas, drenes, cámaras decantadoras y sumideros, y entregamos un informe técnico con video para la recepción de obra, el respaldo ante propietarios y la gestión de postventa.</p>
         <div class="hero__actions">
-          <a class="btn btn--primary btn--lg" href="#formulario">Pedir cotización</a>
-          <button class="btn btn--ghost" type="button" data-whatsapp data-placement="hero" data-message="Hola, soy de una constructora o inmobiliaria y quiero cotizar una inspección de aguas lluvias.">Escribir por WhatsApp</button>
+          <a class="btn btn--primary btn--lg" href="#formulario">Pedir visita técnica</a>
+          <a class="btn btn--ghost" href="tel:+56959492372" data-call data-placement="hero">Llamar al +56 9 5949 2372</a>
         </div>
-        <p class="hero__microcopy">✓ Factura electrónica · ✓ Orden de compra · ✓ Tarifas por volumen</p>
+        <p class="hero__microcopy">✓ Visita técnica de un ingeniero · ✓ Informe en PDF con video · ✓ Tarifas por volumen</p>
       </div>
       <div class="hero__visual">
         <figure class="esquema">
-          <svg class="esquema__svg" viewBox="0 0 480 488" role="img" aria-labelledby="esquemaT esquemaD"><title id="esquemaT">Esquema de un sistema de aguas lluvias</title><desc id="esquemaD">Edificio con embudo en la cubierta, bajada con registro, cámara decantadora, dren y sumidero. El punto celeste representa la cámara que recorre la bajada.</desc><defs><pattern id="eGrava" width="8" height="8" patternUnits="userSpaceOnUse"><rect class="e-fondo" width="8" height="8"/><circle class="e-relleno" cx="2" cy="2" r="1.1"/><circle class="e-relleno" cx="6" cy="6" r="1.1"/></pattern><pattern id="eSedimento" width="5" height="5" patternUnits="userSpaceOnUse"><circle class="e-relleno" cx="2.5" cy="2.5" r="1"/></pattern></defs><path class="e-lluvia" d="M40 2l-6 12M84 6l-6 12M128 0l-6 12M166 8l-6 12M262 4l-6 12M306 0l-6 12M350 6l-6 12M394 2l-6 12M438 8l-6 12"/><rect class="e-edificio" x="70" y="30" width="160" height="300"/><path class="e-pisos" d="M70 60H230M70 90H230M70 120H230M70 150H230M70 180H230M70 210H230M70 240H230M70 270H230M70 300H230"/><path class="e-ventanas" d="M86 40h18v9h-18zM121 40h18v9h-18zM156 40h18v9h-18zM191 40h18v9h-18zM86 70h18v9h-18zM121 70h18v9h-18zM156 70h18v9h-18zM191 70h18v9h-18zM86 100h18v9h-18zM121 100h18v9h-18zM156 100h18v9h-18zM191 100h18v9h-18zM86 130h18v9h-18zM121 130h18v9h-18zM156 130h18v9h-18zM191 130h18v9h-18zM86 160h18v9h-18zM121 160h18v9h-18zM156 160h18v9h-18zM191 160h18v9h-18zM86 190h18v9h-18zM121 190h18v9h-18zM156 190h18v9h-18zM191 190h18v9h-18zM86 220h18v9h-18zM121 220h18v9h-18zM156 220h18v9h-18zM191 220h18v9h-18zM86 250h18v9h-18zM121 250h18v9h-18zM156 250h18v9h-18zM191 250h18v9h-18zM86 280h18v9h-18zM121 280h18v9h-18zM156 280h18v9h-18zM191 280h18v9h-18zM86 310h18v9h-18zM191 310h18v9h-18zM136 306h28v24h-28z"/><path class="e-cubierta" d="M64 30H236"/><path class="e-tierra" d="M8 331l-6 8M22 331l-6 8M36 331l-6 8M50 331l-6 8M64 331l-6 8M78 331l-6 8M92 331l-6 8M106 331l-6 8M120 331l-6 8M134 331l-6 8M148 331l-6 8M162 331l-6 8M176 331l-6 8M190 331l-6 8M204 331l-6 8M218 331l-6 8M232 331l-6 8M284 331l-6 8M298 331l-6 8M372 331l-6 8M386 331l-6 8M400 331l-6 8M446 331l-6 8M460 331l-6 8M474 331l-6 8"/><path class="e-suelo" d="M0 330H480"/><path class="e-agua" d="M222 33V40H246V316Q246 346 276 346H300"/><path class="e-pieza" d="M213 24h18l-6 9h-6z"/><path class="e-abrazadera" d="M240 72h12M240 132h12M240 192h12M240 252h12"/><rect class="e-pieza" x="240" y="290" width="12" height="16" rx="1"/><path class="e-escala" d="M256 40h7M256 140h7M256 240h7"/><text class="e-escala-txt" x="267" y="44">0 m</text><text class="e-escala-txt" x="267" y="144">10 m</text><text class="e-escala-txt" x="267" y="244">20 m</text><g class="e-cam"><circle class="e-cam__halo" cx="246" cy="150" r="11"/><circle class="e-cam__ojo" cx="246" cy="150" r="4.5"/></g><rect class="e-pieza" x="300" y="336" width="54" height="58" rx="1"/><rect class="e-sedimento" x="301.5" y="377" width="51" height="15.5"/><path class="e-agua" d="M354 353H368"/><rect class="e-zanja" x="366" y="340" width="108" height="26"/><path class="e-agua e-agua--dren" d="M368 353H472"/><path class="e-agua" d="M420 333V340"/><rect class="e-pieza" x="406" y="325" width="28" height="8" rx="1"/><path class="e-rejilla" d="M412 325v8M418 325v8M424 325v8M430 325v8"/><g class="e-num"><circle cx="196" cy="18" r="10"/><text x="196" y="18">1</text></g><g class="e-num"><circle cx="284" cy="190" r="10"/><text x="284" y="190">2</text></g><g class="e-num"><circle cx="276" cy="298" r="10"/><text x="276" y="298">3</text></g><g class="e-num"><circle cx="286" cy="382" r="10"/><text x="286" y="382">4</text></g><g class="e-num"><circle cx="420" cy="386" r="10"/><text x="420" y="386">5</text></g><g class="e-num"><circle cx="420" cy="306" r="10"/><text x="420" y="306">6</text></g><g class="e-leyenda"><g class="e-num"><circle cx="21" cy="427.5" r="9"/><text x="21" y="427.5">1</text></g><text x="38" y="432">Embudo y canaleta</text><g class="e-num"><circle cx="21" cy="449.5" r="9"/><text x="21" y="449.5">2</text></g><text x="38" y="454">Bajada</text><g class="e-num"><circle cx="21" cy="471.5" r="9"/><text x="21" y="471.5">3</text></g><text x="38" y="476">Registro</text><g class="e-num"><circle cx="259" cy="427.5" r="9"/><text x="259" y="427.5">4</text></g><text x="276" y="432">Cámara decantadora</text><g class="e-num"><circle cx="259" cy="449.5" r="9"/><text x="259" y="449.5">5</text></g><text x="276" y="454">Dren</text><g class="e-num"><circle cx="259" cy="471.5" r="9"/><text x="259" y="471.5">6</text></g><text x="276" y="476">Sumidero</text></g></svg>
+          <svg class="esquema__svg" viewBox="0 0 480 488" role="img" aria-labelledby="esquemaT esquemaD"><title id="esquemaT">Esquema de un sistema de aguas lluvias</title><desc id="esquemaD">Edificio con embudo en la cubierta, bajada con registro, cámara decantadora, dren y sumidero. El punto representa la cámara que recorre la bajada; la marca a 14 m señala una unión abierta.</desc><defs><pattern id="eGrava" width="8" height="8" patternUnits="userSpaceOnUse"><rect class="e-fondo" width="8" height="8"/><circle class="e-relleno" cx="2" cy="2" r="1.1"/><circle class="e-relleno" cx="6" cy="6" r="1.1"/></pattern><pattern id="eSedimento" width="5" height="5" patternUnits="userSpaceOnUse"><circle class="e-relleno" cx="2.5" cy="2.5" r="1"/></pattern></defs><path class="e-lluvia" d="M40 2l-6 12M84 6l-6 12M128 0l-6 12M166 8l-6 12M262 4l-6 12M306 0l-6 12M350 6l-6 12M394 2l-6 12M438 8l-6 12"/><rect class="e-edificio" x="70" y="30" width="160" height="300"/><path class="e-pisos" d="M70 60H230M70 90H230M70 120H230M70 150H230M70 180H230M70 210H230M70 240H230M70 270H230M70 300H230"/><path class="e-ventanas" d="M86 40h18v9h-18zM121 40h18v9h-18zM156 40h18v9h-18zM191 40h18v9h-18zM86 70h18v9h-18zM121 70h18v9h-18zM156 70h18v9h-18zM191 70h18v9h-18zM86 100h18v9h-18zM121 100h18v9h-18zM156 100h18v9h-18zM191 100h18v9h-18zM86 130h18v9h-18zM121 130h18v9h-18zM156 130h18v9h-18zM191 130h18v9h-18zM86 160h18v9h-18zM121 160h18v9h-18zM156 160h18v9h-18zM191 160h18v9h-18zM86 190h18v9h-18zM121 190h18v9h-18zM156 190h18v9h-18zM191 190h18v9h-18zM86 220h18v9h-18zM121 220h18v9h-18zM156 220h18v9h-18zM191 220h18v9h-18zM86 250h18v9h-18zM121 250h18v9h-18zM156 250h18v9h-18zM191 250h18v9h-18zM86 280h18v9h-18zM121 280h18v9h-18zM156 280h18v9h-18zM191 280h18v9h-18zM86 310h18v9h-18zM191 310h18v9h-18zM136 306h28v24h-28z"/><path class="e-cubierta" d="M64 30H236"/><path class="e-tierra" d="M8 331l-6 8M22 331l-6 8M36 331l-6 8M50 331l-6 8M64 331l-6 8M78 331l-6 8M92 331l-6 8M106 331l-6 8M120 331l-6 8M134 331l-6 8M148 331l-6 8M162 331l-6 8M176 331l-6 8M190 331l-6 8M204 331l-6 8M218 331l-6 8M232 331l-6 8M284 331l-6 8M298 331l-6 8M372 331l-6 8M386 331l-6 8M400 331l-6 8M446 331l-6 8M460 331l-6 8M474 331l-6 8"/><path class="e-suelo" d="M0 330H480"/><path class="e-agua" d="M222 33V40H246V316Q246 346 276 346H300"/><path class="e-pieza" d="M213 24h18l-6 9h-6z"/><path class="e-abrazadera" d="M240 72h12M240 132h12M240 192h12M240 252h12"/><rect class="e-pieza" x="240" y="290" width="12" height="16" rx="1"/><path class="e-escala" d="M256 40h7M256 140h7M256 240h7"/><text class="e-escala-txt" x="267" y="44">0 m</text><text class="e-escala-txt" x="267" y="144">10 m</text><text class="e-escala-txt" x="267" y="244">20 m</text><g class="e-hallazgo"><path d="M237 180h18M257 180h39"/><text x="300" y="184">Unión abierta a 14 m</text></g><g class="e-cam"><circle class="e-cam__halo" cx="246" cy="150" r="11"/><circle class="e-cam__ojo" cx="246" cy="150" r="4.5"/></g><rect class="e-pieza" x="300" y="336" width="54" height="58" rx="1"/><rect class="e-sedimento" x="301.5" y="377" width="51" height="15.5"/><path class="e-agua" d="M354 353H368"/><rect class="e-zanja" x="366" y="340" width="108" height="26"/><path class="e-agua e-agua--dren" d="M368 353H472"/><path class="e-agua" d="M420 333V340"/><rect class="e-pieza" x="406" y="325" width="28" height="8" rx="1"/><path class="e-rejilla" d="M412 325v8M418 325v8M424 325v8M430 325v8"/><g class="e-num"><circle cx="196" cy="18" r="10"/><text x="196" y="18">1</text></g><g class="e-num"><circle cx="284" cy="100" r="10"/><text x="284" y="100">2</text></g><g class="e-num"><circle cx="276" cy="298" r="10"/><text x="276" y="298">3</text></g><g class="e-num"><circle cx="286" cy="382" r="10"/><text x="286" y="382">4</text></g><g class="e-num"><circle cx="420" cy="386" r="10"/><text x="420" y="386">5</text></g><g class="e-num"><circle cx="420" cy="306" r="10"/><text x="420" y="306">6</text></g><g class="e-leyenda"><g class="e-num"><circle cx="21" cy="427.5" r="9"/><text x="21" y="427.5">1</text></g><text x="38" y="432">Embudo y canaleta</text><g class="e-num"><circle cx="21" cy="449.5" r="9"/><text x="21" y="449.5">2</text></g><text x="38" y="454">Bajada</text><g class="e-num"><circle cx="21" cy="471.5" r="9"/><text x="21" y="471.5">3</text></g><text x="38" y="476">Registro</text><g class="e-num"><circle cx="259" cy="427.5" r="9"/><text x="259" y="427.5">4</text></g><text x="276" y="432">Cámara decantadora</text><g class="e-num"><circle cx="259" cy="449.5" r="9"/><text x="259" y="449.5">5</text></g><text x="276" y="454">Dren</text><g class="e-num"><circle cx="259" cy="471.5" r="9"/><text x="259" y="471.5">6</text></g><text x="276" y="476">Sumidero</text></g></svg>
           <figcaption>Esquema de un sistema de aguas lluvias: los puntos que conviene revisar antes de la entrega.</figcaption>
         </figure>
       </div>
@@ -188,8 +190,8 @@
         <p style="line-height: 1.7; color: var(--zinc-600);">Inspeccionar antes de entregar las llaves deja registro del estado del sistema al momento de la transferencia. Si hay un reclamo después de las primeras lluvias, la evidencia ya existe.</p>
       </div>
       <div style="background: var(--white); border: 1px solid var(--zinc-200); border-radius: 12px; padding: 32px;">
-        <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--accent);">Seguros y siniestros</h3>
-        <p style="line-height: 1.7; color: var(--zinc-600);">Ante un siniestro por lluvia, el informe con video documenta el estado del sistema y el tramo donde falló. Sirve para la gestión con la aseguradora o el liquidador.</p>
+        <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--accent);">Después de un temporal</h3>
+        <p style="line-height: 1.7; color: var(--zinc-600);">Si un temporal deja filtraciones o anegamientos en la obra o en un edificio ya entregado, la inspección muestra en qué punto falló el sistema y en qué tramo.</p>
       </div>
       <div style="background: var(--white); border: 1px solid var(--zinc-200); border-radius: 12px; padding: 32px;">
         <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--accent);">Control de calidad en obra</h3>
@@ -241,8 +243,8 @@
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; max-width: 1000px; margin: 0 auto;">
       <div style="text-align: center;">
         <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; margin: 0 auto 16px;">1</div>
-        <h3 style="font-size: 17px; margin-bottom: 8px;">Cotización</h3>
-        <p style="color: var(--zinc-500); font-size: 14px; line-height: 1.6;">Envíe los datos del proyecto: tipo de edificación, número de pisos y bajadas, etapa de la obra y ubicación. Respondemos dentro de 24 horas hábiles con valor y disponibilidad.</p>
+        <h3 style="font-size: 17px; margin-bottom: 8px;">Visita técnica</h3>
+        <p style="color: var(--zinc-500); font-size: 14px; line-height: 1.6;">Un ingeniero en construcción revisa el proyecto, los accesos y el alcance. Con eso le enviamos la cotización de la inspección; si la contrata, la visita se descuenta.</p>
       </div>
       <div style="text-align: center;">
         <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; margin: 0 auto 16px;">2</div>
@@ -257,7 +259,7 @@
       <div style="text-align: center;">
         <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; margin: 0 auto 16px;">4</div>
         <h3 style="font-size: 17px; margin-bottom: 8px;">Informe</h3>
-        <p style="color: var(--zinc-500); font-size: 14px; line-height: 1.6;">Informe técnico en PDF y video del recorrido, listos para la carpeta de obra, la postventa o el seguro.</p>
+        <p style="color: var(--zinc-500); font-size: 14px; line-height: 1.6;">Informe técnico en PDF y video del recorrido, listos para la carpeta de obra o la postventa.</p>
       </div>
     </div>
   </div>
@@ -296,8 +298,8 @@
 <section style="padding: 60px 0; background: linear-gradient(135deg, #070F1E, #18181B); text-align: center;">
   <div class="container">
     <h2 style="color: #fff; font-size: 28px; margin-bottom: 12px;">Detectar un defecto antes de la entrega cuesta una fracción de repararlo después</h2>
-    <p style="color: #a1a1aa; max-width: 600px; margin: 0 auto 24px;">Solicite una cotización para su proyecto. Respuesta dentro de 24 horas hábiles.</p>
-    <a class="btn btn--primary btn--lg" href="#formulario">Pedir cotización</a>
+    <p style="color: #a1a1aa; max-width: 600px; margin: 0 auto 24px;">Pida una visita técnica para su proyecto. Cuesta $35.000 + IVA y se descuenta si contrata la inspección.</p>
+    <a class="btn btn--primary btn--lg" href="#formulario">Pedir visita técnica</a>
   </div>
 </section>
 
@@ -319,8 +321,8 @@
       <div class="faq__content">Sí. Para proyectos con varios edificios, etapas o lotes, ofrecemos tarifas por volumen y programación de inspecciones por etapa. Contáctenos para recibir una propuesta adaptada a su proyecto.</div>
     </details>
     <details class="faq__item" style="margin-bottom: 8px;">
-      <summary class="faq__summary">¿Emiten factura?<div class="faq__icon" style="margin-left: auto;"></div></summary>
-      <div class="faq__content">Sí. Emitimos factura electrónica a nombre de la empresa. También podemos trabajar con orden de compra si su proceso lo requiere.</div>
+      <summary class="faq__summary">¿Qué documento emiten?<div class="faq__icon" style="margin-left: auto;"></div></summary>
+      <div class="faq__content">Por ahora emitimos boleta de honorarios.</div>
     </details>
     <details class="faq__item" style="margin-bottom: 8px;">
       <summary class="faq__summary">¿Cuánto toma inspeccionar un edificio completo?<div class="faq__icon" style="margin-left: auto;"></div></summary>
@@ -331,12 +333,12 @@
       <div class="faq__content">El informe documenta en qué tramo está, qué se encontró y una recomendación técnica. La decisión de intervenir es siempre del cliente.</div>
     </details>
     <details class="faq__item" style="margin-bottom: 8px;">
-      <summary class="faq__summary">¿Me pueden orientar antes de cotizar?<div class="faq__icon" style="margin-left: auto;"></div></summary>
-      <div class="faq__content">Sí, sin costo. Envíenos por WhatsApp fotos o un video corto del embudo, la bajada, el sumidero o la zona con problemas, y le decimos si corresponde una inspección con cámara.</div>
+      <summary class="faq__summary">¿Me pueden orientar antes de la visita?<div class="faq__icon" style="margin-left: auto;"></div></summary>
+      <div class="faq__content">Envíenos por WhatsApp fotos o un video corto del embudo, la bajada, el sumidero o la zona con problemas, e intentaremos orientarle.</div>
     </details>
     <details class="faq__item" style="margin-bottom: 8px;">
-      <summary class="faq__summary">¿Pueden ir a ver antes de la inspección?<div class="faq__icon" style="margin-left: auto;"></div></summary>
-      <div class="faq__content">Sí, si lo prefiere. Un ingeniero en construcción hace una visita previa por $30.000 para revisar su caso y orientarle. Si usted quiere y el caso lo permite, hacemos la videoinspección en esa misma visita. Si contrata la videoinspección, los $30.000 se descuentan.</div>
+      <summary class="faq__summary">¿Cuánto cuesta la visita técnica?<div class="faq__icon" style="margin-left: auto;"></div></summary>
+      <div class="faq__content">$35.000 + IVA. Un ingeniero en construcción revisa el proyecto en terreno y, con lo que ve, le enviamos la cotización de la inspección. Si la contrata, el valor de la visita se descuenta.</div>
     </details>
   </div>
 </section>
@@ -345,8 +347,8 @@
 <section style="padding: 80px 0; background: var(--zinc-50);" id="formulario">
   <div class="container" style="max-width: 600px;">
     <div style="text-align: center; margin-bottom: 40px;">
-      <h2 style="font-size: 32px; margin-bottom: 12px;">Solicitar cotización para su proyecto</h2>
-      <p style="color: var(--zinc-500);">Complete el formulario y recibirá una propuesta dentro de 24 horas hábiles. Sin costo, sin compromiso.</p>
+      <h2 style="font-size: 32px; margin-bottom: 12px;">Pida una visita técnica para su proyecto</h2>
+      <p style="color: var(--zinc-500);">Complete el formulario y le escribiremos por WhatsApp para coordinarla. La visita cuesta $35.000 + IVA y se descuenta si contrata la inspección.</p>
     </div>
 
     <form id="constructorasForm" style="background: var(--white); border: 1px solid var(--zinc-200); border-radius: 12px; padding: 32px;">
@@ -366,7 +368,7 @@
           <option value="Pre-entrega a propietarios">Pre-entrega a propietarios</option>
           <option value="Postventa / reclamo">Postventa / reclamo</option>
           <option value="Control de calidad en obra">Control de calidad en obra</option>
-          <option value="Seguro / siniestro">Seguro / siniestro</option>
+          <option value="Daños por lluvia">Daños por lluvia</option>
           <option value="Otro">Otro</option>
         </select>
       </div>
@@ -378,8 +380,7 @@
         <label for="cf-detalles" style="display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px;">Detalles del proyecto</label>
         <textarea id="cf-detalles" rows="3" placeholder="Tipo de edificación, número de pisos y bajadas, etapa de la obra, etc." style="width: 100%; padding: 12px 16px; border: 1px solid var(--zinc-300); border-radius: 6px; font-size: 15px; box-sizing: border-box; resize: vertical;"></textarea>
       </div>
-      <button type="submit" style="width: 100%; padding: 14px; background: var(--accent); color: #fff; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer;">Pedir cotización</button>
-      <p style="text-align: center; color: var(--zinc-400); font-size: 13px; margin-top: 12px;">Le responderemos por WhatsApp dentro de 24 horas hábiles.</p>
+      <button type="submit" style="width: 100%; padding: 14px; background: var(--accent); color: #fff; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer;">Pedir visita técnica</button>
       <p class="form-privacy">Al enviar se abrirá WhatsApp con estos datos. Los usamos solo para responder su solicitud y coordinar el servicio. Más información en la <a href="./privacidad.html">Política de privacidad</a>.</p>
     </form>
   </div>
@@ -402,7 +403,7 @@
           <li><a href="./index.html">Videoinspección de aguas lluvias</a></li>
           <li><a href="./empresas.html">Edificios y condominios</a></li>
           <li><a href="./constructoras.html">Constructoras e inmobiliarias</a></li>
-          <li><a href="./seguros.html">Informes para seguros</a></li>
+          <li><a href="./danos-por-temporal.html">Daños por temporal</a></li>
           <li><a href="./blog/index.html">Blog</a></li>
         </ul>
       </div>
@@ -417,10 +418,9 @@
       <div>
         <h2 class="site-footer__title">Contacto</h2>
         <ul class="site-footer__list">
-          <li><a href="https://wa.me/56959501190" target="_blank" rel="noopener">WhatsApp +56 9 5950 1190</a></li>
-          <li><a href="tel:+56959501190">Llamar +56 9 5950 1190</a></li>
+          <li><a href="https://wa.me/56959492372" target="_blank" rel="noopener">WhatsApp +56 9 5949 2372</a></li>
+          <li><a href="tel:+56959492372">Llamar +56 9 5949 2372</a></li>
           <li><a href="mailto:hola@visioninspeccion.cl">hola@visioninspeccion.cl</a></li>
-          <li>Lunes a viernes de 8:00 a 19:00<br/>Sábados de 9:00 a 14:00</li>
         </ul>
       </div>
     </div>
@@ -431,16 +431,16 @@
 </footer>
 
 <div class="floating-whatsapp">
-  <button class="btn btn--primary floating-whatsapp__btn" type="button" data-whatsapp data-placement="floating" data-message="Hola, soy de una constructora o inmobiliaria y quiero cotizar una inspección de aguas lluvias.">
+  <button class="btn btn--primary floating-whatsapp__btn" type="button" data-whatsapp data-placement="floating" data-message="Hola, soy de una constructora o inmobiliaria y quiero consultar por una revisión de aguas lluvias.">
     <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.524 5.842L0 24l6.335-1.524A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.796 9.796 0 01-4.994-1.365l-.358-.212-3.76.904.921-3.665-.233-.376A9.797 9.797 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg> Escribir por WhatsApp
   </button>
 </div>
 
 <div class="sticky-mobile-bar">
-  <a href="tel:+56959501190" class="sticky-mobile-bar__btn sticky-mobile-bar__btn--call" data-call data-placement="sticky_bar">
+  <a href="tel:+56959492372" class="sticky-mobile-bar__btn sticky-mobile-bar__btn--call" data-call data-placement="sticky_bar">
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Llamar
   </a>
-  <button type="button" class="sticky-mobile-bar__btn sticky-mobile-bar__btn--wa" data-whatsapp data-placement="sticky_bar" data-message="Hola, soy de una constructora o inmobiliaria y quiero cotizar una inspección de aguas lluvias.">
+  <button type="button" class="sticky-mobile-bar__btn sticky-mobile-bar__btn--wa" data-whatsapp data-placement="sticky_bar" data-message="Hola, soy de una constructora o inmobiliaria y quiero consultar por una revisión de aguas lluvias.">
     <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.524 5.842L0 24l6.335-1.524A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.796 9.796 0 01-4.994-1.365l-.358-.212-3.76.904.921-3.665-.233-.376A9.797 9.797 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg> WhatsApp
   </button>
 </div>
@@ -453,7 +453,13 @@
 
 
 
-<script src="./app.js?v=5"></script>
+
+
+
+
+
+
+<script src="./app.js?v=6"></script>
 <script>
 // Formulario de constructoras -> WhatsApp
 document.getElementById('constructorasForm')?.addEventListener('submit', function(e) {
@@ -463,13 +469,13 @@ document.getElementById('constructorasForm')?.addEventListener('submit', functio
   const tipo = document.getElementById('cf-tipo').value;
   const comuna = document.getElementById('cf-comuna').value.trim();
   const detalles = document.getElementById('cf-detalles').value.trim();
-  const msg = `Solicitud de cotización — Aguas lluvias para constructoras\n\n` +
+  const msg = `Solicitud de visita técnica — Aguas lluvias para constructoras\n\n` +
     `Contacto: ${nombre}\n` +
     `Empresa: ${empresa}\n` +
     `Servicio: ${tipo}\n` +
     `Comuna: ${comuna}\n` +
     `Detalles: ${detalles}`;
-  window.open('https://wa.me/56959501190?text=' + encodeURIComponent(msg), '_blank');
+  window.open('https://wa.me/56959492372?text=' + encodeURIComponent(msg), '_blank');
 });
 </script>
 </body>

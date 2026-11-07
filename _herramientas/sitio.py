@@ -7,7 +7,7 @@ Uso, desde la raíz del repositorio:
     python3 _herramientas/sitio.py
 
 Qué hace:
-  1. Genera empresas.html, comunas/*.html y 404.html con el diseño del inicio.
+  1. Genera empresas.html, danos-por-temporal.html, comunas/*.html y 404.html.
   2. Pone el mismo encabezado, pie, botón flotante, barra móvil, tipografías y hoja de
      estilos en todas las páginas.
 Para cambiar el menú, el pie o una comuna, edite este archivo y vuelva a ejecutarlo.
@@ -18,18 +18,20 @@ import json
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-WA = "56959501190"
-TEL = "+56959501190"
-TEL_VISIBLE = "+56 9 5950 1190"
+WA = "56959492372"
+TEL = "+56959492372"
+TEL_VISIBLE = "+56 9 5949 2372"
 EMAIL = "hola@visioninspeccion.cl"
-CSS_VER = "8"
-JS_VER = "5"
+CSS_VER = "9"
+JS_VER = "6"
 OG_IMG = "https://visioninspeccion.cl/assets/og-aguas-lluvias.png"  # 1200 x 630
 
-def fonts(p):
-    """Las fuentes están en assets/fonts/ (se cargan desde styles.css). Aquí solo se precargan las del primer pantallazo."""
+def fonts(p, ed=False):
+    """Las fuentes están en assets/fonts/ (se cargan desde styles.css). Aquí solo se precargan las del primer pantallazo.
+    Las páginas con diseño editorial (<body class="ed">) usan solo Inter."""
+    titulo = "inter-latin-700-normal" if ed else "space-grotesk-latin-700-normal"
     return (f'<link rel="preload" href="{p}assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>\n'
-            f'<link rel="preload" href="{p}assets/fonts/space-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin/>')
+            f'<link rel="preload" href="{p}assets/fonts/{titulo}.woff2" as="font" type="font/woff2" crossorigin/>')
 
 COMUNAS = [
     ("las-condes", "Las Condes"), ("providencia", "Providencia"), ("nunoa", "Ñuñoa"),
@@ -76,7 +78,7 @@ EMOJI_ICON = {"🏠": "casa", "🏢": "edificio", "🏗️": "obra", "🏗": "ob
 NAV = [("Cómo funciona", "index.html#proceso", None),
        ("Edificios", "empresas.html", "empresas.html"),
        ("Constructoras", "constructoras.html", "constructoras.html"),
-       ("Seguros", "seguros.html", "seguros.html"),
+       ("Daños por lluvia", "danos-por-temporal.html", "danos-por-temporal.html"),
        ("Precio", "index.html#precio", None),
        ("Blog", "blog/index.html", "blog/")]
 
@@ -97,13 +99,15 @@ def header(rel, has_form):
     return (f'<header class="site-header" data-header>\n'
             f'  <div class="site-header__inner container container--wide">\n'
             f'    <a class="site-header__logo" href="{p}index.html">\n'
-            f'      <img alt="Visión Inspección" class="brand-logo" src="{p}assets/logo-sin-fondo.png" width="216" height="40" style="height: 40px; width: auto;"/>\n'
+            f'      <img alt="Visión Inspección" class="brand-logo brand-logo--claro" src="{p}assets/logo-sin-fondo.png" width="216" height="40" style="height: 40px; width: auto;"/>\n'
+            f'      <img alt="Visión Inspección" class="brand-logo brand-logo--oscuro" src="{p}assets/logo-oscuro.png" width="216" height="40" style="height: 40px; width: auto;"/>\n'
             f'    </a>\n'
             f'    <nav class="site-header__nav" id="mobileNav" aria-label="Navegación principal">\n'
             + "\n".join(links) + "\n"
             f'    </nav>\n'
             f'    <div class="site-header__cta">\n'
-            f'      <a class="btn btn--primary" href="{cta}">Pedir cotización</a>\n'
+            f'      <a class="site-header__tel" href="tel:{TEL}" data-call data-placement="header">{TEL_VISIBLE}</a>\n'
+            f'      <a class="btn btn--primary" href="{cta}">Pedir visita técnica</a>\n'
             f'    </div>\n'
             f'    <button class="site-header__toggle nav-toggle" aria-expanded="false" aria-label="Abrir menú">\n'
             f'      <span class="site-header__toggle-icon"></span>\n'
@@ -130,7 +134,7 @@ def footer(rel):
           <li><a href="{p}index.html">Videoinspección de aguas lluvias</a></li>
           <li><a href="{p}empresas.html">Edificios y condominios</a></li>
           <li><a href="{p}constructoras.html">Constructoras e inmobiliarias</a></li>
-          <li><a href="{p}seguros.html">Informes para seguros</a></li>
+          <li><a href="{p}danos-por-temporal.html">Daños por temporal</a></li>
           <li><a href="{p}blog/index.html">Blog</a></li>
         </ul>
       </div>
@@ -148,7 +152,6 @@ def footer(rel):
           <li><a href="https://wa.me/{WA}" target="_blank" rel="noopener">WhatsApp {TEL_VISIBLE}</a></li>
           <li><a href="tel:{TEL}">Llamar {TEL_VISIBLE}</a></li>
           <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
-          <li>Lunes a viernes de 8:00 a 19:00<br/>Sábados de 9:00 a 14:00</li>
         </ul>
       </div>
     </div>
@@ -176,12 +179,12 @@ def contact_bits(msg):
 </div>'''
 
 
-MSG_DEFAULT = "Hola, quiero cotizar una videoinspección de aguas lluvias."
+MSG_DEFAULT = "Hola, quiero consultar por una revisión de aguas lluvias."
 MSG = {
     "index.html": MSG_DEFAULT,
-    "constructoras.html": "Hola, soy de una constructora o inmobiliaria y quiero cotizar una inspección de aguas lluvias.",
-    "seguros.html": "Hola, necesito un informe de aguas lluvias para un siniestro.",
-    "empresas.html": "Hola, administro un edificio o condominio y quiero cotizar una inspección de aguas lluvias.",
+    "constructoras.html": "Hola, soy de una constructora o inmobiliaria y quiero consultar por una revisión de aguas lluvias.",
+    "danos-por-temporal.html": "Hola, tuvimos daños por lluvia y quiero consultar por una revisión de aguas lluvias.",
+    "empresas.html": "Hola, administro un edificio o condominio y quiero consultar por una revisión de aguas lluvias.",
 }
 
 
@@ -221,7 +224,7 @@ LABEL_ICON = {
     # Aguas lluvias
     "Edificio o condominio": "edificio", "Empresa o recinto": "recinto", "Obra o inmobiliaria": "obra",
     "Revisión preventiva": "calendario", "Daños después de una lluvia": "lluvia",
-    "Informe para seguro": "escudo", "Recepción de obra o postventa": "documento",
+    "Informe para seguro": "escudo", "Recepción de obra o postventa": "documento", "No estoy seguro": "lupa",
 }
 
 
@@ -230,11 +233,12 @@ def apply_chrome(rel):
     s = read(rel)
     p = prefix_for(rel)
     has_form = 'id="formulario"' in s
+    ed = bool(re.search(r'<body[^>]*class="[^"]*\bed\b', s))
     # fuentes y hoja de estilos
     s = re.sub(r'\n?[ \t]*<link[^>]*fonts\.(?:googleapis|gstatic)\.com[^>]*>', '', s)
     s = re.sub(r'\n?[ \t]*<link rel="preload" href="[^"]*assets/fonts/[^"]*"[^>]*>', '', s)
     s = re.sub(r'<link href="(?:\./|\.\./)?(?:styles|empresas)\.css(?:\?v=\d+)?" rel="stylesheet"/?>',
-               fonts(p) + f'\n<link href="{p}styles.css?v={CSS_VER}" rel="stylesheet"/>', s, count=1)
+               fonts(p, ed) + f'\n<link href="{p}styles.css?v={CSS_VER}" rel="stylesheet"/>', s, count=1)
     s = re.sub(r'src="(\./|\.\./)?app\.js(\?v=\d+)?"', f'src="{p}app.js?v={JS_VER}"', s)
     # encabezado y pie
     s, n1 = re.subn(r'(?s)<header class="site-header".*?</header>', lambda m: header(rel, has_form), s, count=1)
@@ -247,7 +251,7 @@ def apply_chrome(rel):
     msg = MSG.get(rel, MSG_DEFAULT)
     if rel.startswith("comunas/"):
         name = dict(COMUNAS)[pathlib.Path(rel).stem]
-        msg = f"Hola, quiero cotizar una videoinspección de aguas lluvias en {name}."
+        msg = f"Hola, quiero consultar por una revisión de aguas lluvias en {name}."
     s = s.replace("</footer>", "</footer>\n\n" + contact_bits(msg), 1)
     s = replace_icons(s)
     # Íconos escritos como <i data-icon="nombre"></i> y el esquema de aguas lluvias
@@ -308,7 +312,7 @@ def _esquema_svg():
     return ('<svg class="esquema__svg" viewBox="0 0 480 488" role="img" aria-labelledby="esquemaT esquemaD">'
             '<title id="esquemaT">Esquema de un sistema de aguas lluvias</title>'
             '<desc id="esquemaD">Edificio con embudo en la cubierta, bajada con registro, cámara decantadora, dren y sumidero. '
-            'El punto celeste representa la cámara que recorre la bajada.</desc>'
+            'El punto representa la cámara que recorre la bajada; la marca a 14 m señala una unión abierta.</desc>'
             '<defs>'
             '<pattern id="eGrava" width="8" height="8" patternUnits="userSpaceOnUse"><rect class="e-fondo" width="8" height="8"/>'
             '<circle class="e-relleno" cx="2" cy="2" r="1.1"/><circle class="e-relleno" cx="6" cy="6" r="1.1"/></pattern>'
@@ -331,6 +335,8 @@ def _esquema_svg():
             '<text class="e-escala-txt" x="267" y="44">0 m</text>'
             '<text class="e-escala-txt" x="267" y="144">10 m</text>'
             '<text class="e-escala-txt" x="267" y="244">20 m</text>'
+            # hallazgo: unión abierta a 14 m del embudo (10 px por metro desde y=40)
+            '<g class="e-hallazgo"><path d="M237 180h18M257 180h39"/><text x="300" y="184">Unión abierta a 14 m</text></g>'
             '<g class="e-cam"><circle class="e-cam__halo" cx="246" cy="150" r="11"/>'
             '<circle class="e-cam__ojo" cx="246" cy="150" r="4.5"/></g>'
             # cámara decantadora con sedimento
@@ -344,7 +350,7 @@ def _esquema_svg():
             '<path class="e-agua" d="M420 333V340"/>'
             '<rect class="e-pieza" x="406" y="325" width="28" height="8" rx="1"/>'
             '<path class="e-rejilla" d="M412 325v8M418 325v8M424 325v8M430 325v8"/>'
-            + num(1, 196, 18) + num(2, 284, 190) + num(3, 276, 298)
+            + num(1, 196, 18) + num(2, 284, 100) + num(3, 276, 298)
             + num(4, 286, 382) + num(5, 420, 386) + num(6, 420, 306)
             + '<g class="e-leyenda">' + leyenda + '</g>'
             '</svg>')
@@ -372,13 +378,13 @@ def temporada_html(heading_tag="h2"):
         <span class="temporada__epoca">Primavera y verano</span>
         <h3>Revisión preventiva</h3>
         <p>Inspección con cámara de bajadas, drenes y cámaras decantadoras, con un informe para planificar la mantención y presentarla al comité.</p>
-        <button class="btn btn--primary" type="button" data-whatsapp data-placement="temporada_preventiva" data-message="Hola, quiero cotizar una revisión preventiva de aguas lluvias antes del invierno.">Pedir revisión preventiva</button>
+        <a class="btn btn--primary" href="#formulario">Pedir revisión preventiva</a>
       </div>
       <div class="temporada__card">
         <span class="temporada__epoca">Otoño e invierno</span>
         <h3>Después de un temporal</h3>
-        <p>Evaluación de daños: en qué punto falló el sistema, qué tramo hay que reparar y un informe para la administración, la aseguradora o el liquidador.</p>
-        <button class="btn btn--secondary" type="button" data-whatsapp data-placement="temporada_post" data-message="Hola, tuvimos daños por lluvia y necesito una evaluación de las aguas lluvias con cámara.">Pedir evaluación</button>
+        <p>Evaluación de daños: en qué punto falló el sistema y qué tramo hay que reparar, con un informe para la administración o el comité.</p>
+        <a class="btn btn--secondary" href="tel:+56959492372" data-call data-placement="temporada">Llamar</a>
       </div>
     </div>
   </div>
@@ -406,27 +412,30 @@ def business_schema(area):
         "areaServed": area, "image": "https://visioninspeccion.cl/assets/logo-con-foto.png",
         "description": "Videoinspección de sistemas de aguas lluvias: bajadas, drenes, cámaras decantadoras y sumideros. Informe técnico con fotos y video.",
         "address": {"@type": "PostalAddress", "addressLocality": "Santiago", "addressRegion": "Región Metropolitana", "addressCountry": "CL"},
-        "openingHours": "Mo-Fr 08:00-19:00, Sa 09:00-14:00"}, ensure_ascii=False, indent=2)
+        }, ensure_ascii=False, indent=2)
 
 
-def form_section(heading, sub, p="./"):
-    """El mismo formulario por pasos del inicio."""
+def form_section(heading, sub=None, p="./", preset=None):
+    """El mismo formulario por pasos del inicio. preset: opciones ya elegidas, p. ej. {"recinto": "Edificio o condominio"}."""
     idx = read("index.html")
     m = re.search(r'(?s)<section class="section" id="formulario".*?</section>', idx)
     sec = m.group(0).replace('href="./', f'href="{p}')
-    sec = re.sub(r'(<h2[^>]*>)[^<]*(</h2>)', r'\g<1>' + heading + r'\g<2>', sec, count=1)
-    sec = re.sub(r'(<h2[^>]*>.*?</h2>\s*<p[^>]*>)[^<]*(</p>)', r'\g<1>' + sub + r'\g<2>', sec, count=1, flags=re.S)
+    sec = re.sub(r'(<h2[^>]*>)[^<]*(</h2>)', lambda m: m.group(1) + heading + m.group(2), sec, count=1)
+    if sub:
+        sec = re.sub(r'(<h2[^>]*>.*?</h2>\s*<p[^>]*>)[^<]*(</p>)', lambda m: m.group(1) + sub + m.group(2), sec, count=1, flags=re.S)
+    attrs = "".join(f' data-preset-{k}="{html.escape(v, quote=True)}"' for k, v in (preset or {}).items())
+    sec = sec.replace('<form id="leadForm"', '<form id="leadForm"' + attrs, 1)
     return sec
 
 
 COMMON_FAQ = [
     ("¿Qué incluye la inspección?", "Recorrido con cámara de las bajadas, drenes o tramos acordados, video completo, fotos de cada hallazgo, en qué tramo y a cuántos metros está cada problema, y la recomendación. Todo va en un informe revisado por un ingeniero en construcción."),
     ("¿Cuándo conviene revisar?", "Lo ideal es en primavera o verano, con tiempo para limpiar o reparar antes de las lluvias. También después de un temporal, si aparecieron filtraciones o anegamientos."),
-    ("¿Me pueden orientar antes de cotizar?", "Sí, sin costo. Envíenos por WhatsApp fotos o un video corto de la mancha, el embudo, la bajada o el sumidero, y le decimos si corresponde una inspección con cámara."),
+    ("¿Me pueden orientar antes de la visita?", "Envíenos por WhatsApp fotos o un video corto de la mancha, el embudo, la bajada o el sumidero, e intentaremos orientarle."),
     ("¿Pueden indicar dónde está el problema?", "Indicamos en qué tramo está y a cuántos metros del punto de acceso, según las marcas del cable. Con eso la reparación se hace solo en esa zona."),
-    ("¿Pueden ir a ver antes de la inspección?", "Sí, si lo prefiere. Un ingeniero en construcción hace una visita previa por $30.000 para revisar su caso y orientarle. Si usted quiere y el caso lo permite, hacemos la videoinspección en esa misma visita. Si contrata la videoinspección, los $30.000 se descuentan."),
+    ("¿Cuánto cuesta la visita técnica?", "$35.000 + IVA. Un ingeniero en construcción revisa el caso en terreno y, con lo que ve, le enviamos la cotización de la inspección. Si la contrata, el valor de la visita se descuenta."),
     ("¿Qué necesitan para la visita?", "Acceso a la cubierta, los embudos, los registros, los sumideros o las cámaras que haya que revisar, y coordinación con la conserjería si es un edificio."),
-    ("¿Emiten factura?", "Sí. Emitimos factura electrónica y podemos trabajar con orden de compra."),
+    ("¿Qué documento emiten?", "Por ahora emitimos boleta de honorarios."),
     ("¿En qué comunas trabajan?", "En toda la Región Metropolitana, la V Región y la VI Región. Escríbanos su comuna y confirmamos disponibilidad."),
     ("¿Qué sistemas revisan?", "Solo sistemas de aguas lluvias: canaletas y embudos, bajadas, cámaras decantadoras, drenes, sumideros y las tuberías que los conectan. Si su caso es de otro tipo, se lo decimos antes de agendar."),
 ]
@@ -494,10 +503,10 @@ def landing(rel, d):
         <h1 class="hero__title" id="heroHeading">{d["h1"]}<br><span class="text-accent">{d["h1_accent"]}</span></h1>
         {desc_html}
         <div class="hero__actions">
-          <a class="btn btn--primary btn--lg" href="#formulario">Pedir cotización</a>
-          <button class="btn btn--ghost" type="button" data-whatsapp data-placement="hero" data-message="{d["msg"]}">Escribir por WhatsApp</button>
+          <a class="btn btn--primary btn--lg" href="#formulario">Pedir visita técnica</a>
+          <a class="btn btn--ghost" href="tel:{TEL}" data-call data-placement="hero">Llamar al {TEL_VISIBLE}</a>
         </div>
-        <p class="hero__microcopy">✓ Orientación gratis por WhatsApp · ✓ Informe revisado por un ingeniero en construcción · ✓ Factura electrónica</p>
+        <p class="hero__microcopy">✓ Visita técnica de un ingeniero en construcción · ✓ Video y fotos de cada hallazgo · ✓ Ubicación de cada falla por tramo</p>
       </div>
       <div class="hero__visual">
         {esquema_figure(d["caption"])}
@@ -553,14 +562,14 @@ def landing(rel, d):
   </div>
 </section>
 
-{form_section(d["form_h"], "Complete el formulario y le enviaremos el valor de la inspección por WhatsApp.", p)}
+{form_section(d["form_h"], None, p, d.get("preset"))}
 
 <section class="cta-final" aria-label="Llamado a la acción final" style="padding: 100px 0;">
   <div class="container">
     <div class="cta-final__inner">
-      <h2 class="cta-final__title">Antes del invierno, revise sus aguas lluvias.</h2>
-      <p class="cta-final__desc">Le mostramos qué hay dentro de cada bajada y cada dren, y en qué tramo está el problema.</p>
-      <a class="btn btn--primary btn--lg" href="#formulario">Pedir cotización</a>
+      <h2 class="cta-final__title">{d.get("cta_h", "Antes del invierno, revise sus aguas lluvias.")}</h2>
+      <p class="cta-final__desc">{d.get("cta_p", "Le mostramos qué hay dentro de cada bajada y cada dren, y en qué tramo está el problema.")}</p>
+      <a class="btn btn--primary btn--lg" href="#formulario">Pedir visita técnica</a>
     </div>
   </div>
 </section>
@@ -577,11 +586,11 @@ def landing(rel, d):
 
 EMPRESAS = dict(
     title="Inspección de aguas lluvias para edificios y condominios | Visión Inspección",
-    meta="Videoinspección de bajadas de aguas lluvias, drenes, cámaras decantadoras y sumideros en edificios y condominios. Informe con fotos y video para el comité o el seguro.",
+    meta="Videoinspección de bajadas de aguas lluvias, drenes, cámaras decantadoras y sumideros en edificios y condominios. Informe con fotos y video para el comité o la asamblea.",
     area="Región Metropolitana, V Región y VI Región, Chile",
     tag="Para administradores de edificios y condominios",
     h1="Aguas lluvias revisadas por dentro", h1_accent="para edificios y condominios.",
-    hero_desc=["Revisamos con cámara las bajadas, los drenes, las cámaras decantadoras y los sumideros del edificio. Le entregamos un informe con fotos y video que puede presentar al comité, a la asamblea o a la aseguradora."],
+    hero_desc=["Revisamos con cámara las bajadas, los drenes, las cámaras decantadoras y los sumideros del edificio. Le entregamos un informe con fotos y video que puede presentar al comité o a la asamblea."],
     caption="Esquema de un sistema de aguas lluvias: los puntos que revisamos en un edificio.",
     msg=MSG["empresas.html"],
     revisamos_titulo="Qué revisamos en un edificio",
@@ -593,14 +602,47 @@ EMPRESAS = dict(
                ("Drenes y muros de contención", "Drenes con sedimento o aplastados que dejan humedad en los muros del subterráneo."),
                ("Cámaras decantadoras", "Nivel de sedimento y estado de las tuberías que entran y salen.")],
     recibe=[("Inspección con cámara", "Recorremos bajadas y drenes por dentro desde embudos, registros, sumideros o cámaras, sin picar."),
-            ("Informe revisado por un ingeniero", "Fotos y video de cada tramo, a cuántos metros del acceso está cada problema y qué se recomienda. Sirve para el comité, la asamblea o el seguro."),
+            ("Informe revisado por un ingeniero", "Fotos y video de cada tramo, a cuántos metros del acceso está cada problema y qué se recomienda. Sirve para el comité o la asamblea."),
             ("Prioridades para la mantención", "Qué conviene limpiar o reparar primero y qué puede esperar, para llegar al invierno con el sistema revisado.")],
-    pasos=[("Coordinamos", "Nos escribe con la dirección, qué está pasando y qué accesos hay. Le orientamos gratis y coordinamos con la administración o la conserjería."),
+    pasos=[("Visita técnica", "Un ingeniero en construcción revisa en terreno el caso y los accesos, coordinado con la administración o la conserjería. Si contrata la inspección, la visita se descuenta."),
            ("Inspeccionamos", "Entramos con la cámara y recorremos los tramos acordados. Usted puede ver la pantalla en terreno."),
            ("Informamos", "Le enviamos el informe con fotos, el video del recorrido y las recomendaciones.")],
-    faq=[("¿Sirve el informe para la asamblea o la aseguradora?", "Sí. Incluye fotos, video y la ubicación de cada hallazgo por tramo, que es lo que suelen pedir el comité y las aseguradoras."),
-         ("¿Pueden saber si una filtración viene de una bajada común o de una terraza?", "En muchos casos sí: recorremos la bajada y la conexión del embudo de la terraza, y vemos en qué tramo está el daño. Queda en el informe para conversarlo con la administración.")] + COMMON_FAQ,
-    form_h="Pida su cotización",
+    faq=[("¿Sirve el informe para la asamblea?", "Sí. Incluye fotos, video y la ubicación de cada hallazgo por tramo, para que el comité decida con evidencia."),
+         ("¿Pueden saber si una filtración viene de una bajada común o de una terraza?", "En muchos casos sí: recorremos la bajada y la conexión del embudo de la terraza, y vemos en qué tramo está el daño. Queda en el informe para conversarlo con la administración."),
+         ("¿Tienen una lista para revisar el edificio antes del invierno?", 'Sí. Descargue la <a href="./assets/lista-revision-aguas-lluvias.pdf" download>lista de revisión para administradores</a> (PDF de 2 páginas) y úsela para recorrer cubiertas, bajadas, estacionamientos y drenes con el personal del edificio.')] + COMMON_FAQ,
+    form_h="Pida su visita técnica",
+    preset={"recinto": "Edificio o condominio"},
+)
+
+
+DANOS = dict(
+    title="Daños por lluvia: revisión de aguas lluvias después de un temporal | Visión Inspección",
+    meta="Después de un temporal, revisamos con cámara bajadas, drenes y sumideros para ver en qué punto falló el sistema. Informe con fotos, video y ubicación por tramo.",
+    area="Región Metropolitana, V Región y VI Región, Chile",
+    tag="Para administraciones, comités y empresas",
+    h1="Después de un temporal,", h1_accent="vea en qué punto falló el sistema.",
+    hero_desc=["Revisamos con cámara bajadas, drenes y sumideros para encontrar el tramo donde empezó el problema. El informe trae fotos, video y la ubicación de cada hallazgo, revisado por un ingeniero en construcción, para decidir qué reparar."],
+    caption="Esquema de un sistema de aguas lluvias: los puntos que revisamos después de un temporal.",
+    revisamos_titulo="Dónde suele empezar el daño",
+    revisamos_sub="Lo que más vemos cuando el agua de una lluvia fuerte termina dentro del edificio.",
+    revisamos=[("Filtraciones en el último piso", "Embudos obstruidos, canaletas que rebalsan o uniones de bajada abiertas cerca de la cubierta."),
+               ("Manchas junto a shafts o bajadas", "Una unión abierta en un tramo embutido deja escapar agua con cada lluvia, a veces varios pisos más abajo."),
+               ("Agua en estacionamientos o bodegas", "Sumideros, canales de rejilla o drenes que no alcanzaron a evacuar el agua."),
+               ("Patios o jardines anegados", "Un dren con sedimento, raíces o aplastado deja de evacuar el agua del terreno."),
+               ("Humedad en muros del subterráneo", "El dren del muro de contención está colapsado o con sedimento, y el agua queda contra el muro."),
+               ("Cámaras decantadoras llenas", "El sedimento pasa al sistema y termina obstruyendo los drenes que vienen después.")],
+    recibe=[("Video del recorrido", "El recorrido completo de la cámara por los tramos revisados, en formato digital."),
+            ("Fotos y estado de cada tramo", "Una foto de cada hallazgo, con su descripción y lo que conviene reparar primero."),
+            ("Ubicación por tramo", "En qué tramo está cada hallazgo y a cuántos metros del punto de acceso, según las marcas del cable.")],
+    pasos=[("Visita técnica", "Un ingeniero en construcción revisa los daños y los accesos. Cuesta $35.000 + IVA y se descuenta si contrata la inspección."),
+           ("Inspeccionamos", "Recorremos con la cámara los tramos relacionados con el daño y grabamos todo el recorrido."),
+           ("Informamos", "Le enviamos el informe en PDF y el video, con lo que conviene reparar y en qué tramo.")],
+    faq=[("¿Pueden revisar si ya se limpió o se reparó?", "Sí, pero conviene revisar antes de intervenir: así queda registro de cómo estaba el sistema cuando ocurrió el daño."),
+         ("¿El informe dice quién debe pagar la reparación?", "No. Muestra qué se encontró y en qué tramo. Quién asume la reparación lo definen las partes.")] + COMMON_FAQ,
+    form_h="Pida una visita técnica",
+    preset={"necesidad": "Daños después de una lluvia"},
+    cta_h="Revise antes de reparar.",
+    cta_p="Con la primera intervención se pierde el registro de cómo estaba el sistema. La visita técnica cuesta $35.000 + IVA y se descuenta si contrata la inspección.",
 )
 
 
@@ -645,7 +687,7 @@ def comuna_data(slug, name):
         h1=f"Videoinspección de aguas lluvias en {name}", h1_accent="con cámara, sin romper.",
         hero_desc=[p1, p2],
         caption="Esquema de un sistema de aguas lluvias: los puntos que revisamos con la cámara.",
-        msg=f"Hola, quiero cotizar una videoinspección de aguas lluvias en {name}.",
+        msg=f"Hola, quiero consultar por una revisión de aguas lluvias en {name}.",
         revisamos_titulo="Qué detectamos",
         revisamos_sub="Lo que aparece cuando se miran bajadas y drenes por dentro.",
         revisamos=[("Obstrucciones", "Hojas, barro, nidos o restos de obra que reducen el paso del agua."),
@@ -657,11 +699,11 @@ def comuna_data(slug, name):
         recibe=[("Inspección con cámara", "Entramos por un embudo, un registro, un sumidero o una cámara, y recorremos la tubería por dentro, sin picar."),
                 ("Informe revisado por un ingeniero", "Fotos y video de cada tramo, a cuántos metros del acceso está cada problema y qué se recomienda."),
                 ("Prioridades para la mantención", "Qué conviene limpiar o reparar primero, para llegar al invierno con el sistema revisado.")],
-        pasos=[("Coordinamos", f"Nos escribe con su dirección en {name} y qué necesita revisar. Coordinamos la visita."),
+        pasos=[("Visita técnica", f"Coordinamos una visita en {name}: un ingeniero en construcción revisa el caso y los accesos. Si contrata la inspección, la visita se descuenta."),
                ("Inspeccionamos", "Entramos con la cámara y recorremos bajadas y drenes. Usted ve en la pantalla lo mismo que nosotros."),
                ("Informamos", "Le enviamos el informe con fotos, el video del recorrido y las recomendaciones.")],
         faq=COMMON_FAQ,
-        form_h=f"Pida su cotización en {name}",
+        form_h=f"Pida su visita técnica en {name}",
     )
 
 
@@ -690,7 +732,7 @@ def page_404():
     <p class="hero__desc" style="margin: 0 auto 32px;">Puede que el enlace esté mal escrito o que la página ya no exista.</p>
     <div class="hero__actions" style="justify-content: center;">
       <a class="btn btn--primary btn--lg" href="./index.html">Ir al inicio</a>
-      <button class="btn btn--ghost" type="button" data-whatsapp data-placement="404" data-message="Hola, quiero cotizar una videoinspección de aguas lluvias.">Escribir por WhatsApp</button>
+      <button class="btn btn--ghost" type="button" data-whatsapp data-placement="404" data-message="Hola, quiero consultar por una revisión de aguas lluvias.">Escribir por WhatsApp</button>
     </div>
   </div>
 </section>
@@ -706,6 +748,7 @@ def page_404():
 
 def main():
     write("empresas.html", landing("empresas.html", EMPRESAS))
+    write("danos-por-temporal.html", landing("danos-por-temporal.html", DANOS))
     for slug, name in COMUNAS:
         write(f"comunas/{slug}.html", landing(f"comunas/{slug}.html", comuna_data(slug, name)))
     write("404.html", page_404())

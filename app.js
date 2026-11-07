@@ -1,20 +1,20 @@
 /* ============================================================
-   Vision Inspeccion - app.js (Cleaned)
-   Core: UTMs, WhatsApp, Form, Counters, Scroll Reveal,
-   Exit Intent, FAQ, Footer
+   Visión Inspección - app.js
+   Aviso de cookies, origen de campañas, WhatsApp, formulario de
+   visita técnica, preguntas frecuentes y pie de página.
    ============================================================ */
 
 const BRAND = {
   name:      "Vision Inspeccion",
   domain:    "https://visioninspeccion.cl",
-  whatsapp:  "56959501190",
+  whatsapp:  "56959492372",
   email:     "hola@visioninspeccion.cl",
   city:      "Santiago, Chile"
 };
 
 /* ---------- Consentimiento y origen de campañas ----------
    Sin consentimiento no se guarda nada en el navegador, salvo la propia decisión
-   (vi_consent) y, durante la sesión, si ya se mostró el aviso de salida.
+   (vi_consent).
    Con consentimiento: los parámetros de campaña (utm_*, gclid, fbclid) se guardan
    30 días (vi_utms) y se agregan al mensaje de WhatsApp. */
 const SITE_ROOT = (document.currentScript && document.currentScript.src)
@@ -101,11 +101,12 @@ function initConsentBanner() {
 }
 
 /* ---------- WhatsApp builder ---------- */
-function buildWhatsAppLink(message) {
-  const base = `https://wa.me/${BRAND.whatsapp}`;
+function whatsappText(message) {
   const utm = utmString();
-  const finalMsg = utm ? `${message}\n\n---\nReferencia: ${BRAND.domain}/?${utm}` : message;
-  return `${base}?text=${encodeURIComponent(finalMsg)}`;
+  return utm ? `${message}\n\n---\nReferencia: ${BRAND.domain}/?${utm}` : message;
+}
+function buildWhatsAppLink(message) {
+  return `https://wa.me/${BRAND.whatsapp}?text=${encodeURIComponent(whatsappText(message))}`;
 }
 
 /* ---------- Analytics shim ---------- */
@@ -118,97 +119,197 @@ function trackEvent(name, params = {}) {
 function bindWhatsAppButtons() {
   document.querySelectorAll("[data-whatsapp]").forEach(btn => {
     btn.addEventListener("click", () => {
-      const msg = btn.getAttribute("data-message") || "Hola, quiero cotizar una videoinspección de aguas lluvias.";
+      const msg = btn.getAttribute("data-message") || "Hola, quiero consultar por una revisión de aguas lluvias.";
       trackEvent("click_whatsapp", { placement: btn.getAttribute("data-placement") || "unknown", page: location.pathname });
       window.open(buildWhatsAppLink(msg), "_blank", "noopener,noreferrer");
     });
   });
 }
 
-/* ---------- Lead form -> WhatsApp (Multi-step wizard) ---------- */
+/* ---------- Formulario de visita técnica (3 pasos) -> WhatsApp ----------
+   Paso 1: recinto. Paso 2: necesidad, con una pregunta según lo que elija.
+   Paso 3: datos y resumen del mensaje. Al enviar se abre WhatsApp con el texto. */
 function bindLeadForm() {
   const form = document.querySelector("#leadForm");
   if (!form) return;
+  const box = form.closest(".vf") || form.parentElement;
+  const steps = Array.from(form.querySelectorAll(".vf__step"));
+  const total = steps.length;
+  const bars = box.querySelectorAll(".vf__progress span");
+  const paso = box.querySelector(".vf__paso");
+  const live = box.querySelector(".vf__live");
+  const resumen = box.querySelector(".vf__resumen-txt");
+  const listo = box.querySelector(".vf__listo");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let current = 1;
+  let pointerAt = 0;
 
-  const steps = form.querySelectorAll(".form-step");
-  const progressSteps = document.querySelectorAll(".form-progress__step");
-  const formData = { propiedad: "", situacion: "" };
-  let currentStep = 1;
+  const radios = name => Array.from(form.querySelectorAll(`input[name="${name}"]`));
+  const val = name => { const el = form.querySelector(`input[name="${name}"]:checked`); return el ? el.value : ""; };
+  const vals = name => Array.from(form.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
+  const field = name => (form.elements[name] && form.elements[name].value || "").toString().trim();
+  const say = text => { if (live) { live.textContent = ""; setTimeout(() => { live.textContent = text; }, 30); } };
+  const pick = (name, value) => { const el = radios(name).find(i => i.value === value); if (el) el.checked = true; return !!el; };
 
-  function showStep(n) {
-    steps.forEach(s => {
-      s.classList.toggle("is-active", parseInt(s.dataset.formStep) === n);
+  function showStep(n, opts = {}) {
+    current = n;
+    steps.forEach(st => {
+      const on = Number(st.dataset.step) === n;
+      st.classList.toggle("is-active", on);
+      st.hidden = !on;
     });
-    progressSteps.forEach(ps => {
-      const sn = parseInt(ps.dataset.step);
-      ps.classList.toggle("is-active", sn === n);
-      ps.classList.toggle("is-done", sn < n);
-    });
-    currentStep = n;
+    bars.forEach((b, i) => b.classList.toggle("is-on", i < n));
+    if (paso) paso.textContent = `Paso ${n} de ${total}`;
+    if (n === total) updateResumen();
+    if (opts.quiet) return;
+    const q = steps[n - 1].querySelector(".vf__q");
+    say(`Paso ${n} de ${total}. ${q ? q.textContent : ""}`);
+    if (box.getBoundingClientRect().top < 80) box.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" });
+    steps[n - 1].focus({ preventScroll: true });
   }
 
-  // Card clicks (steps 1 & 2): select + auto-advance
-  form.querySelectorAll(".form-card").forEach(card => {
-    card.addEventListener("click", () => {
-      const field = card.dataset.field;
-      const value = card.dataset.value;
-      formData[field] = value;
-      // Visual: highlight selected card
-      card.closest(".form-cards").querySelectorAll(".form-card").forEach(c => c.classList.remove("is-selected"));
-      card.classList.add("is-selected");
-      // Auto-advance after brief delay
-      setTimeout(() => showStep(currentStep + 1), 250);
-    });
+  function updateSub() {
+    const nec = val("necesidad");
+    form.querySelectorAll(".vf__sub").forEach(sub => { sub.hidden = sub.dataset.para !== nec; });
+  }
+
+  function mark(el, errId, bad) {
+    const err = box.querySelector("#" + errId);
+    if (err) err.hidden = !bad;
+    if (el) el.setAttribute("aria-invalid", bad ? "true" : "false");
+  }
+
+  function validate(n) {
+    if (n === 1 || n === 2) {
+      const name = n === 1 ? "recinto" : "necesidad";
+      const ok = !!val(name);
+      mark(null, `vf-err-${name}`, !ok);
+      if (!ok) {
+        const err = box.querySelector(`#vf-err-${name}`);
+        say(err ? err.textContent : "Elija una opción.");
+        radios(name)[0].focus();
+      }
+      return ok;
+    }
+    const nombre = form.elements.nombre, comuna = form.elements.comuna;
+    const badNombre = !field("nombre"), badComuna = !field("comuna");
+    mark(nombre, "vf-err-nombre", badNombre);
+    mark(comuna, "vf-err-comuna", badComuna);
+    if (badNombre || badComuna) {
+      const first = badNombre ? nombre : comuna;
+      say(badNombre && badComuna ? "Faltan su nombre y la comuna." : badNombre ? "Falta su nombre." : "Falta la comuna.");
+      first.focus();
+      return false;
+    }
+    return true;
+  }
+
+  function buildMessage() {
+    const lines = ["Solicitud de visita técnica — Visión Inspección"];
+    const add = (label, value) => { if (value) lines.push(`${label}: ${value}`); };
+    const nec = val("necesidad");
+    add("Recinto", val("recinto"));
+    add("Necesita", nec);
+    if (nec === "Revisión preventiva") add("Quiere revisar", vals("revisar").join(", "));
+    if (nec === "Daños después de una lluvia") add("Daños en", vals("danos").join(", "));
+    if (nec === "Recepción de obra o postventa") add("Etapa", val("etapa"));
+    add("Comuna", field("comuna"));
+    add("Para cuándo", field("plazo"));
+    add("Nombre", field("nombre"));
+    add("Administración o empresa", field("organizacion"));
+    add("Detalles", field("detalles"));
+    if (nec === "No estoy seguro") lines.push("", "Puedo enviarles fotos por aquí.");
+    lines.push("", "Quedo atento/a para coordinar la visita técnica.");
+    return lines.join("\n");
+  }
+  function updateResumen() { if (resumen) resumen.textContent = whatsappText(buildMessage()); }
+
+  // Elegir con el mouse o el dedo avanza solo en el paso 1; con el teclado se usa "Continuar"
+  form.addEventListener("pointerdown", e => { if (e.target.closest(".vf__opt")) pointerAt = Date.now(); });
+  form.addEventListener("change", e => {
+    const t = e.target;
+    if (t.name === "recinto") {
+      mark(null, "vf-err-recinto", false);
+      if (current === 1 && Date.now() - pointerAt < 1500) setTimeout(() => { if (current === 1) showStep(2); }, 220);
+    }
+    if (t.name === "necesidad") { mark(null, "vf-err-necesidad", false); updateSub(); }
+    if (t.name === "nombre" && field("nombre")) mark(t, "vf-err-nombre", false);
+    if (t.name === "comuna" && field("comuna")) mark(t, "vf-err-comuna", false);
+    if (current === total) updateResumen();
+  });
+  form.addEventListener("input", e => {
+    if (e.target.name === "nombre" && field("nombre")) mark(e.target, "vf-err-nombre", false);
+    if (current === total) updateResumen();
+  });
+  form.addEventListener("click", e => {
+    if (e.target.closest("[data-next]")) { if (validate(current)) showStep(current + 1); }
+    else if (e.target.closest("[data-back]")) { if (current > 1) showStep(current - 1); }
   });
 
-  // Back buttons
-  form.querySelectorAll("[data-back]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      if (currentStep > 1) showStep(currentStep - 1);
-    });
-  });
-
-  // Submit
   form.addEventListener("submit", e => {
     e.preventDefault();
-    const fd = new FormData(form);
-    const nombre = (fd.get("nombre") || "").toString().trim();
-    const telefono = (fd.get("telefono") || "").toString().trim();
-    const comuna = (fd.get("comuna") || "").toString().trim();
-    const plazo = (fd.get("plazo") || "").toString().trim();
-    const detalles = (fd.get("detalles") || "").toString().trim();
-
-    let parts = ["Solicitud de cotización — Visión Inspección"];
-    if (formData.propiedad) parts.push("Recinto: " + formData.propiedad);
-    if (formData.situacion) parts.push("Necesita: " + formData.situacion);
-    if (plazo) parts.push("Para cuándo: " + plazo);
-    if (comuna) parts.push("Comuna: " + comuna);
-    if (nombre) parts.push("Nombre: " + nombre);
-    if (telefono) parts.push("Teléfono: " + telefono);
-    if (detalles) parts.push("Detalles: " + detalles);
-    parts.push("\nQuedo atento/a al valor de la inspección.");
-
-    const msg = parts.join("\n");
-    trackEvent("generate_lead", { method: "form_wizard_to_whatsapp", page: location.pathname, propiedad: formData.propiedad, situacion: formData.situacion, plazo: plazo });
-    window.open(buildWhatsAppLink(msg), "_blank", "noopener,noreferrer");
-    form.reset();
-    formData.propiedad = "";
-    formData.situacion = "";
-    form.querySelectorAll(".form-card").forEach(c => c.classList.remove("is-selected"));
-    showStep(1);
+    if (current < total) { if (validate(current)) showStep(current + 1); return; }
+    if (!validate(total)) return;
+    const msg = buildMessage();
+    const url = buildWhatsAppLink(msg);
+    trackEvent("generate_lead", { method: "form_wizard_to_whatsapp", page: location.pathname,
+      propiedad: val("recinto"), situacion: val("necesidad"), plazo: field("plazo") });
+    window.open(url, "_blank", "noopener,noreferrer");
+    if (listo) {
+      const a = listo.querySelector(".vf__listo-wa");
+      if (a) a.href = url;
+      form.hidden = true;
+      box.querySelectorAll(".vf__progress, .vf__paso").forEach(el => { el.hidden = true; });
+      listo.hidden = false;
+      listo.focus();
+    }
   });
 
-  // Expose intent selector helper for the intent cards above the hero
-  window._selectIntent = function(field, value) {
-    formData[field] = value;
-    // Highlight the matching card if visible
-    form.querySelectorAll(`.form-card[data-field="${field}"][data-value="${value}"]`).forEach(c => {
-      c.closest(".form-cards").querySelectorAll(".form-card").forEach(cc => cc.classList.remove("is-selected"));
-      c.classList.add("is-selected");
+  if (listo) {
+    const otra = listo.querySelector("[data-otra]");
+    if (otra) otra.addEventListener("click", () => {
+      form.reset();
+      ["recinto", "necesidad", "nombre", "comuna"].forEach(n => {
+        const el = form.elements[n];
+        mark(el && el.tagName ? el : null, `vf-err-${n}`, false);
+      });
+      listo.hidden = true;
+      form.hidden = false;
+      box.querySelectorAll(".vf__progress, .vf__paso").forEach(el => { el.hidden = false; });
+      showStep(applyPresets());
     });
-    // Skip to step 3 (contact) since situation is pre-selected
-    showStep(3);
-  };
+  }
+
+  // Opciones ya elegidas por la página (data-preset-*) y enlaces que eligen la necesidad
+  function applyPresets() {
+    const d = form.dataset;
+    if (d.presetRecinto) pick("recinto", d.presetRecinto);
+    if (d.presetNecesidad) pick("necesidad", d.presetNecesidad);
+    updateSub();
+    return d.presetRecinto ? 2 : 1;
+  }
+  document.querySelectorAll("[data-elegir-necesidad]").forEach(a => {
+    a.addEventListener("click", () => {
+      pick("necesidad", a.getAttribute("data-elegir-necesidad"));
+      updateSub();
+      if (val("recinto") && current === 1) showStep(2, { quiet: true });
+    });
+  });
+
+  showStep(applyPresets(), { quiet: true });
+}
+
+/* ---------- Botón flotante: se oculta mientras se ve el formulario o el pie ---------- */
+function initFloatingHide() {
+  const fab = document.querySelector(".floating-whatsapp");
+  const targets = [document.querySelector("#formulario"), document.querySelector(".site-footer")].filter(Boolean);
+  if (!fab || !targets.length || !("IntersectionObserver" in window)) return;
+  const visibles = new Set();
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) visibles.add(e.target); else visibles.delete(e.target); });
+    fab.classList.toggle("is-oculto", visibles.size > 0);
+  }, { threshold: 0.1 });
+  targets.forEach(t => io.observe(t));
 }
 
 /* ---------- Call link tracking ---------- */
@@ -304,35 +405,9 @@ function initScrollReveal() {
   }
 }
 
-/* ---------- Exit Intent ---------- */
-function initExitIntent() {
-  const modal = document.getElementById("exitIntentModal");
-  const btnClose = document.getElementById("closeExitModal");
-  const btnDecline = document.getElementById("declineExitModal");
-  
-  if (!modal || !btnClose || !btnDecline) return;
-  
-  // Bind close buttons ALWAYS
-  btnClose.addEventListener("click", () => modal.style.display = "none");
-  btnDecline.addEventListener("click", () => modal.style.display = "none");
-
-  // Only show if not shown in this session
-  if (sessionStorage.getItem("exitIntentShown")) return;
-  
-  const showModal = (e) => {
-    if (e.clientY < 10) {
-      modal.style.display = "flex";
-      sessionStorage.setItem("exitIntentShown", "true");
-      document.removeEventListener("mouseleave", showModal);
-    }
-  };
-  
-  document.addEventListener("mouseleave", showModal);
-}
-
 /* ---------- Smooth FAQ ---------- */
 function initSmoothFAQ() {
-  document.querySelectorAll(".faq details").forEach(details => {
+  document.querySelectorAll(".faq details, .ed-faq details").forEach(details => {
     const summary = details.querySelector("summary");
     if (!summary) return;
     summary.addEventListener("click", (e) => {
@@ -353,9 +428,9 @@ document.addEventListener("DOMContentLoaded", () => {
   bindWhatsAppButtons();
   bindCallLinks();
   bindLeadForm();
+  initFloatingHide();
   bindFooter();
   animateCounters();
   initScrollReveal();
-  initExitIntent();
   initSmoothFAQ();
 });
