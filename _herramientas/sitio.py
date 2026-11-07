@@ -22,7 +22,7 @@ WA = "56959501190"
 TEL = "+56959501190"
 TEL_VISIBLE = "+56 9 5950 1190"
 EMAIL = "hola@visioninspeccion.cl"
-CSS_VER = "7"
+CSS_VER = "8"
 JS_VER = "5"
 OG_IMG = "https://visioninspeccion.cl/assets/og-aguas-lluvias.png"  # 1200 x 630
 

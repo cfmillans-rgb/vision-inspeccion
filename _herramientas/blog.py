@@ -213,6 +213,8 @@ def blog_index():
 def home_cards():
     p = ROOT / "index.html"
     s = p.read_text(encoding="utf-8")
+    if 'id="blog"' not in s:
+        return  # la portada ya no muestra tarjetas del blog: enlaza a él desde las preguntas frecuentes
     cards = "\n".join(card(a, "./blog/") for a in ARTICULOS if a.get("inicio"))
     s, n = re.subn(r'(?s)(<section class="section" id="blog".*?<div class="blog-grid">).*?(</div>\s*<div class="text-center blog-more">.*?</div>\s*)?(</div>\s*</section>)',
                    lambda m: m.group(1) + "\n" + cards + '\n    </div>\n    <div class="text-center blog-more"><a class="btn btn--ghost" href="./blog/index.html">Ver todos los artículos</a></div>\n  ' + m.group(3), s, count=1)
