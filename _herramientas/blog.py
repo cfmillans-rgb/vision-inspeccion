@@ -74,14 +74,13 @@ def esc(x):
 
 
 def header(a):
-    tags = "".join(f'<span class="article__tag">{esc(t)}</span>' for t in a["tags"])
+    fecha = a["fecha"][0].lower() + a["fecha"][1:].replace(" ", " de ", 1)
     return f'''<article class="article">
   <header class="article__header">
-    <a class="article__back" href="./index.html">← Volver al blog</a>
-    <div class="article__tags">{tags}</div>
+    <a class="article__back" href="./index.html">Volver al blog</a>
     <h1 class="article__title">{esc(a["titulo"])}</h1>
     <p class="article__lead">{esc(a["bajada"])}</p>
-    <p class="article__meta">Equipo Visión Inspección · Lectura de {a["min"]} min · {a["fecha"]}</p>
+    <p class="article__meta">Equipo Visión Inspección, {fecha}. Lectura de {a["min"]} minutos.</p>
   </header>
 '''
 
@@ -209,23 +208,35 @@ def format_article(a):
     p.write_text(s, encoding="utf-8")
 
 
-def card(a, prefix):
-    tags = esc(a["tags"][0])
-    return f'''      <a class="blog-card blog-card--rich" href="{prefix}{a["slug"]}.html">
-        <span class="blog-card__icon">{ICONS[a["icon"]]}</span>
-        <span class="blog-card__tag">{tags}</span>
-        <h3 class="blog-card__title">{esc(a["titulo"])}</h3>
-        <p class="blog-card__desc">{esc(a["tarjeta"])}</p>
-        <span class="blog-card__meta">Lectura de {a["min"]} min · Leer artículo →</span>
-      </a>'''
+def item(a):
+    """Un artículo en la lista del blog."""
+    fecha = a["fecha"][0].lower() + a["fecha"][1:].replace(" ", " de ", 1)
+    return f'''      <article class="ed-blog__item">
+        <h2 class="ed-blog__titulo"><a href="./{a["slug"]}.html">{esc(a["titulo"])}</a></h2>
+        <p class="ed-blog__resumen">{esc(a["tarjeta"])}</p>
+        <p class="ed-blog__meta">{fecha[0].upper() + fecha[1:]}. Lectura de {a["min"]} minutos.</p>
+      </article>'''
 
 
 def blog_index():
+    """Lista de artículos del blog, con el diseño editorial."""
     p = ROOT / "blog" / "index.html"
     s = p.read_text(encoding="utf-8")
-    cards = "\n".join(card(a, "./") for a in ARTICULOS)
-    s, n = re.subn(r'(?s)<div class="blog-grid">.*?</div>\s*</div>\s*</main>',
-                   f'<div class="blog-grid">\n{cards}\n    </div>\n  </div>\n</main>', s, count=1)
+    items = "\n".join(item(a) for a in ARTICULOS)
+    main = f'''<main class="blog-main">
+<section class="ed-sec ed-blog" aria-labelledby="blog-t">
+  <div class="ed-wrap ed-sec__grid">
+    <div class="ed-sec__head">
+      <h1 id="blog-t">Blog</h1>
+      <p>Guías para entender qué les pasa a sus aguas lluvias y cuándo conviene revisarlas con cámara.</p>
+    </div>
+    <div class="ed-sec__body">
+{items}
+    </div>
+  </div>
+</section>
+</main>'''
+    s, n = re.subn(r'(?s)<main\b.*?</main>', lambda m: main, s, count=1)
     assert n == 1
     p.write_text(s, encoding="utf-8")
 

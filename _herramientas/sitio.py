@@ -7,7 +7,7 @@ Uso, desde la raíz del repositorio:
     python3 _herramientas/sitio.py
 
 Qué hace:
-  1. Genera empresas.html, danos-por-temporal.html, comunas/*.html y 404.html.
+  1. Genera empresas.html, danos-por-temporal.html, constructoras.html, comunas/*.html y 404.html.
   2. Pone el mismo encabezado, pie, botón flotante, barra móvil, tipografías y hoja de
      estilos en todas las páginas.
 Para cambiar el menú, el pie o una comuna, edite este archivo y vuelva a ejecutarlo.
@@ -99,8 +99,7 @@ def header(rel, has_form):
     return (f'<header class="site-header" data-header>\n'
             f'  <div class="site-header__inner container container--wide">\n'
             f'    <a class="site-header__logo" href="{p}index.html">\n'
-            f'      <img alt="Visión Inspección" class="brand-logo brand-logo--claro" src="{p}assets/logo-sin-fondo.png" width="216" height="40" style="height: 40px; width: auto;"/>\n'
-            f'      <img alt="Visión Inspección" class="brand-logo brand-logo--oscuro" src="{p}assets/logo-oscuro.png" width="216" height="40" style="height: 40px; width: auto;"/>\n'
+            f'      <img alt="Visión Inspección" class="brand-logo" src="{p}assets/logo-oscuro.png" width="216" height="40"/>\n'
             f'    </a>\n'
             f'    <nav class="site-header__nav" id="mobileNav" aria-label="Navegación principal">\n'
             + "\n".join(links) + "\n"
@@ -118,7 +117,7 @@ def header(rel, has_form):
 
 def footer(rel):
     p = prefix_for(rel)
-    comunas = " · ".join(f'<a href="{p}comunas/{slug}.html">{name}</a>' for slug, name in COMUNAS)
+    comunas = ", ".join(f'<a href="{p}comunas/{slug}.html">{name}</a>' for slug, name in COMUNAS)
     return f'''<footer class="site-footer" role="contentinfo">
   <div class="container container--wide">
     <div class="site-footer__grid">
@@ -233,7 +232,12 @@ def apply_chrome(rel):
     s = read(rel)
     p = prefix_for(rel)
     has_form = 'id="formulario"' in s
-    ed = bool(re.search(r'<body[^>]*class="[^"]*\bed\b', s))
+    # todo el sitio usa el diseño editorial (fondo claro): clase "ed" en <body> y color de la barra del navegador
+    if not re.search(r'<body[^>]*class="[^"]*\bed\b', s):
+        s = re.sub(r'<body class="([^"]*)"', r'<body class="ed \1"', s, count=1) if re.search(r'<body class="', s) \
+            else s.replace("<body>", '<body class="ed">', 1)
+    s = re.sub(r'<meta content="#[0-9A-Fa-f]{6}" name="theme-color"/>', '<meta content="#FFFFFF" name="theme-color"/>', s)
+    ed = True
     # fuentes y hoja de estilos
     s = re.sub(r'\n?[ \t]*<link[^>]*fonts\.(?:googleapis|gstatic)\.com[^>]*>', '', s)
     s = re.sub(r'\n?[ \t]*<link rel="preload" href="[^"]*assets/fonts/[^"]*"[^>]*>', '', s)
@@ -257,7 +261,7 @@ def apply_chrome(rel):
     # Íconos escritos como <i data-icon="nombre"></i> y el esquema de aguas lluvias
     s = re.sub(r'<i data-icon="([a-z]+)"></i>', lambda m: ICONS[m.group(1)], s)
     s = re.sub(r'(?s)(<figure class="esquema"[^>]*>\s*)<svg\b.*?</svg>', lambda m: m.group(1) + ESQUEMA_SVG, s)
-    s = re.sub(r'(?s)<section class="temporada".*?</section>', lambda m: temporada_html(), s)
+    s = re.sub(r'(?s)<section class="ed-sec" id="temporada".*?</section>', lambda m: epocas_section(rel), s)
     s = sync_faq_schema(s)
     write(rel, s)
 
@@ -394,7 +398,7 @@ def temporada_html(heading_tag="h2"):
 def faq_html(items):
     return "\n".join(
         f'''      <details class="faq__item">
-        <summary class="faq__summary">{q}<div class="faq__icon" style="margin-left: auto;"></div></summary>
+        <summary class="faq__summary">{q}</summary>
         <div class="faq__content">{a}</div>
       </details>''' for q, a in items)
 
@@ -441,31 +445,89 @@ COMMON_FAQ = [
 ]
 
 
+def items_html(items):
+    return "\n".join(f"""      <div class="ed-item">
+        <h3>{t}</h3>
+        <p>{x}</p>
+      </div>""" for t, x in items)
+
+
+def pasos_html(items):
+    lis = "\n".join(f"""        <li>
+          <h3>{t}</h3>
+          <p>{x}</p>
+        </li>""" for t, x in items)
+    return f'      <ol class="ed-pasos">\n{lis}\n      </ol>'
+
+
+def ed_section(sid, title, sub, body, extra_class=""):
+    """Sección editorial: título a la izquierda, contenido a la derecha."""
+    cls = "ed-sec" + (f" {extra_class}" if extra_class else "")
+    sub_html = f"\n      <p>{sub}</p>" if sub else ""
+    return f"""<section class="{cls}" id="{sid}" aria-labelledby="{sid}-t">
+  <div class="ed-wrap ed-sec__grid">
+    <div class="ed-sec__head">
+      <h2 id="{sid}-t">{title}</h2>{sub_html}
+    </div>
+    <div class="ed-sec__body">
+{body}
+    </div>
+  </div>
+</section>"""
+
+
+def nota(x):
+    return f'\n      <p class="ed-sec__nota">{x}</p>' if x else ""
+
+
+def epocas_section(rel):
+    """Cuándo revisar: revisión preventiva y después de un temporal (portada y páginas de servicio)."""
+    p = prefix_for(rel)
+    if rel == "danos-por-temporal.html":
+        enlace = '<a class="ed-enlace" href="#formulario" data-elegir-necesidad="Daños después de una lluvia">Pedir una revisión después del temporal</a>'
+    else:
+        enlace = f'<a class="ed-enlace" href="{p}danos-por-temporal.html">Qué revisamos después de un temporal</a>'
+    body = f"""      <div class="ed-epocas">
+        <div class="ed-epoca">
+          <h3>En primavera y verano</h3>
+          <p>Durante el año, canaletas, bajadas y drenes juntan hojas, barro, nidos y sedimento sin que nadie lo note. Una revisión preventiva permite limpiar o reparar con calma y presentar el plan de mantención al comité.</p>
+          <a class="ed-enlace" href="#formulario" data-elegir-necesidad="Revisión preventiva">Pedir una revisión preventiva</a>
+        </div>
+        <div class="ed-epoca">
+          <h3>Después de un temporal</h3>
+          <p>Si aparecieron filtraciones, anegamientos o agua en los subterráneos, la cámara muestra en qué punto falló el sistema y qué tramo hay que reparar.</p>
+          {enlace}
+        </div>
+      </div>
+      <p class="ed-recurso"><a href="{p}assets/lista-revision-aguas-lluvias.pdf" download>Descargar la lista de revisión para administradores</a> (PDF de 2 páginas, para recorrer el edificio antes del invierno).</p>"""
+    return ed_section("temporada", "Cuándo revisar", "Lo ideal es antes de las lluvias, no con el primer temporal.", body)
+
+
 def landing(rel, d):
+    """Páginas de servicio y de comuna, con el diseño editorial de la portada."""
     p = prefix_for(rel)
     url = "https://visioninspeccion.cl/" + rel
     faq = d["faq"]
-    detect = "\n".join(f'''      <div class="detection__item">
-        <h3 class="detection__item-title">{t}</h3>
-        <p class="detection__item-desc">{x}</p>
-      </div>''' for t, x in d["revisamos"])
-    recibe = "\n".join(f'''      <div class="numbered-item">
-        <span class="mono numbered-item__n">0{i}</span>
-        <div>
-          <h3>{t}</h3>
-          <p>{x}</p>
-        </div>
-      </div>''' for i, (t, x) in enumerate(d["recibe"], 1))
-    pasos = "\n".join(f'''      <div class="process__item">
-        <div class="process__number mono">0{i}</div>
-        <div class="process__line"></div>
-        <div class="process__content">
-          <h3 class="process__title">{t}</h3>
-          <p class="process__desc">{x}</p>
-        </div>
-      </div>''' for i, (t, x) in enumerate(d["pasos"], 1))
-    desc_html = "\n        ".join(f'<p class="hero__desc">{x}</p>' for x in d["hero_desc"])
-    return f'''<!DOCTYPE html>
+    h1 = (d.get("h1_full") or f'{d["h1"]} {d["h1_accent"]}').rstrip(".")
+    lead = "\n      ".join(f'<p class="ed-hero__lead">{x}</p>' for x in d["hero_desc"])
+    fotos = d.get("msg_fotos", "Hola, no sé bien qué necesito revisar. Les envío fotos de lo que está pasando.")
+    intro = f'      <p class="ed-sec__intro">{d["intro"]}</p>\n' if d.get("intro") else ""
+    extra = "\n\n".join(ed_section(x["id"], x["title"], x.get("sub"), items_html(x["items"]) + nota(x.get("nota")))
+                        for x in d.get("extra", []))
+    schema = d.get("schema") or business_schema(d["area"])
+    secciones = [
+        ed_section("deteccion", d["revisamos_titulo"], d.get("revisamos_sub"), intro + items_html(d["revisamos"]) + nota(d.get("nota_revisamos"))),
+        ed_section("servicio", d.get("recibe_titulo", "Qué recibe"), d.get("recibe_sub", "Lo mismo en cada inspección."), items_html(d["recibe"])),
+        extra,
+        ed_section("proceso", d.get("pasos_titulo", "Cómo trabajamos"), d.get("pasos_sub", "Del primer mensaje al informe."),
+                   pasos_html(d["pasos"]) + nota(d.get("nota_pasos"))),
+        epocas_section(rel) if d.get("epocas", True) else "",
+        ed_section("faq", d.get("faq_titulo", "Preguntas frecuentes"),
+                   f'Más respuestas en nuestras <a href="{p}blog/index.html">guías de aguas lluvias</a>.', faq_html(faq), "ed-faq"),
+        form_section(d["form_h"], None, p, d.get("preset")),
+    ]
+    cuerpo = "\n\n".join(x for x in secciones if x)
+    return f"""<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="utf-8"/>
@@ -474,105 +536,47 @@ def landing(rel, d):
   <meta name="description" content="{d["meta"]}"/>
   <meta content="index,follow" name="robots"/>
   <link href="{url}" rel="canonical"/>
+  <link rel="alternate" hreflang="es-cl" href="{url}" />
   <meta content="website" property="og:type"/>
-  <meta content="{d["title"]}" property="og:title"/>
-  <meta content="{d["meta"]}" property="og:description"/>
+  <meta content="{d.get("og_title", d["title"])}" property="og:title"/>
+  <meta content="{d.get("og_desc", d["meta"])}" property="og:description"/>
   <meta content="{url}" property="og:url"/>
   <meta content="{OG_IMG}" property="og:image"/>
   <meta content="1200" property="og:image:width"/>
   <meta content="630" property="og:image:height"/>
   <meta content="summary_large_image" name="twitter:card"/>
-  <meta content="#0C0C0E" name="theme-color"/>
+  <meta content="#FFFFFF" name="theme-color"/>
   <link href="{p}assets/solo-icono.png" rel="icon" type="image/png"/>
   <link href="{p}assets/solo-icono.png" rel="apple-touch-icon"/>
   <link href="{p}styles.css?v={CSS_VER}" rel="stylesheet"/>
-  <script type="application/ld+json">{business_schema(d["area"])}</script>
+  <script type="application/ld+json">{schema}</script>
   <script type="application/ld+json">{faq_schema(faq)}</script>
 </head>
-<body>
+<body class="ed">
 
 <header class="site-header" data-header></header>
 
 <main>
 
-<section class="hero" id="top">
-  <div class="container container--wide">
-    <div class="hero__grid">
-      <div class="hero__content">
-        <span class="hero__tag mono">{d["tag"]}</span>
-        <h1 class="hero__title" id="heroHeading">{d["h1"]}<br><span class="text-accent">{d["h1_accent"]}</span></h1>
-        {desc_html}
-        <div class="hero__actions">
-          <a class="btn btn--primary btn--lg" href="#formulario">Pedir visita técnica</a>
-          <a class="btn btn--ghost" href="tel:{TEL}" data-call data-placement="hero">Llamar al {TEL_VISIBLE}</a>
-        </div>
-        <p class="hero__microcopy">✓ Visita técnica de un ingeniero en construcción · ✓ Video y fotos de cada hallazgo · ✓ Ubicación de cada falla por tramo</p>
+<section class="ed-hero" id="top" aria-labelledby="heroHeading">
+  <div class="ed-wrap ed-hero__grid">
+    <div class="ed-hero__text">
+      <h1 class="ed-hero__title" id="heroHeading">{h1}</h1>
+      {lead}
+      <div class="ed-hero__actions">
+        <a class="ed-btn ed-btn--primary" href="#formulario">Pedir visita técnica</a>
+        <a class="ed-btn ed-btn--line" href="tel:{TEL}" data-call data-placement="hero">Llamar al {TEL_VISIBLE}</a>
       </div>
-      <div class="hero__visual">
-        {esquema_figure(d["caption"])}
-      </div>
+      <p class="ed-hero__note">La visita técnica cuesta $35.000 + IVA y se descuenta si después contrata la inspección.</p>
+      <p class="ed-hero__fotos">¿No sabe qué necesita? <button type="button" class="ed-link" data-whatsapp data-placement="hero_fotos" data-message="{fotos}">Envíenos fotos por WhatsApp</button> e intentaremos orientarle.</p>
+    </div>
+    <div class="ed-hero__visual">
+      {esquema_figure(d["caption"])}
     </div>
   </div>
 </section>
 
-<section class="detection" id="deteccion" style="padding: 80px 0;">
-  <div class="container">
-    <div class="detection__header text-center">
-      <h2 class="detection__title">{d["revisamos_titulo"]}</h2>
-      <p style="color: var(--zinc-400); margin-top: 16px;">{d["revisamos_sub"]}</p>
-    </div>
-    <div class="detection__grid">
-{detect}
-    </div>
-  </div>
-</section>
-
-<section class="section" id="servicio" style="background: var(--white); padding: 80px 0;">
-  <div class="container">
-    <div class="text-center" style="margin-bottom: 56px;">
-      <h2 style="font-size: 36px; margin-bottom: 16px;">Qué recibe</h2>
-      <p style="color: var(--zinc-500);">Lo mismo en cada inspección.</p>
-    </div>
-    <div class="numbered-list">
-{recibe}
-    </div>
-  </div>
-</section>
-
-<section class="process" id="proceso" style="padding: 80px 0;">
-  <div class="container">
-    <div class="text-center" style="margin-bottom: 64px;">
-      <h2 style="font-size: 36px; margin-bottom: 16px;">Cómo trabajamos</h2>
-      <p style="color: var(--zinc-600);">Del primer mensaje al informe.</p>
-    </div>
-    <div class="process__list">
-{pasos}
-    </div>
-  </div>
-</section>
-
-{temporada_html()}
-
-<section class="faq" id="faq" style="padding: 80px 0;">
-  <div class="container">
-    <div class="faq__container">
-      <h2 class="faq__title">Preguntas frecuentes</h2>
-{faq_html(faq)}
-    </div>
-  </div>
-</section>
-
-{form_section(d["form_h"], None, p, d.get("preset"))}
-
-<section class="cta-final" aria-label="Llamado a la acción final" style="padding: 100px 0;">
-  <div class="container">
-    <div class="cta-final__inner">
-      <h2 class="cta-final__title">{d.get("cta_h", "Antes del invierno, revise sus aguas lluvias.")}</h2>
-      <p class="cta-final__desc">{d.get("cta_p", "Le mostramos qué hay dentro de cada bajada y cada dren, y en qué tramo está el problema.")}</p>
-      <a class="btn btn--primary btn--lg" href="#formulario">Pedir visita técnica</a>
-    </div>
-  </div>
-</section>
+{cuerpo}
 
 </main>
 
@@ -581,7 +585,7 @@ def landing(rel, d):
 <script src="{p}app.js?v={JS_VER}"></script>
 </body>
 </html>
-'''
+"""
 
 
 EMPRESAS = dict(
@@ -641,8 +645,64 @@ DANOS = dict(
          ("¿El informe dice quién debe pagar la reparación?", "No. Muestra qué se encontró y en qué tramo. Quién asume la reparación lo definen las partes.")] + COMMON_FAQ,
     form_h="Pida una visita técnica",
     preset={"necesidad": "Daños después de una lluvia"},
-    cta_h="Revise antes de reparar.",
-    cta_p="Con la primera intervención se pierde el registro de cómo estaba el sistema. La visita técnica cuesta $35.000 + IVA y se descuenta si contrata la inspección.",
+    nota_revisamos="Revise antes de reparar: con la primera intervención se pierde el registro de cómo estaba el sistema.",
+    msg_fotos="Hola, tuvimos daños por lluvia. Les envío fotos de lo que está pasando.",
+)
+
+
+CONSTRUCTORAS = dict(
+    title="Inspección de aguas lluvias para constructoras e inmobiliarias | Visión Inspección",
+    meta="Videoinspección de bajadas de aguas lluvias, drenes y sumideros para recepción de obra, pre-entrega y postventa. Informe técnico con video y ubicación por tramo.",
+    og_desc="Bajadas, drenes y sumideros revisados con cámara para recepción de obra, pre-entrega y postventa. Informe técnico con video.",
+    area="Región Metropolitana, V Región y VI Región, Chile",
+    schema=json.dumps({"@context": "https://schema.org", "@type": "Service",
+                       "name": "Inspección de aguas lluvias para constructoras e inmobiliarias",
+                       "description": "Videoinspección de bajadas de aguas lluvias, drenes, cámaras decantadoras y sumideros para recepción de obra, pre-entrega y postventa.",
+                       "provider": {"@type": "LocalBusiness", "name": "Visión Inspección", "url": "https://visioninspeccion.cl/",
+                                    "email": EMAIL, "areaServed": "Santiago, Chile", "image": "https://visioninspeccion.cl/assets/logo-con-foto.png"},
+                       "areaServed": {"@type": "Place", "name": "Región Metropolitana, V Región, VI Región"}},
+                      ensure_ascii=False, indent=2),
+    h1_full="Aguas lluvias documentadas antes, durante y después de la obra",
+    hero_desc=["Revisamos con cámara bajadas, drenes, cámaras decantadoras y sumideros, y entregamos un informe técnico con video para la recepción de obra, el respaldo ante propietarios y la gestión de postventa."],
+    caption="Esquema de un sistema de aguas lluvias: los puntos que conviene revisar antes de la entrega.",
+    msg_fotos="Hola, soy de una constructora o inmobiliaria. Les envío fotos de lo que está pasando.",
+    revisamos_titulo="¿Por qué revisar las aguas lluvias de una obra?",
+    intro="Una bajada embutida o un dren bajo el relleno son de los sistemas más caros de reparar cuando el edificio ya está terminado. Documentar su estado en cada etapa protege a la empresa y reduce los reclamos después del primer invierno.",
+    revisamos=[("Recepción de obra", "Documente el estado de bajadas, drenes y sumideros antes de la recepción. El informe visual complementa la carpeta técnica y deja registro del estado real del sistema al momento de la entrega."),
+               ("Postventa y garantía", "Cuando un propietario reclama por una filtración o un anegamiento, la inspección muestra si el origen está en el sistema de aguas lluvias y en qué tramo. Con video y la ubicación de cada hallazgo, el diagnóstico es objetivo."),
+               ("Pre-entrega al comprador", "Inspeccionar antes de entregar las llaves deja registro del estado del sistema al momento de la transferencia. Si hay un reclamo después de las primeras lluvias, la evidencia ya existe."),
+               ("Después de un temporal", "Si un temporal deja filtraciones o anegamientos en la obra o en un edificio ya entregado, la inspección muestra en qué punto falló el sistema y en qué tramo."),
+               ("Control de calidad en obra", "Inspecciones durante la obra permiten detectar defectos antes de cerrar shafts, cielos y rellenos: uniones mal selladas, pendientes incorrectas o restos de material dentro de bajadas y drenes."),
+               ("Volumen y proyectos", "Para proyectos con varios edificios, etapas o lotes, programamos las inspecciones por etapa y con tarifas por volumen. Un solo proveedor y un mismo formato de informe.")],
+    recibe_titulo="Qué entregamos",
+    recibe_sub="Cada inspección genera documentación técnica pensada para las reuniones de obra, los informes de ITO y la comunicación con propietarios.",
+    recibe=[("Video HD del recorrido", "Registro visual completo del interior de bajadas y drenes, en formato digital para archivo y consulta."),
+            ("Informe técnico", "Revisado por un ingeniero en construcción: fotos, estado de cada tramo, hallazgos y recomendaciones. En PDF."),
+            ("Ubicación por tramo", "Cada hallazgo queda registrado con su tramo y la distancia desde el punto de acceso, para que el equipo de obra sepa dónde intervenir.")],
+    extra=[dict(id="obras-nuevas", title="Lo que conviene revisar en obras nuevas",
+                sub="Defectos que se detectan con cámara antes de la entrega y que, si no se ven, aparecen con las primeras lluvias.",
+                items=[("Restos de material de construcción", "Mortero, gravilla, trozos de tubo o plumavit que quedan dentro de bajadas y drenes durante la obra. Reducen el paso del agua y el problema aparece con la primera lluvia fuerte."),
+                       ("Uniones mal selladas o desalineadas", "Conexiones que no calzan o que quedan separadas. En tramos embutidos, el agua escapa con cada lluvia y aparece como humedad en muros o cielos."),
+                       ("Pendiente insuficiente o contrapendiente", "Tramos horizontales donde el agua no escurre y se acumula sedimento, por ejemplo en cielos de estacionamientos o bajo patios."),
+                       ("Drenes aplastados por el relleno", "Tubos deformados por compactación o tránsito de maquinaria. Se detectan antes de que el sistema entre en servicio.")],
+                nota="Detectar un defecto antes de la entrega cuesta una fracción de repararlo después.")],
+    pasos_titulo="Cómo trabajamos con constructoras", pasos_sub="De la visita técnica al informe para la carpeta de obra.",
+    pasos=[("Visita técnica", "Un ingeniero en construcción revisa el proyecto, los accesos y el alcance. Con eso le enviamos la cotización de la inspección; si la contrata, la visita se descuenta."),
+           ("Coordinación", "Agendamos la inspección según el calendario de obra. Nos adaptamos a los horarios de faena y a los accesos disponibles."),
+           ("Inspección", "Recorremos bajadas y drenes con cámara HD sumergible (IP68) y grabamos el recorrido completo."),
+           ("Informe", "Informe técnico en PDF y video del recorrido, listos para la carpeta de obra o la postventa.")],
+    faq_titulo="Preguntas frecuentes de constructoras",
+    faq=[("¿El informe sirve para la recepción municipal?", "El informe documenta con video y fotografías el estado interno de bajadas y drenes. Es un respaldo técnico de referencia que puede complementar la documentación de recepción. Consulte con su ITO o con la DOM los requisitos específicos de su proyecto."),
+         ("¿Pueden inspeccionar antes de la entrega a los propietarios?", "Sí. La inspección pre-entrega documenta el estado del sistema de aguas lluvias antes de transferir la responsabilidad al comprador. Esto protege a la constructora ante reclamos posteriores por vicios ocultos."),
+         ("¿Trabajan con volumen de unidades?", "Sí. Para proyectos con varios edificios, etapas o lotes, ofrecemos tarifas por volumen y programación de inspecciones por etapa. Contáctenos para recibir una propuesta adaptada a su proyecto."),
+         ("¿Qué documento emiten?", "Por ahora emitimos boleta de honorarios."),
+         ("¿Cuánto toma inspeccionar un edificio completo?", "Depende de la cantidad de bajadas, de los metros de dren y de los accesos. Al cotizar le proponemos un calendario de inspección según su proyecto."),
+         ("¿Qué pasa si encuentran un problema?", "El informe documenta en qué tramo está, qué se encontró y una recomendación técnica. La decisión de intervenir es siempre del cliente."),
+         ("¿Me pueden orientar antes de la visita?", "Envíenos por WhatsApp fotos o un video corto del embudo, la bajada, el sumidero o la zona con problemas, e intentaremos orientarle."),
+         ("¿Cuánto cuesta la visita técnica?", "$35.000 + IVA. Un ingeniero en construcción revisa el proyecto en terreno y, con lo que ve, le enviamos la cotización de la inspección. Si la contrata, el valor de la visita se descuenta.")],
+    form_h="Pida una visita técnica para su proyecto",
+    preset={"recinto": "Obra o inmobiliaria"},
+    epocas=False,
 )
 
 
@@ -684,7 +744,7 @@ def comuna_data(slug, name):
         meta=f"Inspección con cámara de bajadas de aguas lluvias, drenes y sumideros en {name}. {angle} Informe con fotos y video.",
         area=f"{name}, Región Metropolitana, Chile",
         tag=f"Aguas lluvias en {name}",
-        h1=f"Videoinspección de aguas lluvias en {name}", h1_accent="con cámara, sin romper.",
+        h1_full=f"Videoinspección de aguas lluvias en {name}, con cámara y sin romper",
         hero_desc=[p1, p2],
         caption="Esquema de un sistema de aguas lluvias: los puntos que revisamos con la cámara.",
         msg=f"Hola, quiero consultar por una revisión de aguas lluvias en {name}.",
@@ -716,23 +776,22 @@ def page_404():
   <title>Página no encontrada | Visión Inspección</title>
   <base href="/"/>
   <meta content="noindex,follow" name="robots"/>
-  <meta content="#0C0C0E" name="theme-color"/>
+  <meta content="#FFFFFF" name="theme-color"/>
   <link href="./assets/solo-icono.png" rel="icon" type="image/png"/>
   <link href="./styles.css?v=''' + CSS_VER + '''" rel="stylesheet"/>
 </head>
-<body>
+<body class="ed">
 
 <header class="site-header" data-header></header>
 
 <main>
-<section class="hero" style="min-height: 70vh; display: flex; align-items: center;">
-  <div class="container text-center">
-    <span class="hero__tag mono">Error 404</span>
-    <h1 class="hero__title" style="margin: 16px auto;">No encontramos esta página.</h1>
-    <p class="hero__desc" style="margin: 0 auto 32px;">Puede que el enlace esté mal escrito o que la página ya no exista.</p>
-    <div class="hero__actions" style="justify-content: center;">
-      <a class="btn btn--primary btn--lg" href="./index.html">Ir al inicio</a>
-      <button class="btn btn--ghost" type="button" data-whatsapp data-placement="404" data-message="Hola, quiero consultar por una revisión de aguas lluvias.">Escribir por WhatsApp</button>
+<section class="ed-hero ed-simple" aria-labelledby="errorTitulo">
+  <div class="ed-wrap">
+    <h1 class="ed-hero__title" id="errorTitulo">No encontramos esta página</h1>
+    <p class="ed-hero__lead">Error 404: puede que el enlace esté mal escrito o que la página ya no exista.</p>
+    <div class="ed-hero__actions">
+      <a class="ed-btn ed-btn--primary" href="./index.html">Ir al inicio</a>
+      <button class="ed-btn ed-btn--line" type="button" data-whatsapp data-placement="404" data-message="Hola, quiero consultar por una revisión de aguas lluvias.">Escribir por WhatsApp</button>
     </div>
   </div>
 </section>
@@ -749,6 +808,7 @@ def page_404():
 def main():
     write("empresas.html", landing("empresas.html", EMPRESAS))
     write("danos-por-temporal.html", landing("danos-por-temporal.html", DANOS))
+    write("constructoras.html", landing("constructoras.html", CONSTRUCTORAS))
     for slug, name in COMUNAS:
         write(f"comunas/{slug}.html", landing(f"comunas/{slug}.html", comuna_data(slug, name)))
     write("404.html", page_404())
