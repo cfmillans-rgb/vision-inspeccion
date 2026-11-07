@@ -12,7 +12,32 @@ const BRAND = {
   city:      "Santiago, Chile"
 };
 
-/* ---------- UTM persistence ---------- */
+/* ---------- Consentimiento y origen de campañas ----------
+   Sin consentimiento no se guarda nada en el navegador, salvo la propia decisión
+   (vi_consent) y, durante la sesión, si ya se mostró el aviso de salida.
+   Con consentimiento: los parámetros de campaña (utm_*, gclid, fbclid) se guardan
+   30 días (vi_utms) y se agregan al mensaje de WhatsApp. */
+const SITE_ROOT = (document.currentScript && document.currentScript.src)
+  ? new URL(".", document.currentScript.src).href : "/";
+const CONSENT_KEY = "vi_consent";
+const CONSENT_DAYS = 180;
+const UTM_KEY = "vi_utms";
+const UTM_DAYS = 30;
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+function readConsent() {
+  try {
+    const c = JSON.parse(localStorage.getItem(CONSENT_KEY) || "null");
+    if (!c || !c.ts || Date.now() - c.ts > CONSENT_DAYS * DAY_MS) return null;
+    return c.v === "granted" || c.v === "denied" ? c.v : null;
+  } catch (_) { return null; }
+}
+function saveConsent(v) {
+  try { localStorage.setItem(CONSENT_KEY, JSON.stringify({ v: v, ts: Date.now(), version: "1.0" })); } catch (_) {}
+  if (v === "granted") persistUTMs();
+  else { try { localStorage.removeItem(UTM_KEY); } catch (_) {} }
+}
+
 function getQueryParams() {
   const params = new URLSearchParams(window.location.search);
   const obj = {};
@@ -24,20 +49,55 @@ function pick(obj, keys) {
   keys.forEach(k => { if (obj[k]) out[k] = obj[k]; });
   return out;
 }
+const UTM_FIELDS = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid"];
 function persistUTMs() {
-  const q = getQueryParams();
-  const utms = pick(q, ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid"]);
+  if (readConsent() !== "granted") return;
+  const utms = pick(getQueryParams(), UTM_FIELDS);
   if (Object.keys(utms).length) {
-    try { localStorage.setItem("vi_utms", JSON.stringify({ ...utms, ts: Date.now() })); } catch(_){}
+    try { localStorage.setItem(UTM_KEY, JSON.stringify({ ...utms, ts: Date.now() })); } catch(_){}
   }
 }
 function readUTMs() {
-  try { const raw = localStorage.getItem("vi_utms"); return raw ? JSON.parse(raw) : {}; } catch { return {}; }
+  if (readConsent() !== "granted") return {};
+  try {
+    const u = JSON.parse(localStorage.getItem(UTM_KEY) || "null");
+    if (!u || !u.ts || Date.now() - u.ts > UTM_DAYS * DAY_MS) { localStorage.removeItem(UTM_KEY); return {}; }
+    return u;
+  } catch { return {}; }
 }
 function utmString() {
   const utms = readUTMs();
-  const keys = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid"];
-  return keys.filter(k=>utms[k]).map(k=>`${k}=${encodeURIComponent(utms[k])}`).join("&");
+  return UTM_FIELDS.filter(k=>utms[k]).map(k=>`${k}=${encodeURIComponent(utms[k])}`).join("&");
+}
+
+/* ---------- Aviso de cookies ---------- */
+function initConsentBanner() {
+  const bar = document.createElement("div");
+  bar.className = "consent";
+  bar.setAttribute("role", "region");
+  bar.setAttribute("aria-label", "Aviso de privacidad y cookies");
+  bar.hidden = true;
+  bar.innerHTML =
+    '<p class="consent__title">Su privacidad</p>' +
+    '<p class="consent__text">No usamos cookies de publicidad ni de terceros. Si llegó desde un anuncio y lo acepta, ' +
+    'guardamos 30 días en su navegador de qué campaña vino, para saber qué avisos funcionan. ' +
+    '<a href="' + SITE_ROOT + 'privacidad.html#cookies">Más información</a></p>' +
+    '<div class="consent__actions">' +
+    '<button type="button" class="btn btn--secondary" data-consent="denied">Rechazar</button>' +
+    '<button type="button" class="btn btn--primary" data-consent="granted">Aceptar</button>' +
+    '</div>';
+  document.body.appendChild(bar);
+  bar.querySelectorAll("[data-consent]").forEach(b => {
+    b.addEventListener("click", () => {
+      saveConsent(b.getAttribute("data-consent"));
+      bar.hidden = true;
+      trackEvent("consent", { choice: b.getAttribute("data-consent") });
+    });
+  });
+  document.querySelectorAll("[data-consent-open]").forEach(el => {
+    el.addEventListener("click", e => { e.preventDefault(); bar.hidden = false; });
+  });
+  if (!readConsent()) bar.hidden = false;
 }
 
 /* ---------- WhatsApp builder ---------- */
@@ -58,7 +118,7 @@ function trackEvent(name, params = {}) {
 function bindWhatsAppButtons() {
   document.querySelectorAll("[data-whatsapp]").forEach(btn => {
     btn.addEventListener("click", () => {
-      const msg = btn.getAttribute("data-message") || "Hola, quiero agendar una inspeccion de tuberias.";
+      const msg = btn.getAttribute("data-message") || "Hola, quiero cotizar una videoinspección de aguas lluvias.";
       trackEvent("click_whatsapp", { placement: btn.getAttribute("data-placement") || "unknown", page: location.pathname });
       window.open(buildWhatsAppLink(msg), "_blank", "noopener,noreferrer");
     });
@@ -115,13 +175,13 @@ function bindLeadForm() {
     const nombre = (fd.get("nombre") || "").toString().trim();
     const telefono = (fd.get("telefono") || "").toString().trim();
     const comuna = (fd.get("comuna") || "").toString().trim();
-    const urgencia = (fd.get("urgencia") || "").toString().trim();
+    const plazo = (fd.get("plazo") || "").toString().trim();
     const detalles = (fd.get("detalles") || "").toString().trim();
 
     let parts = ["Solicitud de cotización — Visión Inspección"];
-    if (formData.propiedad) parts.push("Propiedad: " + formData.propiedad);
-    if (formData.situacion) parts.push("Situación: " + formData.situacion);
-    if (urgencia) parts.push("Urgencia: " + urgencia);
+    if (formData.propiedad) parts.push("Recinto: " + formData.propiedad);
+    if (formData.situacion) parts.push("Necesita: " + formData.situacion);
+    if (plazo) parts.push("Para cuándo: " + plazo);
     if (comuna) parts.push("Comuna: " + comuna);
     if (nombre) parts.push("Nombre: " + nombre);
     if (telefono) parts.push("Teléfono: " + telefono);
@@ -129,7 +189,7 @@ function bindLeadForm() {
     parts.push("\nQuedo atento/a al valor de la inspección.");
 
     const msg = parts.join("\n");
-    trackEvent("generate_lead", { method: "form_wizard_to_whatsapp", page: location.pathname, propiedad: formData.propiedad, situacion: formData.situacion, urgencia: urgencia });
+    trackEvent("generate_lead", { method: "form_wizard_to_whatsapp", page: location.pathname, propiedad: formData.propiedad, situacion: formData.situacion, plazo: plazo });
     window.open(buildWhatsAppLink(msg), "_blank", "noopener,noreferrer");
     form.reset();
     formData.propiedad = "";
@@ -289,6 +349,7 @@ function initSmoothFAQ() {
 /* ---------- Init ---------- */
 persistUTMs();
 document.addEventListener("DOMContentLoaded", () => {
+  initConsentBanner();
   bindWhatsAppButtons();
   bindCallLinks();
   bindLeadForm();

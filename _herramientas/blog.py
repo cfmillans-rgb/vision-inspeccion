@@ -13,42 +13,37 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from sitio import ICONS, CAPTURAS  # noqa: E402
+from sitio import ICONS  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 # Orden = orden en el índice del blog. "inicio": aparece en la portada.
 ARTICULOS = [
-    dict(slug="senales-obstruccion-alcantarillado", tags=["Alcantarillado", "Prevención"], icon="atasco",
-         titulo="5 señales de una obstrucción en el alcantarillado",
-         bajada="Cómo identificar el problema, qué puede estar causándolo y qué hacer antes de romper.",
-         tarjeta="Cómo darse cuenta a tiempo de que el alcantarillado se está tapando.",
-         min=9, fecha="Agosto 2026", portada="bolsas",
-         pie="Tapón de bolsas y sedimento en un colector domiciliario. Captura de nuestra cámara.", inicio=True),
-    dict(slug="deteccion-fugas-sin-romper", tags=["Humedad", "Desagües"], icon="gota",
-         titulo="Humedad que viene del desagüe: cómo reconocerla y revisarla con cámara",
-         bajada="Cómo saber si una mancha de humedad viene del alcantarillado, qué puede estar fallando y cuándo conviene revisar con cámara.",
-         tarjeta="Cómo saber si una mancha de humedad viene del desagüe y cuándo revisarla.",
-         min=5, fecha="Agosto 2026", portada="escombros",
-         pie="Agua estancada dentro de un colector. Captura de nuestra cámara.", inicio=True),
+    dict(slug="senales-bajada-aguas-lluvias-obstruida", tags=["Bajadas", "Prevención"], icon="bajada",
+         titulo="5 señales de que una bajada de aguas lluvias está obstruida",
+         bajada="Cómo reconocer el problema antes del próximo temporal, qué lo suele causar y cómo se revisa con cámara sin romper.",
+         tarjeta="Cómo darse cuenta a tiempo de que una bajada no está evacuando bien.",
+         min=6, fecha="Noviembre 2026", inicio=True),
+    dict(slug="deteccion-fugas-sin-romper", tags=["Filtraciones", "Edificios"], icon="gota",
+         titulo="Filtraciones por aguas lluvias en edificios: cómo encontrar el origen sin romper",
+         bajada="De dónde suele venir el agua cuando aparecen manchas después de llover, qué puede estar fallando y cuándo conviene revisar con cámara.",
+         tarjeta="De dónde viene el agua cuando aparecen manchas después de llover.",
+         min=6, fecha="Noviembre 2026", inicio=True),
     dict(slug="mantencion-ductos-edificios", tags=["Edificios", "Mantención"], icon="edificio",
-         titulo="Mantención preventiva de ductos en edificios: guía para administradores",
-         bajada="Cómo anticipar problemas en la red de alcantarillado antes de que se conviertan en emergencias.",
-         tarjeta="Cuándo revisar los ductos del edificio y qué se suele encontrar.",
-         min=8, fecha="Agosto 2026", portada="escombros",
-         pie="Escombros y bolsas dentro de un colector. Captura de nuestra cámara.", inicio=True),
+         titulo="Mantención preventiva de aguas lluvias en edificios: guía para administradores",
+         bajada="Qué revisar antes del invierno, cuándo conviene una inspección con cámara y cómo usar el informe ante el comité y la aseguradora.",
+         tarjeta="Qué revisar antes del invierno y cómo usar el informe ante el comité.",
+         min=7, fecha="Noviembre 2026", inicio=True),
     dict(slug="video-inspeccion-tuberias-santiago", tags=["Diagnóstico", "Guía"], icon="video",
-         titulo="Videoinspección de tuberías en Santiago: qué es, cómo funciona y cuándo conviene",
-         bajada="Cómo es el proceso, qué se puede ver con la cámara, qué incluye el informe y cuándo conviene hacerla.",
+         titulo="Videoinspección de aguas lluvias en Santiago: qué es, cómo funciona y cuándo conviene",
+         bajada="Cómo es el proceso, qué se puede ver con la cámara en bajadas y drenes, qué incluye el informe y cuándo conviene hacerla.",
          tarjeta="Cómo es el proceso, qué se ve con la cámara y qué incluye el informe.",
-         min=10, fecha="Agosto 2026", portada="pelota",
-         pie="Pelota atrapada dentro de un colector. Captura de nuestra cámara."),
+         min=7, fecha="Noviembre 2026"),
     dict(slug="cuanto-cuesta-videoinspeccion-tuberias", tags=["Precios", "Guía"], icon="documento",
-         titulo="¿Cuánto cuesta una videoinspección de tuberías en Chile?",
-         bajada="Qué determina el valor, por qué no hay una tarifa fija y cómo pedir una cotización para su caso.",
+         titulo="¿Cuánto cuesta una videoinspección de aguas lluvias?",
+         bajada="Qué determina el valor, por qué no hay una tarifa fija y cómo pedir una cotización para su edificio o recinto.",
          tarjeta="Qué determina el valor y cómo pedir una cotización para su caso.",
-         min=6, fecha="Septiembre 2026", portada="bolsas",
-         pie="Tapón de bolsas y sedimento en un colector. Captura de nuestra cámara."),
+         min=5, fecha="Noviembre 2026"),
 ]
 
 TEXT_TAGS = r"(?:h2|h3|h4|p|ul|ol|li|table|thead|tbody|tr|th|td|nav|figure|figcaption|img|summary|details|strong|span|em|section|small|br)"
@@ -59,7 +54,6 @@ def esc(x):
 
 
 def header(a):
-    f, alt = CAPTURAS[a["portada"]]
     tags = "".join(f'<span class="article__tag">{esc(t)}</span>' for t in a["tags"])
     return f'''<article class="article">
   <header class="article__header">
@@ -69,11 +63,6 @@ def header(a):
     <p class="article__lead">{esc(a["bajada"])}</p>
     <p class="article__meta">Equipo Visión Inspección · Lectura de {a["min"]} min · {a["fecha"]}</p>
   </header>
-
-  <figure class="article__cover">
-    <img src="../assets/portfolio/{f}" alt="{esc(alt)}" width="1024" height="478" loading="eager"/>
-    <figcaption>{esc(a["pie"])}</figcaption>
-  </figure>
 '''
 
 
@@ -177,9 +166,11 @@ def format_article(a):
     m = re.search(r'(?s)<article\b[^>]*>.*?</article>', s)
     art = m.group(0)
     if 'class="article"' in art[:40]:
-        # ya formateado: solo se actualiza la cabecera
-        body = art[art.index("</figure>") + len("</figure>"):]
-        new = header(a) + body
+        # ya formateado: solo se actualiza la cabecera (y se quita la foto de portada, si la hay)
+        hm = re.match(r'(?s)<article class="article">\s*<header class="article__header">.*?</header>\s*'
+                      r'(?:<figure class="article__cover">.*?</figure>\s*)?', art)
+        body = art[hm.end():]
+        new = header(a) + "\n" + body
     else:
         nav = re.search(r'(?s)(?:<!--[^>]*-->\s*)?<nav\b', art)
         if nav:
