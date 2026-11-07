@@ -17,12 +17,12 @@
   <meta content="1200" property="og:image:width"/>
   <meta content="630" property="og:image:height"/>
   <meta content="summary_large_image" name="twitter:card"/>
-  <meta content="#FFFFFF" name="theme-color"/>
+  <meta content="#1B1D3A" name="theme-color"/>
   <link href="assets/solo-icono.png" rel="icon" type="image/png"/>
   <link href="assets/solo-icono.png" rel="apple-touch-icon"/>
 <link rel="preload" href="./assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" href="./assets/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin/>
-<link href="./styles.css?v=9" rel="stylesheet"/>
+<link href="./styles.css?v=10" rel="stylesheet"/>
   <script type="application/ld+json">{
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -58,15 +58,7 @@
       "name": "¿Qué incluye la videoinspección de aguas lluvias?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Recorrido con cámara de las bajadas, drenes o tramos acordados, video completo, fotos de cada hallazgo, en qué tramo y a cuántos metros está cada problema, y la recomendación de qué limpiar o reparar. Todo va en un informe revisado por un ingeniero en construcción."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Pueden revisar bajadas en edificios de altura?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Sí. La cámara tiene 30 m de cable con marcas de distancia y entra por la cubierta, los registros o el pie de la bajada. En edificios más altos se revisa por tramos, según los accesos disponibles."
+        "text": "Recorrido con cámara de las bajadas, drenes o tramos acordados, video completo, fotos de cada hallazgo, en qué tramo y a cuántos metros está cada problema, y la recomendación de qué limpiar o reparar. En edificios altos se revisa por tramos, según los accesos. Todo va en un informe revisado por un ingeniero en construcción."
       }
     },
     {
@@ -90,7 +82,7 @@
       "name": "¿Cuándo conviene hacer la revisión?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Lo ideal es en primavera o verano, con tiempo para limpiar o reparar antes de las lluvias. También después de un temporal, si aparecieron filtraciones, anegamientos o agua en los subterráneos."
+        "text": "Lo ideal es en primavera o verano, con tiempo para limpiar o reparar antes de las lluvias. También después de un temporal, si aparecieron filtraciones, anegamientos o agua en los subterráneos. Para recorrer el edificio antes, descargue la lista de revisión para administradores."
       }
     },
     {
@@ -99,14 +91,6 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "En toda la Región Metropolitana, la V Región (Valparaíso, Viña del Mar, Quilpué y alrededores) y la VI Región (Rancagua y alrededores). Escríbanos su comuna y confirmamos disponibilidad."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Qué documento emiten?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Por ahora emitimos boleta de honorarios."
       }
     }
   ]
@@ -117,7 +101,7 @@
 <header class="site-header" data-header>
   <div class="site-header__inner container container--wide">
     <a class="site-header__logo" href="./index.html">
-      <img alt="Visión Inspección" class="brand-logo" src="./assets/logo-oscuro.png" width="216" height="40"/>
+      <img alt="Visión Inspección" class="brand-logo" src="./assets/logo-sin-fondo.png" width="216" height="40"/>
     </a>
     <nav class="site-header__nav" id="mobileNav" aria-label="Navegación principal">
       <a class="site-header__nav-link" href="#proceso">Cómo funciona</a>
@@ -143,13 +127,12 @@
   <div class="ed-wrap ed-hero__grid">
     <div class="ed-hero__text">
       <h1 class="ed-hero__title" id="heroHeading">Videoinspección de aguas lluvias para edificios y condominios</h1>
-      <p class="ed-hero__lead">Revisamos por dentro bajadas, drenes, cámaras decantadoras y sumideros, sin romper. Le entregamos un informe técnico con video y la ubicación de cada falla por tramo, para la administración o el comité.</p>
+      <p class="ed-hero__lead">Revisamos por dentro bajadas, drenes, cámaras decantadoras y sumideros, sin romper, y le entregamos un informe con video y la ubicación de cada falla.</p>
       <div class="ed-hero__actions">
         <a class="ed-btn ed-btn--primary" href="#formulario">Pedir visita técnica</a>
         <a class="ed-btn ed-btn--line" href="tel:+56959492372" data-call data-placement="hero">Llamar al +56 9 5949 2372</a>
       </div>
-      <p class="ed-hero__note">La visita técnica cuesta $35.000 + IVA y se descuenta si después contrata la inspección.</p>
-      <p class="ed-hero__fotos">¿No sabe qué necesita? <button type="button" class="ed-link" data-whatsapp data-placement="hero_fotos" data-message="Hola, no sé bien qué necesito revisar. Les envío fotos de lo que está pasando.">Envíenos fotos por WhatsApp</button> e intentaremos orientarle.</p>
+      <p class="ed-hero__note">La visita técnica cuesta $35.000 + IVA y se descuenta si contrata la inspección. ¿No sabe qué necesita? <button type="button" class="ed-link" data-whatsapp data-placement="hero_fotos" data-message="Hola, no sé bien qué necesito revisar. Les envío fotos de lo que está pasando.">Envíenos fotos por WhatsApp</button> e intentaremos orientarle.</p>
     </div>
     <div class="ed-hero__visual">
       <figure class="esquema">
@@ -157,6 +140,13 @@
         <figcaption>Esquema de un sistema de aguas lluvias. La cámara entra por el embudo y recorre la bajada; las marcas del cable indican a cuántos metros está cada hallazgo.</figcaption>
       </figure>
     </div>
+  </div>
+  <div class="ed-wrap">
+    <ul class="ed-hero__datos" aria-label="Equipo y respaldo">
+      <li>Cámara HD 1080p sumergible</li>
+      <li>30 m de cable con marcas de distancia</li>
+      <li>Informe revisado por un ingeniero en construcción</li>
+    </ul>
   </div>
 </section>
 
@@ -169,46 +159,17 @@
     <div class="ed-sec__body">
       <div class="ed-item">
         <h3>Bajadas de aguas lluvias</h3>
-        <p>Recorremos cada bajada con la cámara, desde el embudo de la cubierta hasta el pie del edificio. Encontramos obstrucciones, uniones abiertas y fisuras antes de que el agua aparezca en cielos, shafts o estacionamientos.</p>
-        <p class="ed-item__partes">Embudos, canaletas, bajadas, codos y registros.</p>
+        <p>Desde el embudo de la cubierta hasta el pie del edificio: obstrucciones, uniones abiertas y fisuras, antes de que el agua aparezca en cielos, shafts o estacionamientos.</p>
       </div>
       <div class="ed-item">
         <h3>Drenes y sumideros</h3>
-        <p>Revisamos drenes de patios, jardines, losas y muros de contención, y los sumideros y canales de rejilla que los alimentan. Detectamos sedimento, raíces, tubos aplastados y contrapendientes que provocan anegamientos.</p>
-        <p class="ed-item__partes">Drenes, sumideros y canales de rejilla.</p>
+        <p>Sedimento, raíces, tubos aplastados y contrapendientes que provocan anegamientos en patios, rampas y subterráneos.</p>
       </div>
       <div class="ed-item">
         <h3>Cámaras decantadoras</h3>
-        <p>Verificamos el nivel de sedimento y el estado de las tuberías que entran y salen. Una decantadora llena deja pasar barro al sistema y termina obstruyendo los drenes que vienen después.</p>
-        <p class="ed-item__partes">Sedimento, entradas y salidas.</p>
+        <p>Nivel de sedimento y estado de las tuberías que entran y salen, para que el barro no llegue a los drenes.</p>
       </div>
       <p class="ed-sec__nota">¿Ya tuvo daños por lluvia? Vea <a href="./danos-por-temporal.html">qué revisamos después de un temporal</a>.</p>
-    </div>
-  </div>
-</section>
-
-<section class="ed-sec" id="caso" aria-labelledby="caso-t">
-  <div class="ed-wrap ed-sec__grid">
-    <div class="ed-sec__head">
-      <h2 id="caso-t">Un caso real</h2>
-      <p>Fue en otra red de tuberías, no de aguas lluvias, pero muestra cómo trabajamos: qué había adentro, en qué tramo y cómo se resolvió sin romper.</p>
-    </div>
-    <div class="ed-sec__body">
-      <figure class="ed-caso">
-        <div class="ed-caso__fotos">
-          <img class="ed-caso__principal" src="./assets/casos/pelota.jpg" alt="Pelota atrapada dentro de una tubería, vista con la cámara de inspección" width="1024" height="478" loading="lazy">
-          <div class="ed-caso__mas">
-            <img src="./assets/casos/bolsas.jpg" alt="Bolsas plásticas y sedimento tapando el paso dentro de la tubería" width="1024" height="478" loading="lazy">
-            <img src="./assets/casos/escombros.jpg" alt="Escombros y bolsas con agua estancada dentro de la tubería" width="1024" height="478" loading="lazy">
-          </div>
-        </div>
-        <figcaption>Capturas de nuestra cámara: una pelota, bolsas plásticas y escombros que tapaban el paso.</figcaption>
-      </figure>
-      <dl class="ed-caso__datos">
-        <div><dt>Problema</dt><dd>El agua escurría lento y se acumulaba en las cámaras.</dd></div>
-        <div><dt>Hallazgo</dt><dd>Bolsas plásticas, escombros y una pelota retenidos en un tramo, con agua estancada.</dd></div>
-        <div><dt>Resultado</dt><dd>Con el tramo ubicado, los objetos se retiraron sin excavar el patio.</dd></div>
-      </dl>
     </div>
   </div>
 </section>
@@ -221,70 +182,47 @@
     </div>
     <div class="ed-sec__body">
       <ol class="ed-pasos">
-        <li>
+        <li id="precio">
           <h3>Visita técnica</h3>
-          <p>Un ingeniero en construcción revisa el caso en terreno y los accesos: cubierta, embudos, registros, sumideros y cámaras. Cuesta $35.000 + IVA y se descuenta si contrata la inspección.</p>
+          <p>Un ingeniero en construcción revisa el caso y los accesos. Cuesta $35.000 + IVA y se descuenta si contrata la inspección.</p>
         </li>
         <li>
-          <h3>Cotización</h3>
-          <p>Con lo que vio en la visita, le enviamos el valor de la inspección: qué tramos se recorren y qué incluye.</p>
-        </li>
-        <li>
-          <h3>Inspección</h3>
-          <p>Entramos con la cámara por los accesos que ya existen y grabamos todo el recorrido. Usted puede ver la pantalla en terreno.</p>
+          <h3>Inspección con cámara</h3>
+          <p>Recorremos bajadas y drenes por dentro, desde los accesos que ya existen, y grabamos todo el recorrido. Usted puede ver la pantalla en terreno.</p>
         </li>
         <li>
           <h3>Informe</h3>
-          <p>Fotos de cada hallazgo, el video del recorrido, en qué tramo y a cuántos metros está cada problema, y qué conviene limpiar o reparar primero. Lo revisa un ingeniero en construcción.</p>
+          <p>Fotos, video, en qué tramo y a cuántos metros está cada hallazgo, y qué conviene limpiar o reparar primero.</p>
         </li>
       </ol>
-      <p class="ed-sec__nota">Las fechas se coordinan con usted, la administración o la conserjería. El equipo: cámara HD 1080p sumergible (IP68), cabezal de acero inoxidable de 23 mm con luces LED y 30 m de cable con marcas de distancia.</p>
+      <p class="ed-sec__nota">La inspección se cotiza después de la visita, según los accesos y los metros que hay que recorrer, con el informe y el video incluidos. Si el caso no requiere cámara, se lo decimos. Las fechas se coordinan con usted y emitimos boleta de honorarios. Más detalle en <a href="./blog/cuanto-cuesta-videoinspeccion-tuberias.html">qué determina el valor de la inspección</a>.</p>
     </div>
   </div>
 </section>
 
-<section class="ed-sec" id="temporada" aria-labelledby="temporada-t">
+<section class="ed-sec ed-caso-sec" id="caso" aria-labelledby="caso-t">
   <div class="ed-wrap ed-sec__grid">
     <div class="ed-sec__head">
-      <h2 id="temporada-t">Cuándo revisar</h2>
-      <p>Lo ideal es antes de las lluvias, no con el primer temporal.</p>
+      <h2 id="caso-t">Un caso real</h2>
+      <p>Fue en otra red de tuberías, no de aguas lluvias, pero muestra cómo trabajamos: qué había adentro, en qué tramo y cómo se resolvió sin romper.</p>
     </div>
     <div class="ed-sec__body">
-      <div class="ed-epocas">
-        <div class="ed-epoca">
-          <h3>En primavera y verano</h3>
-          <p>Durante el año, canaletas, bajadas y drenes juntan hojas, barro, nidos y sedimento sin que nadie lo note. Una revisión preventiva permite limpiar o reparar con calma y presentar el plan de mantención al comité.</p>
-          <a class="ed-enlace" href="#formulario" data-elegir-necesidad="Revisión preventiva">Pedir una revisión preventiva</a>
-        </div>
-        <div class="ed-epoca">
-          <h3>Después de un temporal</h3>
-          <p>Si aparecieron filtraciones, anegamientos o agua en los subterráneos, la cámara muestra en qué punto falló el sistema y qué tramo hay que reparar.</p>
-          <a class="ed-enlace" href="./danos-por-temporal.html">Qué revisamos después de un temporal</a>
-        </div>
+      <dl class="ed-caso__datos">
+        <div><dt>Problema</dt><dd>El agua escurría lento y se acumulaba en las cámaras.</dd></div>
+        <div><dt>Hallazgo</dt><dd>Bolsas plásticas, escombros y una pelota retenidos en un tramo, con agua estancada.</dd></div>
+        <div><dt>Resultado</dt><dd>Con el tramo ubicado, los objetos se retiraron sin excavar el patio.</dd></div>
+      </dl>
+    </div>
+  </div>
+  <div class="ed-wrap">
+    <figure class="ed-caso">
+      <div class="ed-caso__fotos">
+        <div class="ed-caso__marco ed-caso__principal"><img src="./assets/casos/pelota.jpg" alt="Pelota atrapada dentro de una tubería, vista con la cámara de inspección" width="1024" height="478" loading="lazy"></div>
+        <div class="ed-caso__marco"><img src="./assets/casos/bolsas.jpg" alt="Bolsas plásticas y sedimento tapando el paso dentro de la tubería" width="1024" height="478" loading="lazy"></div>
+        <div class="ed-caso__marco"><img src="./assets/casos/escombros.jpg" alt="Escombros y bolsas con agua estancada dentro de la tubería" width="1024" height="478" loading="lazy"></div>
       </div>
-      <p class="ed-recurso"><a href="./assets/lista-revision-aguas-lluvias.pdf" download>Descargar la lista de revisión para administradores</a> (PDF de 2 páginas, para recorrer el edificio antes del invierno).</p>
-    </div>
-  </div>
-</section>
-
-<section class="ed-sec" id="precio" aria-labelledby="precio-t">
-  <div class="ed-wrap ed-sec__grid">
-    <div class="ed-sec__head">
-      <h2 id="precio-t">Precio</h2>
-      <p>Se parte con una visita técnica. La inspección se cotiza con lo que se ve en terreno.</p>
-    </div>
-    <div class="ed-sec__body">
-      <table class="ed-precio">
-        <caption class="visually-hidden">Valores de la visita técnica y de la inspección</caption>
-        <tbody>
-          <tr><th scope="row">Visita técnica</th><td class="ed-precio__valor">$35.000 + IVA</td><td>Se descuenta si contrata la inspección.</td></tr>
-          <tr><th scope="row">Inspección con cámara</th><td class="ed-precio__valor">Según la visita</td><td>Depende de los accesos, de cuántas bajadas y metros de dren hay que recorrer y de la zona.</td></tr>
-          <tr><th scope="row">Informe y video</th><td class="ed-precio__valor">Incluidos</td><td>En PDF, revisado por un ingeniero en construcción.</td></tr>
-          <tr><th scope="row">Documento</th><td class="ed-precio__valor">Boleta de honorarios</td><td></td></tr>
-        </tbody>
-      </table>
-      <p class="ed-sec__nota">Si el caso no requiere cámara, se lo decimos. Más detalle en <a href="./blog/cuanto-cuesta-videoinspeccion-tuberias.html">qué determina el valor de la inspección</a>.</p>
-    </div>
+      <figcaption>Capturas de nuestra cámara: una pelota, bolsas plásticas y escombros que tapaban el paso.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -297,11 +235,7 @@
     <div class="ed-sec__body">
       <details class="faq__item">
         <summary class="faq__summary">¿Qué incluye la videoinspección de aguas lluvias?</summary>
-        <div class="faq__content">Recorrido con cámara de las bajadas, drenes o tramos acordados, video completo, fotos de cada hallazgo, en qué tramo y a cuántos metros está cada problema, y la recomendación de qué limpiar o reparar. Todo va en un informe revisado por un ingeniero en construcción.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Pueden revisar bajadas en edificios de altura?</summary>
-        <div class="faq__content">Sí. La cámara tiene 30 m de cable con marcas de distancia y entra por la cubierta, los registros o el pie de la bajada. En edificios más altos se revisa por tramos, según los accesos disponibles.</div>
+        <div class="faq__content">Recorrido con cámara de las bajadas, drenes o tramos acordados, video completo, fotos de cada hallazgo, en qué tramo y a cuántos metros está cada problema, y la recomendación de qué limpiar o reparar. En edificios altos se revisa por tramos, según los accesos. Todo va en un informe revisado por un ingeniero en construcción.</div>
       </details>
       <details class="faq__item">
         <summary class="faq__summary">¿Cuánto cuesta la visita técnica?</summary>
@@ -313,15 +247,11 @@
       </details>
       <details class="faq__item">
         <summary class="faq__summary">¿Cuándo conviene hacer la revisión?</summary>
-        <div class="faq__content">Lo ideal es en primavera o verano, con tiempo para limpiar o reparar antes de las lluvias. También después de un temporal, si aparecieron filtraciones, anegamientos o agua en los subterráneos.</div>
+        <div class="faq__content">Lo ideal es en primavera o verano, con tiempo para limpiar o reparar antes de las lluvias. También después de un temporal, si aparecieron filtraciones, anegamientos o agua en los subterráneos. Para recorrer el edificio antes, descargue la <a href="./assets/lista-revision-aguas-lluvias.pdf" download>lista de revisión para administradores</a>.</div>
       </details>
       <details class="faq__item">
         <summary class="faq__summary">¿En qué comunas y regiones trabajan?</summary>
         <div class="faq__content">En toda la Región Metropolitana, la V Región (Valparaíso, Viña del Mar, Quilpué y alrededores) y la VI Región (Rancagua y alrededores). Escríbanos su comuna y confirmamos disponibilidad.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Qué documento emiten?</summary>
-        <div class="faq__content">Por ahora emitimos boleta de honorarios.</div>
       </details>
     </div>
   </div>
@@ -548,20 +478,6 @@
   </button>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="./app.js?v=6"></script>
+<script src="./app.js?v=7"></script>
 </body>
 </html>

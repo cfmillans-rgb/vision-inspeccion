@@ -219,20 +219,20 @@ def item(a):
 
 
 def blog_index():
-    """Lista de artículos del blog, con el diseño editorial."""
+    """Lista de artículos del blog: banda azul con el título y la lista sobre blanco."""
     p = ROOT / "blog" / "index.html"
     s = p.read_text(encoding="utf-8")
     items = "\n".join(item(a) for a in ARTICULOS)
-    main = f'''<main class="blog-main">
-<section class="ed-sec ed-blog" aria-labelledby="blog-t">
-  <div class="ed-wrap ed-sec__grid">
-    <div class="ed-sec__head">
-      <h1 id="blog-t">Blog</h1>
-      <p>Guías para entender qué les pasa a sus aguas lluvias y cuándo conviene revisarlas con cámara.</p>
-    </div>
-    <div class="ed-sec__body">
+    main = f'''<main>
+<section class="ed-banda" aria-labelledby="blog-t">
+  <div class="ed-wrap">
+    <h1 class="ed-banda__titulo" id="blog-t">Blog</h1>
+    <p class="ed-banda__lead">Guías para entender qué les pasa a sus aguas lluvias y cuándo conviene revisarlas con cámara.</p>
+  </div>
+</section>
+<section class="ed-blog" aria-label="Artículos">
+  <div class="ed-wrap">
 {items}
-    </div>
   </div>
 </section>
 </main>'''

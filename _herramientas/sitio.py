@@ -22,8 +22,8 @@ WA = "56959492372"
 TEL = "+56959492372"
 TEL_VISIBLE = "+56 9 5949 2372"
 EMAIL = "hola@visioninspeccion.cl"
-CSS_VER = "9"
-JS_VER = "6"
+CSS_VER = "10"
+JS_VER = "7"
 OG_IMG = "https://visioninspeccion.cl/assets/og-aguas-lluvias.png"  # 1200 x 630
 
 def fonts(p, ed=False):
@@ -99,7 +99,7 @@ def header(rel, has_form):
     return (f'<header class="site-header" data-header>\n'
             f'  <div class="site-header__inner container container--wide">\n'
             f'    <a class="site-header__logo" href="{p}index.html">\n'
-            f'      <img alt="Visión Inspección" class="brand-logo" src="{p}assets/logo-oscuro.png" width="216" height="40"/>\n'
+            f'      <img alt="Visión Inspección" class="brand-logo" src="{p}assets/logo-sin-fondo.png" width="216" height="40"/>\n'
             f'    </a>\n'
             f'    <nav class="site-header__nav" id="mobileNav" aria-label="Navegación principal">\n'
             + "\n".join(links) + "\n"
@@ -232,11 +232,11 @@ def apply_chrome(rel):
     s = read(rel)
     p = prefix_for(rel)
     has_form = 'id="formulario"' in s
-    # todo el sitio usa el diseño editorial (fondo claro): clase "ed" en <body> y color de la barra del navegador
+    # todo el sitio usa el diseño editorial: clase "ed" en <body> y la barra del navegador del azul de la cabecera
     if not re.search(r'<body[^>]*class="[^"]*\bed\b', s):
         s = re.sub(r'<body class="([^"]*)"', r'<body class="ed \1"', s, count=1) if re.search(r'<body class="', s) \
             else s.replace("<body>", '<body class="ed">', 1)
-    s = re.sub(r'<meta content="#[0-9A-Fa-f]{6}" name="theme-color"/>', '<meta content="#FFFFFF" name="theme-color"/>', s)
+    s = re.sub(r'<meta content="#[0-9A-Fa-f]{6}" name="theme-color"/>', '<meta content="#1B1D3A" name="theme-color"/>', s)
     ed = True
     # fuentes y hoja de estilos
     s = re.sub(r'\n?[ \t]*<link[^>]*fonts\.(?:googleapis|gstatic)\.com[^>]*>', '', s)
@@ -257,11 +257,13 @@ def apply_chrome(rel):
         name = dict(COMUNAS)[pathlib.Path(rel).stem]
         msg = f"Hola, quiero consultar por una revisión de aguas lluvias en {name}."
     s = s.replace("</footer>", "</footer>\n\n" + contact_bits(msg), 1)
+    # sin líneas en blanco acumuladas entre la barra móvil y lo que sigue (antes crecían en cada ejecución)
+    s = re.sub(r'(?s)(<div class="sticky-mobile-bar">.*?</button>\s*</div>)\s*', lambda m: m.group(1) + "\n\n", s, count=1)
     s = replace_icons(s)
     # Íconos escritos como <i data-icon="nombre"></i> y el esquema de aguas lluvias
     s = re.sub(r'<i data-icon="([a-z]+)"></i>', lambda m: ICONS[m.group(1)], s)
     s = re.sub(r'(?s)(<figure class="esquema"[^>]*>\s*)<svg\b.*?</svg>', lambda m: m.group(1) + ESQUEMA_SVG, s)
-    s = re.sub(r'(?s)<section class="ed-sec" id="temporada".*?</section>', lambda m: epocas_section(rel), s)
+    s = re.sub(r'(?s)<ul class="ed-hero__datos".*?</ul>', lambda m: HERO_DATOS, s)
     s = sync_faq_schema(s)
     write(rel, s)
 
@@ -361,6 +363,13 @@ def _esquema_svg():
 
 
 ESQUEMA_SVG = _esquema_svg()
+
+# Equipo y respaldo, al pie del inicio de la portada y de las páginas de servicio
+HERO_DATOS = ('<ul class="ed-hero__datos" aria-label="Equipo y respaldo">\n'
+              + "".join(f'      <li>{x}</li>\n' for x in ("Cámara HD 1080p sumergible",
+                                                         "30 m de cable con marcas de distancia",
+                                                         "Informe revisado por un ingeniero en construcción"))
+              + '    </ul>')
 
 
 def esquema_figure(caption):
@@ -480,29 +489,6 @@ def nota(x):
     return f'\n      <p class="ed-sec__nota">{x}</p>' if x else ""
 
 
-def epocas_section(rel):
-    """Cuándo revisar: revisión preventiva y después de un temporal (portada y páginas de servicio)."""
-    p = prefix_for(rel)
-    if rel == "danos-por-temporal.html":
-        enlace = '<a class="ed-enlace" href="#formulario" data-elegir-necesidad="Daños después de una lluvia">Pedir una revisión después del temporal</a>'
-    else:
-        enlace = f'<a class="ed-enlace" href="{p}danos-por-temporal.html">Qué revisamos después de un temporal</a>'
-    body = f"""      <div class="ed-epocas">
-        <div class="ed-epoca">
-          <h3>En primavera y verano</h3>
-          <p>Durante el año, canaletas, bajadas y drenes juntan hojas, barro, nidos y sedimento sin que nadie lo note. Una revisión preventiva permite limpiar o reparar con calma y presentar el plan de mantención al comité.</p>
-          <a class="ed-enlace" href="#formulario" data-elegir-necesidad="Revisión preventiva">Pedir una revisión preventiva</a>
-        </div>
-        <div class="ed-epoca">
-          <h3>Después de un temporal</h3>
-          <p>Si aparecieron filtraciones, anegamientos o agua en los subterráneos, la cámara muestra en qué punto falló el sistema y qué tramo hay que reparar.</p>
-          {enlace}
-        </div>
-      </div>
-      <p class="ed-recurso"><a href="{p}assets/lista-revision-aguas-lluvias.pdf" download>Descargar la lista de revisión para administradores</a> (PDF de 2 páginas, para recorrer el edificio antes del invierno).</p>"""
-    return ed_section("temporada", "Cuándo revisar", "Lo ideal es antes de las lluvias, no con el primer temporal.", body)
-
-
 def landing(rel, d):
     """Páginas de servicio y de comuna, con el diseño editorial de la portada."""
     p = prefix_for(rel)
@@ -521,7 +507,6 @@ def landing(rel, d):
         extra,
         ed_section("proceso", d.get("pasos_titulo", "Cómo trabajamos"), d.get("pasos_sub", "Del primer mensaje al informe."),
                    pasos_html(d["pasos"]) + nota(d.get("nota_pasos"))),
-        epocas_section(rel) if d.get("epocas", True) else "",
         ed_section("faq", d.get("faq_titulo", "Preguntas frecuentes"),
                    f'Más respuestas en nuestras <a href="{p}blog/index.html">guías de aguas lluvias</a>.', faq_html(faq), "ed-faq"),
         form_section(d["form_h"], None, p, d.get("preset")),
@@ -545,7 +530,7 @@ def landing(rel, d):
   <meta content="1200" property="og:image:width"/>
   <meta content="630" property="og:image:height"/>
   <meta content="summary_large_image" name="twitter:card"/>
-  <meta content="#FFFFFF" name="theme-color"/>
+  <meta content="#1B1D3A" name="theme-color"/>
   <link href="{p}assets/solo-icono.png" rel="icon" type="image/png"/>
   <link href="{p}assets/solo-icono.png" rel="apple-touch-icon"/>
   <link href="{p}styles.css?v={CSS_VER}" rel="stylesheet"/>
@@ -567,12 +552,14 @@ def landing(rel, d):
         <a class="ed-btn ed-btn--primary" href="#formulario">Pedir visita técnica</a>
         <a class="ed-btn ed-btn--line" href="tel:{TEL}" data-call data-placement="hero">Llamar al {TEL_VISIBLE}</a>
       </div>
-      <p class="ed-hero__note">La visita técnica cuesta $35.000 + IVA y se descuenta si después contrata la inspección.</p>
-      <p class="ed-hero__fotos">¿No sabe qué necesita? <button type="button" class="ed-link" data-whatsapp data-placement="hero_fotos" data-message="{fotos}">Envíenos fotos por WhatsApp</button> e intentaremos orientarle.</p>
+      <p class="ed-hero__note">La visita técnica cuesta $35.000 + IVA y se descuenta si contrata la inspección. ¿No sabe qué necesita? <button type="button" class="ed-link" data-whatsapp data-placement="hero_fotos" data-message="{fotos}">Envíenos fotos por WhatsApp</button> e intentaremos orientarle.</p>
     </div>
     <div class="ed-hero__visual">
       {esquema_figure(d["caption"])}
     </div>
+  </div>
+  <div class="ed-wrap">
+    {HERO_DATOS}
   </div>
 </section>
 
@@ -702,7 +689,6 @@ CONSTRUCTORAS = dict(
          ("¿Cuánto cuesta la visita técnica?", "$35.000 + IVA. Un ingeniero en construcción revisa el proyecto en terreno y, con lo que ve, le enviamos la cotización de la inspección. Si la contrata, el valor de la visita se descuenta.")],
     form_h="Pida una visita técnica para su proyecto",
     preset={"recinto": "Obra o inmobiliaria"},
-    epocas=False,
 )
 
 
@@ -776,7 +762,7 @@ def page_404():
   <title>Página no encontrada | Visión Inspección</title>
   <base href="/"/>
   <meta content="noindex,follow" name="robots"/>
-  <meta content="#FFFFFF" name="theme-color"/>
+  <meta content="#1B1D3A" name="theme-color"/>
   <link href="./assets/solo-icono.png" rel="icon" type="image/png"/>
   <link href="./styles.css?v=''' + CSS_VER + '''" rel="stylesheet"/>
 </head>
@@ -785,11 +771,15 @@ def page_404():
 <header class="site-header" data-header></header>
 
 <main>
-<section class="ed-hero ed-simple" aria-labelledby="errorTitulo">
+<section class="ed-banda" aria-labelledby="errorTitulo">
   <div class="ed-wrap">
-    <h1 class="ed-hero__title" id="errorTitulo">No encontramos esta página</h1>
-    <p class="ed-hero__lead">Error 404: puede que el enlace esté mal escrito o que la página ya no exista.</p>
-    <div class="ed-hero__actions">
+    <h1 class="ed-banda__titulo" id="errorTitulo">No encontramos esta página</h1>
+    <p class="ed-banda__lead">Error 404: puede que el enlace esté mal escrito o que la página ya no exista.</p>
+  </div>
+</section>
+<section class="ed-simple" aria-label="Qué hacer ahora">
+  <div class="ed-wrap">
+    <div class="ed-acciones">
       <a class="ed-btn ed-btn--primary" href="./index.html">Ir al inicio</a>
       <button class="ed-btn ed-btn--line" type="button" data-whatsapp data-placement="404" data-message="Hola, quiero consultar por una revisión de aguas lluvias.">Escribir por WhatsApp</button>
     </div>

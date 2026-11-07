@@ -299,10 +299,10 @@ function bindLeadForm() {
   showStep(applyPresets(), { quiet: true });
 }
 
-/* ---------- Botón flotante: se oculta mientras se ve el formulario o el pie ---------- */
+/* ---------- Botón flotante: se oculta mientras se ve el inicio azul, el formulario o el pie ---------- */
 function initFloatingHide() {
   const fab = document.querySelector(".floating-whatsapp");
-  const targets = [document.querySelector("#formulario"), document.querySelector(".site-footer")].filter(Boolean);
+  const targets = [document.querySelector(".ed-hero"), document.querySelector("#formulario"), document.querySelector(".site-footer")].filter(Boolean);
   if (!fab || !targets.length || !("IntersectionObserver" in window)) return;
   const visibles = new Set();
   const io = new IntersectionObserver(entries => {
