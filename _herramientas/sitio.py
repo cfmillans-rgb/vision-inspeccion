@@ -22,16 +22,15 @@ WA = "56959492372"
 TEL = "+56959492372"
 TEL_VISIBLE = "+56 9 5949 2372"
 EMAIL = "hola@visioninspeccion.cl"
-CSS_VER = "10"
-JS_VER = "7"
+CSS_VER = "11"
+JS_VER = "8"
 OG_IMG = "https://visioninspeccion.cl/assets/og-aguas-lluvias.png"  # 1200 x 630
 
-def fonts(p, ed=False):
-    """Las fuentes están en assets/fonts/ (se cargan desde styles.css). Aquí solo se precargan las del primer pantallazo.
-    Las páginas con diseño editorial (<body class="ed">) usan solo Inter."""
-    titulo = "inter-latin-700-normal" if ed else "space-grotesk-latin-700-normal"
+def fonts(p):
+    """La fuente Inter está en assets/fonts/ (se carga desde styles.css). Aquí solo se precargan
+    los dos pesos del primer pantallazo: texto (400) y títulos (700)."""
     return (f'<link rel="preload" href="{p}assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>\n'
-            f'<link rel="preload" href="{p}assets/fonts/{titulo}.woff2" as="font" type="font/woff2" crossorigin/>')
+            f'<link rel="preload" href="{p}assets/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin/>')
 
 COMUNAS = [
     ("las-condes", "Las Condes"), ("providencia", "Providencia"), ("nunoa", "Ñuñoa"),
@@ -42,38 +41,6 @@ COMUNAS = [
 ICON_WA = ('<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>'
            '<path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.524 5.842L0 24l6.335-1.524A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.796 9.796 0 01-4.994-1.365l-.358-.212-3.76.904.921-3.665-.233-.376A9.797 9.797 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>')
 ICON_TEL = ('<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>')
-
-# Íconos de línea que reemplazan a los emojis
-def _svg(d):
-    return ('<svg aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" '
-            f'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">{d}</svg>')
-ICONS = {
-    "casa": _svg('<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>'),
-    "depto": _svg('<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/>'),
-    "edificio": _svg('<rect x="3" y="7" width="8" height="14" rx="1"/><rect x="11" y="3" width="10" height="18" rx="1"/><path d="M14 7h4M14 11h4M14 15h4M6 11h2M6 15h2"/>'),
-    "obra": _svg('<path d="M3 21h18"/><path d="M6 21V9l6-4 6 4v12"/><path d="M10 21v-5h4v5"/><path d="M12 5V2"/>'),
-    "atasco": _svg('<path d="M4 8h10a4 4 0 014 4v8"/><path d="M4 12h8a2 2 0 012 2v6"/><circle cx="9" cy="10" r="1.5"/>'),
-    "gota": _svg('<path d="M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z"/>'),
-    "olor": _svg('<path d="M4 9h11a3 3 0 10-3-3"/><path d="M4 13h15a3 3 0 11-3 3"/><path d="M4 17h7"/>'),
-    "lupa": _svg('<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>'),
-    "otro": _svg('<circle cx="6" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="18" cy="12" r="1.2"/>'),
-    "documento": _svg('<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13h6M10 17h6"/>'),
-    "firma": _svg('<path d="M4 20h16"/><path d="M14 4l6 6-9 9H5v-6z"/>'),
-    "video": _svg('<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/>'),
-    "ubicacion": _svg('<path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>'),
-    # Aguas lluvias
-    "lluvia": _svg('<path d="M7 14a4 4 0 01-.4-7.98A5.5 5.5 0 0117.2 7.1 3.5 3.5 0 0117 14z"/><path d="M8 17l-1 3M12 17l-1 3M16 17l-1 3"/>'),
-    "escudo": _svg('<path d="M12 3l7 3v5c0 4.4-2.9 8.3-7 10-4.1-1.7-7-5.6-7-10V6z"/><path d="M9 12l2 2 4-4"/>'),
-    "calendario": _svg('<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>'),
-    "recinto": _svg('<path d="M3 20V9l9-5 9 5v11"/><path d="M7 20v-8h10v8"/><path d="M7 16h10"/>'),
-    "bajada": _svg('<path d="M3 4h12v3H3z"/><path d="M11 7v10a3 3 0 003 3h6"/><path d="M9 11h4M9 15h4"/>'),
-    "dren": _svg('<path d="M2 19h20"/><path d="M3 11h18v5H3z"/><path d="M7 13.5h.01M11 13.5h.01M15 13.5h.01M19 13.5h.01"/><path d="M7 5l-1 3M12 5l-1 3M17 5l-1 3"/>'),
-    "decantador": _svg('<path d="M5 6v13h14V6"/><path d="M5 15h14"/><path d="M2 9h3M19 12h3"/><path d="M8 17.5h.01M12 17.5h.01M16 17.5h.01"/>'),
-    "sumidero": _svg('<rect x="4" y="9" width="16" height="7" rx="1"/><path d="M8 9v7M12 9v7M16 9v7"/>'),
-}
-EMOJI_ICON = {"🏠": "casa", "🏢": "edificio", "🏗️": "obra", "🏗": "obra", "🔧": "obra", "🚿": "atasco",
-              "💧": "gota", "💨": "olor", "🔍": "lupa", "📋": "documento", "📝": "documento",
-              "⚖️": "firma", "⚖": "firma", "📹": "video", "📍": "ubicacion"}
 
 NAV = [("Cómo funciona", "index.html#proceso", None),
        ("Edificios", "empresas.html", "empresas.html"),
@@ -108,7 +75,7 @@ def header(rel, has_form):
             f'      <a class="site-header__tel" href="tel:{TEL}" data-call data-placement="header">{TEL_VISIBLE}</a>\n'
             f'      <a class="btn btn--primary" href="{cta}">Pedir visita técnica</a>\n'
             f'    </div>\n'
-            f'    <button class="site-header__toggle nav-toggle" aria-expanded="false" aria-label="Abrir menú">\n'
+            f'    <button class="site-header__toggle nav-toggle" type="button" aria-expanded="false" aria-label="Abrir menú">\n'
             f'      <span class="site-header__toggle-icon"></span>\n'
             f'    </button>\n'
             f'  </div>\n'
@@ -118,7 +85,7 @@ def header(rel, has_form):
 def footer(rel):
     p = prefix_for(rel)
     comunas = ", ".join(f'<a href="{p}comunas/{slug}.html">{name}</a>' for slug, name in COMUNAS)
-    return f'''<footer class="site-footer" role="contentinfo">
+    return f'''<footer class="site-footer">
   <div class="container container--wide">
     <div class="site-footer__grid">
       <div>
@@ -197,59 +164,23 @@ def write(rel, s):
     (ROOT / rel).write_text(s, encoding="utf-8")
 
 
-def replace_icons(s):
-    """Emojis de tarjetas y formularios -> íconos de línea."""
-    def repl(m):
-        return f'{m.group(1)}{ICONS[EMOJI_ICON[m.group(2)]]}{m.group(3)}'
-    keys = "|".join(re.escape(k) for k in sorted(EMOJI_ICON, key=len, reverse=True))
-    s = re.sub(r'(<span class="(?:form-card__icon|intent-card__icon)">)\s*(' + keys + r')\s*(</span>)', repl, s)
-    s = re.sub(r'(<div style="font-size: 36px; margin-bottom: 12px;">)(' + keys + r')(</div>)',
-               lambda m: '<div class="icon-badge">' + ICONS[EMOJI_ICON[m.group(2)]] + '</div>', s)
-    # El ícono de cada tarjeta se decide por su texto, no por el emoji original
-    def by_label(m):
-        icon = LABEL_ICON.get(m.group(4).strip())
-        return m.group(1) + (ICONS[icon] if icon else m.group(2)) + m.group(3) + m.group(4) if icon else m.group(0)
-    s = re.sub(r'(<span class="(?:form-card__icon|intent-card__icon)">)(.*?)(</span>\s*<span class="(?:form-card__label|intent-card__title)">)([^<]*)',
-               by_label, s, flags=re.S)
-    return s
-
-
-LABEL_ICON = {
-    "Casa": "casa", "Departamento": "depto", "Edificio / Condominio": "edificio", "Obra en construcción": "obra",
-    "Terreno con construcción": "obra", "Atasco o drenaje lento": "atasco", "Atasco recurrente": "atasco",
-    "Filtración o humedad": "gota", "Humedad cerca de un desagüe": "gota", "Humedad por desagüe": "gota", "Malos olores": "olor", "Revisión preventiva o compraventa": "lupa",
-    "Otro": "otro", "Antes de firmar promesa": "documento", "Antes de escritura": "firma",
-    "Evaluando opciones": "lupa", "Edificio u obra": "edificio",
-    # Aguas lluvias
-    "Edificio o condominio": "edificio", "Empresa o recinto": "recinto", "Obra o inmobiliaria": "obra",
-    "Revisión preventiva": "calendario", "Daños después de una lluvia": "lluvia",
-    "Informe para seguro": "escudo", "Recepción de obra o postventa": "documento", "No estoy seguro": "lupa",
-}
-
-
 def apply_chrome(rel):
     """Encabezado, pie, botón flotante, barra móvil, fuentes y CSS iguales en una página."""
     s = read(rel)
     p = prefix_for(rel)
     has_form = 'id="formulario"' in s
-    # todo el sitio usa el diseño editorial: clase "ed" en <body> y la barra del navegador del azul de la cabecera
-    if not re.search(r'<body[^>]*class="[^"]*\bed\b', s):
-        s = re.sub(r'<body class="([^"]*)"', r'<body class="ed \1"', s, count=1) if re.search(r'<body class="', s) \
-            else s.replace("<body>", '<body class="ed">', 1)
+    # la barra del navegador, del azul de la cabecera
     s = re.sub(r'<meta content="#[0-9A-Fa-f]{6}" name="theme-color"/>', '<meta content="#1B1D3A" name="theme-color"/>', s)
-    ed = True
     # fuentes y hoja de estilos
-    s = re.sub(r'\n?[ \t]*<link[^>]*fonts\.(?:googleapis|gstatic)\.com[^>]*>', '', s)
     s = re.sub(r'\n?[ \t]*<link rel="preload" href="[^"]*assets/fonts/[^"]*"[^>]*>', '', s)
-    s = re.sub(r'<link href="(?:\./|\.\./)?(?:styles|empresas)\.css(?:\?v=\d+)?" rel="stylesheet"/?>',
-               fonts(p, ed) + f'\n<link href="{p}styles.css?v={CSS_VER}" rel="stylesheet"/>', s, count=1)
+    s = re.sub(r'<link href="(?:\./|\.\./)?styles\.css(?:\?v=\d+)?" rel="stylesheet"/?>',
+               fonts(p) + f'\n<link href="{p}styles.css?v={CSS_VER}" rel="stylesheet"/>', s, count=1)
     s = re.sub(r'src="(\./|\.\./)?app\.js(\?v=\d+)?"', f'src="{p}app.js?v={JS_VER}"', s)
     # encabezado y pie
     s, n1 = re.subn(r'(?s)<header class="site-header".*?</header>', lambda m: header(rel, has_form), s, count=1)
     s, n2 = re.subn(r'(?s)<footer[^>]*>.*?</footer>', lambda m: footer(rel), s, count=1)
     assert n1 == 1 and n2 == 1, (rel, n1, n2)
     # flotante y barra móvil: se quitan las versiones antiguas y se pone la estándar tras el pie
-    s = re.sub(r'(?s)\n?<!-- Floating WhatsApp CTA -->', '', s)
     s = re.sub(r'(?s)\n?<div class="floating-whatsapp".*?</button>\s*</div>', '', s)
     s = re.sub(r'(?s)\n?<div class="sticky-mobile-bar">.*?</button>\s*</div>', '', s)
     msg = MSG.get(rel, MSG_DEFAULT)
@@ -259,9 +190,7 @@ def apply_chrome(rel):
     s = s.replace("</footer>", "</footer>\n\n" + contact_bits(msg), 1)
     # sin líneas en blanco acumuladas entre la barra móvil y lo que sigue (antes crecían en cada ejecución)
     s = re.sub(r'(?s)(<div class="sticky-mobile-bar">.*?</button>\s*</div>)\s*', lambda m: m.group(1) + "\n\n", s, count=1)
-    s = replace_icons(s)
-    # Íconos escritos como <i data-icon="nombre"></i> y el esquema de aguas lluvias
-    s = re.sub(r'<i data-icon="([a-z]+)"></i>', lambda m: ICONS[m.group(1)], s)
+    # esquema de aguas lluvias y datos del equipo: la misma versión en todas las páginas
     s = re.sub(r'(?s)(<figure class="esquema"[^>]*>\s*)<svg\b.*?</svg>', lambda m: m.group(1) + ESQUEMA_SVG, s)
     s = re.sub(r'(?s)<ul class="ed-hero__datos".*?</ul>', lambda m: HERO_DATOS, s)
     s = sync_faq_schema(s)
@@ -365,7 +294,7 @@ def _esquema_svg():
 ESQUEMA_SVG = _esquema_svg()
 
 # Equipo y respaldo, al pie del inicio de la portada y de las páginas de servicio
-HERO_DATOS = ('<ul class="ed-hero__datos" aria-label="Equipo y respaldo">\n'
+HERO_DATOS = ('<ul class="ed-hero__datos">\n'
               + "".join(f'      <li>{x}</li>\n' for x in ("Cámara HD 1080p sumergible",
                                                          "30 m de cable con marcas de distancia",
                                                          "Informe revisado por un ingeniero en construcción"))
@@ -375,33 +304,6 @@ HERO_DATOS = ('<ul class="ed-hero__datos" aria-label="Equipo y respaldo">\n'
 def esquema_figure(caption):
     return (f'<figure class="esquema">\n          {ESQUEMA_SVG}\n'
             f'          <figcaption>{caption}</figcaption>\n        </figure>')
-
-
-def temporada_html(heading_tag="h2"):
-    """Bloque de temporada: revisión preventiva y evaluación después de un temporal."""
-    return f'''<section class="temporada" id="temporada" style="padding: 80px 0;">
-  <div class="container">
-    <div class="temporada__head">
-      <span class="temporada__tag">Antes de las lluvias</span>
-      <{heading_tag} class="temporada__title">Revise en primavera o verano, no con el primer temporal.</{heading_tag}>
-      <p class="temporada__desc">Durante el año, canaletas, bajadas y drenes juntan hojas, barro, nidos y sedimento sin que nadie lo note. El problema aparece con la primera lluvia fuerte: agua en los cielos del último piso, en los shafts o en los estacionamientos. Revisar con tiempo permite limpiar o reparar con calma, antes del invierno.</p>
-    </div>
-    <div class="temporada__grid">
-      <div class="temporada__card temporada__card--activa">
-        <span class="temporada__epoca">Primavera y verano</span>
-        <h3>Revisión preventiva</h3>
-        <p>Inspección con cámara de bajadas, drenes y cámaras decantadoras, con un informe para planificar la mantención y presentarla al comité.</p>
-        <a class="btn btn--primary" href="#formulario">Pedir revisión preventiva</a>
-      </div>
-      <div class="temporada__card">
-        <span class="temporada__epoca">Otoño e invierno</span>
-        <h3>Después de un temporal</h3>
-        <p>Evaluación de daños: en qué punto falló el sistema y qué tramo hay que reparar, con un informe para la administración o el comité.</p>
-        <a class="btn btn--secondary" href="tel:+56959492372" data-call data-placement="temporada">Llamar</a>
-      </div>
-    </div>
-  </div>
-</section>'''
 
 
 def faq_html(items):
@@ -537,7 +439,7 @@ def landing(rel, d):
   <script type="application/ld+json">{schema}</script>
   <script type="application/ld+json">{faq_schema(faq)}</script>
 </head>
-<body class="ed">
+<body>
 
 <header class="site-header" data-header></header>
 
@@ -766,7 +668,7 @@ def page_404():
   <link href="./assets/solo-icono.png" rel="icon" type="image/png"/>
   <link href="./styles.css?v=''' + CSS_VER + '''" rel="stylesheet"/>
 </head>
-<body class="ed">
+<body>
 
 <header class="site-header" data-header></header>
 

@@ -280,7 +280,7 @@ function bindLeadForm() {
     });
   }
 
-  // Opciones ya elegidas por la página (data-preset-*) y enlaces que eligen la necesidad
+  // Opciones ya elegidas por la página (data-preset-*)
   function applyPresets() {
     const d = form.dataset;
     if (d.presetRecinto) pick("recinto", d.presetRecinto);
@@ -288,14 +288,6 @@ function bindLeadForm() {
     updateSub();
     return d.presetRecinto ? 2 : 1;
   }
-  document.querySelectorAll("[data-elegir-necesidad]").forEach(a => {
-    a.addEventListener("click", () => {
-      pick("necesidad", a.getAttribute("data-elegir-necesidad"));
-      updateSub();
-      if (val("recinto") && current === 1) showStep(2, { quiet: true });
-    });
-  });
-
   showStep(applyPresets(), { quiet: true });
 }
 
@@ -327,46 +319,11 @@ function bindFooter() {
   if (year) year.textContent = new Date().getFullYear();
 }
 
-/* ---------- Counter animation ---------- */
-function animateCounters() {
-  const counters = document.querySelectorAll("[data-count]");
-  if (!counters.length) return;
-  const run = el => {
-    const target = parseInt(el.getAttribute("data-count"), 10) || 0;
-    let n = 0;
-    const step = Math.max(1, Math.floor(target / 24));
-    const t = setInterval(() => {
-      n = Math.min(n + step, target);
-      el.textContent = n;
-      if (n >= target) clearInterval(t);
-    }, 28);
-  };
-  if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting && !e.target.dataset.ran) {
-          e.target.dataset.ran = "1";
-          run(e.target);
-        }
-      });
-    }, { threshold: 0.6 });
-    counters.forEach(c => io.observe(c));
-  } else {
-    counters.forEach(run);
-  }
-}
-
-/* ---------- Header: scroll + mobile nav ---------- */
+/* ---------- Header: mobile nav ---------- */
 (function () {
   const header = document.querySelector("[data-header]");
   const toggle = document.querySelector(".nav-toggle");
   const mobileNav = document.getElementById("mobileNav");
-  function setScrolled() {
-    if (!header) return;
-    header.classList.toggle("is-scrolled", window.scrollY > 10);
-  }
-  window.addEventListener("scroll", setScrolled, { passive: true });
-  window.addEventListener("load", setScrolled);
   function closeMobile() {
     if (!toggle || !mobileNav) return;
     toggle.setAttribute("aria-expanded", "false");
@@ -385,29 +342,9 @@ function animateCounters() {
   }
 })();
 
-/* ---------- Scroll reveal ---------- */
-function initScrollReveal() {
-  const els = document.querySelectorAll(".reveal");
-  if (!els.length) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    els.forEach(el => el.classList.add("is-visible"));
-    return;
-  }
-  if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver((entries, observer) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add("is-visible"); observer.unobserve(e.target); }
-      });
-    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
-    els.forEach(el => io.observe(el));
-  } else {
-    els.forEach(el => el.classList.add("is-visible"));
-  }
-}
-
 /* ---------- Smooth FAQ ---------- */
 function initSmoothFAQ() {
-  document.querySelectorAll(".faq details, .ed-faq details").forEach(details => {
+  document.querySelectorAll(".ed-faq details").forEach(details => {
     const summary = details.querySelector("summary");
     if (!summary) return;
     summary.addEventListener("click", (e) => {
@@ -430,7 +367,5 @@ document.addEventListener("DOMContentLoaded", () => {
   bindLeadForm();
   initFloatingHide();
   bindFooter();
-  animateCounters();
-  initScrollReveal();
   initSmoothFAQ();
 });

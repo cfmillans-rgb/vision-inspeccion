@@ -1,5 +1,5 @@
 """
-Formato único del blog: misma cabecera, mismos bloques y mismas tarjetas.
+Formato único del blog: misma cabecera y mismos bloques en cada artículo, y el índice del blog.
 
 Uso, desde la raíz del repositorio (después de sitio.py):
     python3 _herramientas/blog.py
@@ -10,56 +10,52 @@ sitio.py y luego este archivo.
 import re
 import html
 import pathlib
-import sys
-
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from sitio import ICONS  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
-# Orden = orden en el índice del blog. "inicio": aparece en la portada.
+# Orden = orden en el índice del blog.
 ARTICULOS = [
-    dict(slug="senales-bajada-aguas-lluvias-obstruida", tags=["Bajadas", "Prevención"], icon="bajada",
+    dict(slug="senales-bajada-aguas-lluvias-obstruida",
          titulo="5 señales de que una bajada de aguas lluvias está obstruida",
          bajada="Cómo reconocer el problema antes del próximo temporal, qué lo suele causar y cómo se revisa con cámara sin romper.",
          tarjeta="Cómo darse cuenta a tiempo de que una bajada no está evacuando bien.",
-         min=6, fecha="Noviembre 2026", inicio=True),
-    dict(slug="deteccion-fugas-sin-romper", tags=["Filtraciones", "Edificios"], icon="gota",
+         min=6, fecha="Noviembre 2026"),
+    dict(slug="deteccion-fugas-sin-romper",
          titulo="Filtraciones por aguas lluvias en edificios: cómo encontrar el origen sin romper",
          bajada="De dónde suele venir el agua cuando aparecen manchas después de llover, qué puede estar fallando y cuándo conviene revisar con cámara.",
          tarjeta="De dónde viene el agua cuando aparecen manchas después de llover.",
-         min=6, fecha="Noviembre 2026", inicio=True),
-    dict(slug="mantencion-ductos-edificios", tags=["Edificios", "Mantención"], icon="edificio",
+         min=6, fecha="Noviembre 2026"),
+    dict(slug="mantencion-ductos-edificios",
          titulo="Mantención preventiva de aguas lluvias en edificios: guía para administradores",
          bajada="Qué revisar antes del invierno, cuándo conviene una inspección con cámara y cómo usar el informe ante el comité.",
          tarjeta="Qué revisar antes del invierno y cómo usar el informe ante el comité.",
-         min=7, fecha="Noviembre 2026", inicio=True),
-    dict(slug="revisar-edificio-despues-de-un-temporal", tags=["Temporales", "Edificios"], icon="lluvia",
+         min=7, fecha="Noviembre 2026"),
+    dict(slug="revisar-edificio-despues-de-un-temporal",
          titulo="Qué revisar en un edificio después de un temporal",
          bajada="Una lista para la administración o el comité: qué recorrer cuando pasa la lluvia, qué registrar con fotos y cuándo conviene revisar con cámara antes de reparar.",
          tarjeta="Qué recorrer cuando pasa la lluvia y qué registrar antes de reparar.",
          min=6, fecha="Noviembre 2026"),
-    dict(slug="agua-estacionamiento-subterraneo-lluvia", tags=["Subterráneos", "Edificios"], icon="sumidero",
+    dict(slug="agua-estacionamiento-subterraneo-lluvia",
          titulo="Agua en el estacionamiento subterráneo cuando llueve: por dónde entra y cómo revisarlo",
          bajada="Por dónde suele entrar el agua a los estacionamientos con lluvia fuerte, qué revisar en rampas, sumideros y drenes, y cuándo conviene una inspección con cámara.",
          tarjeta="Por dónde entra el agua a los subterráneos cuando llueve fuerte.",
          min=6, fecha="Noviembre 2026"),
-    dict(slug="humedad-muros-subterraneo-dren", tags=["Drenes", "Subterráneos"], icon="dren",
+    dict(slug="humedad-muros-subterraneo-dren",
          titulo="Humedad en muros del subterráneo: cuándo el problema es el dren",
          bajada="Cómo reconocer una humedad que viene del terreno, qué hace el dren de un muro de contención, por qué deja de funcionar y cómo se revisa con cámara sin picar.",
          tarjeta="Cómo saber si la humedad viene del terreno y el dren dejó de funcionar.",
          min=6, fecha="Noviembre 2026"),
-    dict(slug="camara-decantadora-aguas-lluvias", tags=["Decantadoras", "Mantención"], icon="decantador",
+    dict(slug="camara-decantadora-aguas-lluvias",
          titulo="Cámara decantadora de aguas lluvias: qué es, cada cuánto revisarla y qué pasa cuando se llena",
          bajada="Para qué sirve, qué pasa cuando se llena de sedimento, cada cuánto conviene revisarla y cómo se inspeccionan sus tuberías con cámara.",
          tarjeta="Para qué sirve, qué pasa cuando se llena y cada cuánto revisarla.",
          min=5, fecha="Noviembre 2026"),
-    dict(slug="video-inspeccion-tuberias-santiago", tags=["Diagnóstico", "Guía"], icon="video",
+    dict(slug="video-inspeccion-tuberias-santiago",
          titulo="Videoinspección de aguas lluvias en Santiago: qué es, cómo funciona y cuándo conviene",
          bajada="Cómo es el proceso, qué se puede ver con la cámara en bajadas y drenes, qué incluye el informe y cuándo conviene hacerla.",
          tarjeta="Cómo es el proceso, qué se ve con la cámara y qué incluye el informe.",
          min=7, fecha="Noviembre 2026"),
-    dict(slug="cuanto-cuesta-videoinspeccion-tuberias", tags=["Precios", "Guía"], icon="documento",
+    dict(slug="cuanto-cuesta-videoinspeccion-tuberias",
          titulo="¿Cuánto cuesta una videoinspección de aguas lluvias?",
          bajada="Cuánto cuesta la visita técnica, qué determina el valor de la inspección y qué incluye.",
          tarjeta="Cuánto cuesta la visita técnica y qué determina el valor de la inspección.",
@@ -241,23 +237,10 @@ def blog_index():
     p.write_text(s, encoding="utf-8")
 
 
-def home_cards():
-    p = ROOT / "index.html"
-    s = p.read_text(encoding="utf-8")
-    if 'id="blog"' not in s:
-        return  # la portada ya no muestra tarjetas del blog: enlaza a él desde las preguntas frecuentes
-    cards = "\n".join(card(a, "./blog/") for a in ARTICULOS if a.get("inicio"))
-    s, n = re.subn(r'(?s)(<section class="section" id="blog".*?<div class="blog-grid">).*?(</div>\s*<div class="text-center blog-more">.*?</div>\s*)?(</div>\s*</section>)',
-                   lambda m: m.group(1) + "\n" + cards + '\n    </div>\n    <div class="text-center blog-more"><a class="btn btn--ghost" href="./blog/index.html">Ver todos los artículos</a></div>\n  ' + m.group(3), s, count=1)
-    assert n == 1
-    p.write_text(s, encoding="utf-8")
-
-
 def main():
     for a in ARTICULOS:
         format_article(a)
     blog_index()
-    home_cards()
     print("Blog listo:", len(ARTICULOS), "artículos")
 
 
