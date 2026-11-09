@@ -16,12 +16,12 @@
   <meta content="1200" property="og:image:width"/>
   <meta content="630" property="og:image:height"/>
   <meta content="summary_large_image" name="twitter:card"/>
-  <meta content="#1B1D3A" name="theme-color"/>
+  <meta content="#0B1A2E" name="theme-color"/>
   <link href="./assets/solo-icono.png" rel="icon" type="image/png"/>
   <link href="./assets/solo-icono.png" rel="apple-touch-icon"/>
   <link rel="preload" href="./assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" href="./assets/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin/>
-<link href="./styles.css?v=14" rel="stylesheet"/>
+<link href="./styles.css?v=15" rel="stylesheet"/>
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "Service",
@@ -119,15 +119,11 @@
       <img alt="Visión Inspección" class="brand-logo" src="./assets/logo-sin-fondo.png" width="216" height="40"/>
     </a>
     <nav class="site-header__nav" id="mobileNav" aria-label="Navegación principal">
-      <a class="site-header__nav-link" href="./index.html#proceso">Cómo funciona</a>
-      <a class="site-header__nav-link" href="./empresas.html">Edificios</a>
-      <a class="site-header__nav-link" href="./constructoras.html" aria-current="page">Constructoras</a>
-      <a class="site-header__nav-link" href="./danos-por-temporal.html">Daños por lluvia</a>
-      <a class="site-header__nav-link" href="./index.html#precio">Precio</a>
+      <a class="site-header__nav-link" href="#proceso">Cómo funciona</a>
+      <a class="site-header__nav-link" href="#precio">Precio</a>
       <a class="site-header__nav-link" href="./blog/index.html">Blog</a>
     </nav>
     <div class="site-header__cta">
-      <a class="site-header__tel" href="tel:+56959492372" data-call data-placement="header">+56 9 5949 2372</a>
       <a class="btn btn--primary" href="#formulario">Pedir visita técnica</a>
     </div>
     <button class="site-header__toggle nav-toggle" type="button" aria-expanded="false" aria-label="Abrir menú">
@@ -165,7 +161,7 @@
   </div>
 </section>
 
-<section class="ed-sec" id="deteccion" aria-labelledby="deteccion-t">
+<section class="ed-sec ed-sec--banda" id="deteccion" aria-labelledby="deteccion-t">
   <div class="ed-wrap ed-sec__grid">
     <div class="ed-sec__head">
       <h2 id="deteccion-t">¿Por qué revisar las aguas lluvias de una obra?</h2>
@@ -200,30 +196,33 @@
   </div>
 </section>
 
-<section class="ed-sec" id="servicio" aria-labelledby="servicio-t">
-  <div class="ed-wrap ed-sec__grid">
-    <div class="ed-sec__head">
+<section class="ed-sec ed-sec--oscuro ed-recibe-sec" id="servicio" aria-labelledby="servicio-t">
+  <div class="ed-wrap">
+    <div class="ed-sec__head ed-recibe__head">
       <h2 id="servicio-t">Qué entregamos</h2>
       <p>Cada inspección genera documentación técnica pensada para las reuniones de obra, los informes de ITO y la comunicación con propietarios.</p>
     </div>
-    <div class="ed-sec__body">
-      <div class="ed-item">
+    <ul class="ed-recibe" data-recibe>
+      <li class="ed-recibe__item">
+        <div class="ed-recibe__dibujo"><svg class="dibujo dibujo--pantalla" viewBox="0 0 240 150" aria-hidden="true" focusable="false"><rect class="d-pantalla" x="34" y="10" width="172" height="108" rx="4"/><path class="d-agua-sup" d="M86 82L112.7 63.1H127.3L154 82Z"/><circle class="d-anillo d-i1" cx="120" cy="58" r="42"/><circle class="d-anillo d-i2" cx="120" cy="58" r="28"/><circle class="d-anillo d-i3" cx="120" cy="58" r="17"/><circle class="d-anillo d-i4" cx="120" cy="58" r="9"/><circle class="d-hueco" cx="120" cy="58" r="4.5"/><circle class="d-rec" cx="48" cy="24" r="3.5"/><path class="d-tenue" d="M48 108H192"/><path class="d-progreso" d="M48 108H150"/><path class="d-trazo" d="M120 118v12M98 132h44"/></svg></div>
         <h3>Video HD del recorrido</h3>
         <p>Registro visual completo del interior de bajadas y drenes, en formato digital para archivo y consulta.</p>
-      </div>
-      <div class="ed-item">
+      </li>
+      <li class="ed-recibe__item">
+        <div class="ed-recibe__dibujo"><svg class="dibujo dibujo--informe" viewBox="0 0 240 150" aria-hidden="true" focusable="false"><rect class="d-hoja" x="68" y="8" width="104" height="134" rx="3"/><path class="d-titulo d-linea d-i1" pathLength="1" d="M82 24H134"/><g class="d-foto-g"><rect class="d-foto" x="82" y="34" width="38" height="26" rx="1.5"/><circle class="d-anillo-mini" cx="101" cy="47" r="8.5"/><circle class="d-anillo-mini" cx="101" cy="47" r="3.5"/></g><path class="d-tenue d-linea d-i2" pathLength="1" d="M128 38H158"/><path class="d-tenue d-linea d-i3" pathLength="1" d="M128 46H152"/><path class="d-tenue d-linea d-i4" pathLength="1" d="M128 54H156"/><path class="d-tenue d-linea d-i5" pathLength="1" d="M82 72H158"/><path class="d-tenue d-linea d-i6" pathLength="1" d="M82 80H150"/><path class="d-tenue d-linea d-i7" pathLength="1" d="M82 88H156"/><path class="d-tenue d-linea d-i8" pathLength="1" d="M82 96H136"/><path class="d-firma d-linea d-i9" pathLength="1" d="M82 124c4-9 8 4 12-3s6-6 10-1 4 3 8-3"/><path class="d-sello d-linea d-i10" pathLength="1" d="M158 121a10 10 0 1 1-20 0a10 10 0 1 1 20 0"/><path class="d-visto d-linea d-i11" pathLength="1" d="M143.5 121l4 4 6.5-7.5"/></svg></div>
         <h3>Informe técnico</h3>
         <p>Revisado por un ingeniero en construcción: fotos, estado de cada tramo, hallazgos y recomendaciones. En PDF.</p>
-      </div>
-      <div class="ed-item">
+      </li>
+      <li class="ed-recibe__item">
+        <div class="ed-recibe__dibujo"><svg class="dibujo dibujo--ubicacion" viewBox="0 0 240 150" aria-hidden="true" focusable="false"><rect class="d-tubo" x="0" y="30" width="240" height="44"/><rect class="d-agua-capa" x="0" y="67" width="240" height="7"/><path class="d-agua-fina" d="M0 67H240"/><path class="d-trazo" d="M0 30H240M0 74H240"/><path class="d-tenue" d="M20 104H220M20 99v10M86.7 99v10M153.3 99v10M220 99v10"/><text class="d-txt" x="20" y="126">0 m</text><text class="d-txt" x="86.7" y="126">10 m</text><text class="d-txt" x="153.3" y="126">20 m</text><text class="d-txt" x="220" y="126">30 m</text><path class="d-cable" d="M0 52H119"/><g class="d-cam"><circle class="d-halo" cx="128" cy="52" r="9"/><circle class="d-ojo" cx="128" cy="52" r="3.5"/></g><path class="d-fisura" pathLength="1" d="M124 30l2 7 4-3 2 8"/><path class="d-marca" pathLength="1" d="M128 77V95"/><path class="d-punta" d="M128 101l-5-7h10z"/><circle class="d-pulso" cx="128" cy="40" r="11"/></svg></div>
         <h3>Ubicación por tramo</h3>
         <p>Cada hallazgo queda registrado con su tramo y la distancia desde el punto de acceso, para que el equipo de obra sepa dónde intervenir.</p>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </section>
 
-<section class="ed-sec" id="obras-nuevas" aria-labelledby="obras-nuevas-t">
+<section class="ed-sec ed-sec--blanco" id="obras-nuevas" aria-labelledby="obras-nuevas-t">
   <div class="ed-wrap ed-sec__grid">
     <div class="ed-sec__head">
       <h2 id="obras-nuevas-t">Lo que conviene revisar en obras nuevas</h2>
@@ -251,7 +250,7 @@
   </div>
 </section>
 
-<section class="ed-sec" id="proceso" aria-labelledby="proceso-t">
+<section class="ed-sec ed-sec--banda" id="proceso" aria-labelledby="proceso-t">
   <div class="ed-wrap ed-sec__grid">
     <div class="ed-sec__head">
       <h2 id="proceso-t">Cómo trabajamos con constructoras</h2>
@@ -259,11 +258,10 @@
     </div>
     <div class="ed-sec__body">
       <ol class="ed-pasos">
-        <li id="precio" class="ed-pasos__visita">
+        <li id="precio">
           <h3>Visita técnica</h3>
           <p class="ed-pasos__precio"><strong>$35.000</strong>, que se descuenta completo del valor de la inspección si la contrata.</p>
           <p>Un ingeniero en construcción revisa el proyecto, los accesos y el alcance, y evalúa si la cámara puede entrar. Con eso le entregamos el valor de la inspección; si no es viable, se lo decimos.</p>
-          <a class="ed-btn ed-btn--primary" href="#formulario">Pedir visita técnica</a>
         </li>
         <li>
           <h3>Coordinación</h3>
@@ -283,50 +281,7 @@
   </div>
 </section>
 
-<section class="ed-sec ed-faq" id="faq" aria-labelledby="faq-t">
-  <div class="ed-wrap ed-sec__grid">
-    <div class="ed-sec__head">
-      <h2 id="faq-t">Preguntas frecuentes de constructoras</h2>
-      <p>Más respuestas en nuestras <a href="./blog/index.html">guías de aguas lluvias</a>.</p>
-    </div>
-    <div class="ed-sec__body">
-      <details class="faq__item">
-        <summary class="faq__summary">¿El informe sirve para la recepción municipal?</summary>
-        <div class="faq__content">El informe documenta con video y fotografías el estado interno de bajadas y drenes. Es un respaldo técnico de referencia que puede complementar la documentación de recepción. Consulte con su ITO o con la DOM los requisitos específicos de su proyecto.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Pueden inspeccionar antes de la entrega a los propietarios?</summary>
-        <div class="faq__content">Sí. La inspección pre-entrega documenta el estado del sistema de aguas lluvias antes de transferir la responsabilidad al comprador. Esto protege a la constructora ante reclamos posteriores por vicios ocultos.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Trabajan con volumen de unidades?</summary>
-        <div class="faq__content">Sí. Para proyectos con varios edificios, etapas o lotes, ofrecemos tarifas por volumen y programación de inspecciones por etapa. Después de la visita técnica le enviamos una propuesta para su proyecto.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Qué documento emiten?</summary>
-        <div class="faq__content">Por ahora emitimos boleta de honorarios.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Cuánto toma inspeccionar un edificio completo?</summary>
-        <div class="faq__content">Depende de la cantidad de bajadas, de los metros de dren y de los accesos. Después de la visita técnica le proponemos un calendario de inspección según su proyecto.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Qué pasa si encuentran un problema?</summary>
-        <div class="faq__content">El informe documenta en qué tramo está, qué se encontró y una recomendación técnica. La decisión de intervenir es siempre del cliente.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Cuánto cuesta la visita técnica?</summary>
-        <div class="faq__content">$35.000, y se descuenta completo del valor de la inspección si la contrata. En la visita, un ingeniero en construcción revisa el proyecto en terreno y, con lo que ve, le entregamos el valor de la inspección.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Me pueden dar un valor por WhatsApp?</summary>
-        <div class="faq__content">No. El valor de la inspección depende de los accesos, de los metros por recorrer y del estado de la red, y eso se ve en terreno; por eso partimos con la visita técnica. Si quiere, envíenos por WhatsApp fotos o un video corto del embudo, la bajada, el sumidero o la zona con problemas, e intentaremos orientarle sobre qué revisar.</div>
-      </details>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="formulario" aria-labelledby="formulario-t">
+<section class="section ed-sec--oscuro" id="formulario" aria-labelledby="formulario-t">
   <div class="vf-sec">
     <div class="vf-sec__head">
       <h2 id="formulario-t">Pida una visita técnica para su proyecto</h2>
@@ -488,6 +443,49 @@
   </div>
 </section>
 
+<section class="ed-sec ed-sec--blanco ed-faq" id="faq" aria-labelledby="faq-t">
+  <div class="ed-wrap ed-sec__grid">
+    <div class="ed-sec__head">
+      <h2 id="faq-t">Preguntas frecuentes de constructoras</h2>
+      <p>Más respuestas en nuestras <a href="./blog/index.html">guías de aguas lluvias</a>.</p>
+    </div>
+    <div class="ed-sec__body">
+      <details class="faq__item">
+        <summary class="faq__summary">¿El informe sirve para la recepción municipal?</summary>
+        <div class="faq__content">El informe documenta con video y fotografías el estado interno de bajadas y drenes. Es un respaldo técnico de referencia que puede complementar la documentación de recepción. Consulte con su ITO o con la DOM los requisitos específicos de su proyecto.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Pueden inspeccionar antes de la entrega a los propietarios?</summary>
+        <div class="faq__content">Sí. La inspección pre-entrega documenta el estado del sistema de aguas lluvias antes de transferir la responsabilidad al comprador. Esto protege a la constructora ante reclamos posteriores por vicios ocultos.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Trabajan con volumen de unidades?</summary>
+        <div class="faq__content">Sí. Para proyectos con varios edificios, etapas o lotes, ofrecemos tarifas por volumen y programación de inspecciones por etapa. Después de la visita técnica le enviamos una propuesta para su proyecto.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Qué documento emiten?</summary>
+        <div class="faq__content">Por ahora emitimos boleta de honorarios.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Cuánto toma inspeccionar un edificio completo?</summary>
+        <div class="faq__content">Depende de la cantidad de bajadas, de los metros de dren y de los accesos. Después de la visita técnica le proponemos un calendario de inspección según su proyecto.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Qué pasa si encuentran un problema?</summary>
+        <div class="faq__content">El informe documenta en qué tramo está, qué se encontró y una recomendación técnica. La decisión de intervenir es siempre del cliente.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Cuánto cuesta la visita técnica?</summary>
+        <div class="faq__content">$35.000, y se descuenta completo del valor de la inspección si la contrata. En la visita, un ingeniero en construcción revisa el proyecto en terreno y, con lo que ve, le entregamos el valor de la inspección.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Me pueden dar un valor por WhatsApp?</summary>
+        <div class="faq__content">No. El valor de la inspección depende de los accesos, de los metros por recorrer y del estado de la red, y eso se ve en terreno; por eso partimos con la visita técnica. Si quiere, envíenos por WhatsApp fotos o un video corto del embudo, la bajada, el sumidero o la zona con problemas, e intentaremos orientarle sobre qué revisar.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer class="site-footer">
@@ -547,6 +545,6 @@
   </a>
 </div>
 
-<script src="./app.js?v=11"></script>
+<script src="./app.js?v=12"></script>
 </body>
 </html>

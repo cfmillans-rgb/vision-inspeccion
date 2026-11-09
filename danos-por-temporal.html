@@ -16,12 +16,12 @@
   <meta content="1200" property="og:image:width"/>
   <meta content="630" property="og:image:height"/>
   <meta content="summary_large_image" name="twitter:card"/>
-  <meta content="#1B1D3A" name="theme-color"/>
+  <meta content="#0B1A2E" name="theme-color"/>
   <link href="./assets/solo-icono.png" rel="icon" type="image/png"/>
   <link href="./assets/solo-icono.png" rel="apple-touch-icon"/>
   <link rel="preload" href="./assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" href="./assets/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin/>
-<link href="./styles.css?v=14" rel="stylesheet"/>
+<link href="./styles.css?v=15" rel="stylesheet"/>
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -142,15 +142,11 @@
       <img alt="Visión Inspección" class="brand-logo" src="./assets/logo-sin-fondo.png" width="216" height="40"/>
     </a>
     <nav class="site-header__nav" id="mobileNav" aria-label="Navegación principal">
-      <a class="site-header__nav-link" href="./index.html#proceso">Cómo funciona</a>
-      <a class="site-header__nav-link" href="./empresas.html">Edificios</a>
-      <a class="site-header__nav-link" href="./constructoras.html">Constructoras</a>
-      <a class="site-header__nav-link" href="./danos-por-temporal.html" aria-current="page">Daños por lluvia</a>
-      <a class="site-header__nav-link" href="./index.html#precio">Precio</a>
+      <a class="site-header__nav-link" href="#proceso">Cómo funciona</a>
+      <a class="site-header__nav-link" href="#precio">Precio</a>
       <a class="site-header__nav-link" href="./blog/index.html">Blog</a>
     </nav>
     <div class="site-header__cta">
-      <a class="site-header__tel" href="tel:+56959492372" data-call data-placement="header">+56 9 5949 2372</a>
       <a class="btn btn--primary" href="#formulario">Pedir visita técnica</a>
     </div>
     <button class="site-header__toggle nav-toggle" type="button" aria-expanded="false" aria-label="Abrir menú">
@@ -188,66 +184,80 @@
   </div>
 </section>
 
-<section class="ed-sec" id="deteccion" aria-labelledby="deteccion-t">
+<section class="ed-sec ed-sec--banda" id="deteccion" aria-labelledby="deteccion-t">
   <div class="ed-wrap ed-sec__grid">
     <div class="ed-sec__head">
       <h2 id="deteccion-t">Dónde suele empezar el daño</h2>
       <p>Lo que más vemos cuando el agua de una lluvia fuerte termina dentro del edificio.</p>
     </div>
     <div class="ed-sec__body">
-      <div class="ed-item">
-        <h3>Filtraciones en el último piso</h3>
-        <p>Embudos obstruidos, canaletas que rebalsan o uniones de bajada abiertas cerca de la cubierta.</p>
-      </div>
-      <div class="ed-item">
-        <h3>Manchas junto a shafts o bajadas</h3>
-        <p>Una unión abierta en un tramo embutido deja escapar agua con cada lluvia, a veces varios pisos más abajo.</p>
-      </div>
-      <div class="ed-item">
-        <h3>Agua en estacionamientos o bodegas</h3>
-        <p>Sumideros, canales de rejilla o drenes que no alcanzaron a evacuar el agua.</p>
-      </div>
-      <div class="ed-item">
-        <h3>Patios o jardines anegados</h3>
-        <p>Un dren con sedimento, raíces o aplastado deja de evacuar el agua del terreno.</p>
-      </div>
-      <div class="ed-item">
-        <h3>Humedad en muros del subterráneo</h3>
-        <p>El dren del muro de contención está colapsado o con sedimento, y el agua queda contra el muro.</p>
-      </div>
-      <div class="ed-item">
-        <h3>Cámaras decantadoras llenas</h3>
-        <p>El sedimento pasa al sistema y termina obstruyendo los drenes que vienen después.</p>
+      <div class="ed-recorrido" data-recorrido>
+        <span class="ed-recorrido__cam" aria-hidden="true"></span>
+        <ol class="ed-recorrido__lista">
+          <li class="ed-recorrido__punto">
+            <span class="ed-recorrido__nodo" aria-hidden="true"></span>
+            <h3>Filtraciones en el último piso</h3>
+            <p>Embudos obstruidos, canaletas que rebalsan o uniones de bajada abiertas cerca de la cubierta.</p>
+          </li>
+          <li class="ed-recorrido__punto">
+            <span class="ed-recorrido__nodo" aria-hidden="true"></span>
+            <h3>Manchas junto a shafts o bajadas</h3>
+            <p>Una unión abierta en un tramo embutido deja escapar agua con cada lluvia, a veces varios pisos más abajo.</p>
+          </li>
+          <li class="ed-recorrido__punto">
+            <span class="ed-recorrido__nodo" aria-hidden="true"></span>
+            <h3>Agua en estacionamientos o bodegas</h3>
+            <p>Sumideros, canales de rejilla o drenes que no alcanzaron a evacuar el agua.</p>
+          </li>
+          <li class="ed-recorrido__punto">
+            <span class="ed-recorrido__nodo" aria-hidden="true"></span>
+            <h3>Patios o jardines anegados</h3>
+            <p>Un dren con sedimento, raíces o aplastado deja de evacuar el agua del terreno.</p>
+          </li>
+          <li class="ed-recorrido__punto">
+            <span class="ed-recorrido__nodo" aria-hidden="true"></span>
+            <h3>Humedad en muros del subterráneo</h3>
+            <p>El dren del muro de contención está colapsado o con sedimento, y el agua queda contra el muro.</p>
+          </li>
+          <li class="ed-recorrido__punto">
+            <span class="ed-recorrido__nodo" aria-hidden="true"></span>
+            <h3>Cámaras decantadoras llenas</h3>
+            <p>El sedimento pasa al sistema y termina obstruyendo los drenes que vienen después.</p>
+          </li>
+        </ol>
       </div>
       <p class="ed-sec__nota">Revise antes de reparar: con la primera intervención se pierde el registro de cómo estaba el sistema.</p>
     </div>
   </div>
 </section>
 
-<section class="ed-sec" id="servicio" aria-labelledby="servicio-t">
-  <div class="ed-wrap ed-sec__grid">
-    <div class="ed-sec__head">
+<section class="ed-sec ed-sec--oscuro ed-recibe-sec" id="servicio" aria-labelledby="servicio-t">
+  <div class="ed-wrap">
+    <div class="ed-sec__head ed-recibe__head">
       <h2 id="servicio-t">Qué recibe</h2>
       <p>Lo mismo en cada inspección.</p>
     </div>
-    <div class="ed-sec__body">
-      <div class="ed-item">
+    <ul class="ed-recibe" data-recibe>
+      <li class="ed-recibe__item">
+        <div class="ed-recibe__dibujo"><svg class="dibujo dibujo--pantalla" viewBox="0 0 240 150" aria-hidden="true" focusable="false"><rect class="d-pantalla" x="34" y="10" width="172" height="108" rx="4"/><path class="d-agua-sup" d="M86 82L112.7 63.1H127.3L154 82Z"/><circle class="d-anillo d-i1" cx="120" cy="58" r="42"/><circle class="d-anillo d-i2" cx="120" cy="58" r="28"/><circle class="d-anillo d-i3" cx="120" cy="58" r="17"/><circle class="d-anillo d-i4" cx="120" cy="58" r="9"/><circle class="d-hueco" cx="120" cy="58" r="4.5"/><circle class="d-rec" cx="48" cy="24" r="3.5"/><path class="d-tenue" d="M48 108H192"/><path class="d-progreso" d="M48 108H150"/><path class="d-trazo" d="M120 118v12M98 132h44"/></svg></div>
         <h3>Video del recorrido</h3>
         <p>El recorrido completo de la cámara por los tramos revisados, en formato digital.</p>
-      </div>
-      <div class="ed-item">
+      </li>
+      <li class="ed-recibe__item">
+        <div class="ed-recibe__dibujo"><svg class="dibujo dibujo--fotos" viewBox="0 0 240 150" aria-hidden="true" focusable="false"><g class="d-fila d-i1"><rect class="d-foto" x="30" y="14" width="48" height="32" rx="1.5"/><circle class="d-anillo-mini" cx="54" cy="30" r="10"/><circle class="d-anillo-mini" cx="54" cy="30" r="4"/><path class="d-titulo" d="M90 23H148"/><path class="d-tenue" d="M90 36H180"/><circle class="d-estado" cx="204" cy="30" r="5"/></g><g class="d-fila d-i2"><rect class="d-foto" x="30" y="59" width="48" height="32" rx="1.5"/><circle class="d-anillo-mini" cx="54" cy="75" r="10"/><circle class="d-anillo-mini" cx="54" cy="75" r="4"/><path class="d-titulo" d="M90 68H140"/><path class="d-tenue" d="M90 81H176"/><circle class="d-estado d-estado--hallazgo" cx="204" cy="75" r="5"/></g><g class="d-fila d-i3"><rect class="d-foto" x="30" y="104" width="48" height="32" rx="1.5"/><circle class="d-anillo-mini" cx="54" cy="120" r="10"/><circle class="d-anillo-mini" cx="54" cy="120" r="4"/><path class="d-titulo" d="M90 113H152"/><path class="d-tenue" d="M90 126H170"/><circle class="d-estado" cx="204" cy="120" r="5"/></g><circle class="d-pulso" cx="204" cy="75" r="10"/></svg></div>
         <h3>Fotos y estado de cada tramo</h3>
         <p>Una foto de cada hallazgo, con su descripción y lo que conviene reparar primero.</p>
-      </div>
-      <div class="ed-item">
+      </li>
+      <li class="ed-recibe__item">
+        <div class="ed-recibe__dibujo"><svg class="dibujo dibujo--ubicacion" viewBox="0 0 240 150" aria-hidden="true" focusable="false"><rect class="d-tubo" x="0" y="30" width="240" height="44"/><rect class="d-agua-capa" x="0" y="67" width="240" height="7"/><path class="d-agua-fina" d="M0 67H240"/><path class="d-trazo" d="M0 30H240M0 74H240"/><path class="d-tenue" d="M20 104H220M20 99v10M86.7 99v10M153.3 99v10M220 99v10"/><text class="d-txt" x="20" y="126">0 m</text><text class="d-txt" x="86.7" y="126">10 m</text><text class="d-txt" x="153.3" y="126">20 m</text><text class="d-txt" x="220" y="126">30 m</text><path class="d-cable" d="M0 52H119"/><g class="d-cam"><circle class="d-halo" cx="128" cy="52" r="9"/><circle class="d-ojo" cx="128" cy="52" r="3.5"/></g><path class="d-fisura" pathLength="1" d="M124 30l2 7 4-3 2 8"/><path class="d-marca" pathLength="1" d="M128 77V95"/><path class="d-punta" d="M128 101l-5-7h10z"/><circle class="d-pulso" cx="128" cy="40" r="11"/></svg></div>
         <h3>Ubicación por tramo</h3>
         <p>En qué tramo está cada hallazgo y a cuántos metros del punto de acceso, según las marcas del cable.</p>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </section>
 
-<section class="ed-sec" id="proceso" aria-labelledby="proceso-t">
+<section class="ed-sec ed-sec--blanco" id="proceso" aria-labelledby="proceso-t">
   <div class="ed-wrap ed-sec__grid">
     <div class="ed-sec__head">
       <h2 id="proceso-t">Cómo trabajamos</h2>
@@ -255,11 +265,10 @@
     </div>
     <div class="ed-sec__body">
       <ol class="ed-pasos">
-        <li id="precio" class="ed-pasos__visita">
+        <li id="precio">
           <h3>Visita técnica</h3>
           <p class="ed-pasos__precio"><strong>$35.000</strong>, que se descuenta completo del valor de la inspección si la contrata.</p>
           <p>Un ingeniero en construcción revisa los daños y los accesos, y evalúa si la cámara puede entrar o si antes hay que sacar sedimento. Con lo que ve, le entregamos el valor de la inspección; si no es viable, se lo decimos.</p>
-          <a class="ed-btn ed-btn--primary" href="#formulario">Pedir visita técnica</a>
         </li>
         <li>
           <h3>Inspeccionamos</h3>
@@ -275,62 +284,7 @@
   </div>
 </section>
 
-<section class="ed-sec ed-faq" id="faq" aria-labelledby="faq-t">
-  <div class="ed-wrap ed-sec__grid">
-    <div class="ed-sec__head">
-      <h2 id="faq-t">Preguntas frecuentes</h2>
-      <p>Más respuestas en nuestras <a href="./blog/index.html">guías de aguas lluvias</a>.</p>
-    </div>
-    <div class="ed-sec__body">
-      <details class="faq__item">
-        <summary class="faq__summary">¿Pueden revisar si ya se limpió o se reparó?</summary>
-        <div class="faq__content">Sí, pero conviene revisar antes de intervenir: así queda registro de cómo estaba el sistema cuando ocurrió el daño.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿El informe dice quién debe pagar la reparación?</summary>
-        <div class="faq__content">No. Muestra qué se encontró y en qué tramo. Quién asume la reparación lo definen las partes.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Qué incluye la inspección?</summary>
-        <div class="faq__content">Recorrido con cámara de las bajadas, drenes o tramos acordados, video completo, fotos de cada hallazgo, en qué tramo y a cuántos metros está cada problema, y la recomendación. Todo va en un informe revisado por un ingeniero en construcción.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Cuándo conviene revisar?</summary>
-        <div class="faq__content">Lo ideal es en primavera o verano, con tiempo para limpiar o reparar antes de las lluvias. También después de un temporal, si aparecieron filtraciones o anegamientos.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Pueden indicar dónde está el problema?</summary>
-        <div class="faq__content">Indicamos en qué tramo está y a cuántos metros del punto de acceso, según las marcas del cable. Con eso la reparación se hace solo en esa zona.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Cuánto cuesta la visita técnica?</summary>
-        <div class="faq__content">$35.000, y se descuenta completo del valor de la inspección si la contrata. En la visita, un ingeniero en construcción revisa el caso en terreno y, con lo que ve, le entregamos el valor de la inspección.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Me pueden dar un valor por WhatsApp?</summary>
-        <div class="faq__content">No. El valor de la inspección depende de los accesos, de los metros por recorrer y del estado de la red, y eso se ve en terreno; por eso partimos con la visita técnica. Si quiere, envíenos por WhatsApp fotos o un video corto de la mancha, el embudo, la bajada o el sumidero, e intentaremos orientarle sobre qué revisar.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Qué necesitan para la visita?</summary>
-        <div class="faq__content">Acceso a la cubierta, los embudos, los registros, los sumideros o las cámaras que haya que revisar, y coordinación con la conserjería si es un edificio.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Qué documento emiten?</summary>
-        <div class="faq__content">Por ahora emitimos boleta de honorarios.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿En qué comunas trabajan?</summary>
-        <div class="faq__content">En toda la Región Metropolitana, la V Región y la VI Región. Escríbanos su comuna y confirmamos disponibilidad.</div>
-      </details>
-      <details class="faq__item">
-        <summary class="faq__summary">¿Qué sistemas revisan?</summary>
-        <div class="faq__content">Solo sistemas de aguas lluvias: canaletas y embudos, bajadas, cámaras decantadoras, drenes, sumideros y las tuberías que los conectan. Si su caso es de otro tipo, se lo decimos antes de agendar.</div>
-      </details>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="formulario" aria-labelledby="formulario-t">
+<section class="section ed-sec--banda" id="formulario" aria-labelledby="formulario-t">
   <div class="vf-sec">
     <div class="vf-sec__head">
       <h2 id="formulario-t">Pida una visita técnica</h2>
@@ -492,6 +446,61 @@
   </div>
 </section>
 
+<section class="ed-sec ed-sec--blanco ed-faq" id="faq" aria-labelledby="faq-t">
+  <div class="ed-wrap ed-sec__grid">
+    <div class="ed-sec__head">
+      <h2 id="faq-t">Preguntas frecuentes</h2>
+      <p>Más respuestas en nuestras <a href="./blog/index.html">guías de aguas lluvias</a>.</p>
+    </div>
+    <div class="ed-sec__body">
+      <details class="faq__item">
+        <summary class="faq__summary">¿Pueden revisar si ya se limpió o se reparó?</summary>
+        <div class="faq__content">Sí, pero conviene revisar antes de intervenir: así queda registro de cómo estaba el sistema cuando ocurrió el daño.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿El informe dice quién debe pagar la reparación?</summary>
+        <div class="faq__content">No. Muestra qué se encontró y en qué tramo. Quién asume la reparación lo definen las partes.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Qué incluye la inspección?</summary>
+        <div class="faq__content">Recorrido con cámara de las bajadas, drenes o tramos acordados, video completo, fotos de cada hallazgo, en qué tramo y a cuántos metros está cada problema, y la recomendación. Todo va en un informe revisado por un ingeniero en construcción.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Cuándo conviene revisar?</summary>
+        <div class="faq__content">Lo ideal es en primavera o verano, con tiempo para limpiar o reparar antes de las lluvias. También después de un temporal, si aparecieron filtraciones o anegamientos.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Pueden indicar dónde está el problema?</summary>
+        <div class="faq__content">Indicamos en qué tramo está y a cuántos metros del punto de acceso, según las marcas del cable. Con eso la reparación se hace solo en esa zona.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Cuánto cuesta la visita técnica?</summary>
+        <div class="faq__content">$35.000, y se descuenta completo del valor de la inspección si la contrata. En la visita, un ingeniero en construcción revisa el caso en terreno y, con lo que ve, le entregamos el valor de la inspección.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Me pueden dar un valor por WhatsApp?</summary>
+        <div class="faq__content">No. El valor de la inspección depende de los accesos, de los metros por recorrer y del estado de la red, y eso se ve en terreno; por eso partimos con la visita técnica. Si quiere, envíenos por WhatsApp fotos o un video corto de la mancha, el embudo, la bajada o el sumidero, e intentaremos orientarle sobre qué revisar.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Qué necesitan para la visita?</summary>
+        <div class="faq__content">Acceso a la cubierta, los embudos, los registros, los sumideros o las cámaras que haya que revisar, y coordinación con la conserjería si es un edificio.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Qué documento emiten?</summary>
+        <div class="faq__content">Por ahora emitimos boleta de honorarios.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿En qué comunas trabajan?</summary>
+        <div class="faq__content">En toda la Región Metropolitana, la V Región y la VI Región. Escríbanos su comuna y confirmamos disponibilidad.</div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary">¿Qué sistemas revisan?</summary>
+        <div class="faq__content">Solo sistemas de aguas lluvias: canaletas y embudos, bajadas, cámaras decantadoras, drenes, sumideros y las tuberías que los conectan. Si su caso es de otro tipo, se lo decimos antes de agendar.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer class="site-footer">
@@ -551,6 +560,6 @@
   </a>
 </div>
 
-<script src="./app.js?v=11"></script>
+<script src="./app.js?v=12"></script>
 </body>
 </html>

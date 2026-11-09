@@ -22,8 +22,8 @@ WA = "56959492372"
 TEL = "+56959492372"
 TEL_VISIBLE = "+56 9 5949 2372"
 EMAIL = "hola@visioninspeccion.cl"
-CSS_VER = "14"
-JS_VER = "11"
+CSS_VER = "15"
+JS_VER = "12"
 OG_IMG = "https://visioninspeccion.cl/assets/og-aguas-lluvias.png"  # 1200 x 630
 
 def fonts(p):
@@ -45,10 +45,8 @@ ICON_VISITA = ('<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 2
                'stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>')
 ICON_TEL = ('<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>')
 
+# Menú corto: las páginas de cada servicio y las comunas están en el pie
 NAV = [("Cómo funciona", "index.html#proceso", None),
-       ("Edificios", "empresas.html", "empresas.html"),
-       ("Constructoras", "constructoras.html", "constructoras.html"),
-       ("Daños por lluvia", "danos-por-temporal.html", "danos-por-temporal.html"),
        ("Precio", "index.html#precio", None),
        ("Blog", "blog/index.html", "blog/")]
 
@@ -62,7 +60,9 @@ def header(rel, has_form):
     links = []
     for label, href, match in NAV:
         cur = match and (rel == match or (match.endswith("/") and rel.startswith(match)))
-        target = href.replace("index.html#", "#") if rel == "index.html" else p + href
+        # Las anclas del inicio (#proceso, #precio) existen también en las páginas con formulario
+        en_pagina = href.startswith("index.html#") and (rel == "index.html" or has_form)
+        target = href.replace("index.html#", "#") if en_pagina else p + href
         aria = ' aria-current="page"' if cur else ""
         links.append(f'      <a class="site-header__nav-link" href="{target}"{aria}>{label}</a>')
     cta = "#formulario" if has_form else p + "index.html#formulario"
@@ -75,7 +75,6 @@ def header(rel, has_form):
             + "\n".join(links) + "\n"
             f'    </nav>\n'
             f'    <div class="site-header__cta">\n'
-            f'      <a class="site-header__tel" href="tel:{TEL}" data-call data-placement="header">{TEL_VISIBLE}</a>\n'
             f'      <a class="btn btn--primary" href="{cta}">Pedir visita técnica</a>\n'
             f'    </div>\n'
             f'    <button class="site-header__toggle nav-toggle" type="button" aria-expanded="false" aria-label="Abrir menú">\n'
@@ -174,7 +173,7 @@ def apply_chrome(rel):
     p = prefix_for(rel)
     has_form = 'id="formulario"' in s
     # la barra del navegador, del azul de la cabecera
-    s = re.sub(r'<meta content="#[0-9A-Fa-f]{6}" name="theme-color"/>', '<meta content="#1B1D3A" name="theme-color"/>', s)
+    s = re.sub(r'<meta content="#[0-9A-Fa-f]{6}" name="theme-color"/>', '<meta content="#0B1A2E" name="theme-color"/>', s)
     # fuentes y hoja de estilos
     s = re.sub(r'\n?[ \t]*<link rel="preload" href="[^"]*assets/fonts/[^"]*"[^>]*>', '', s)
     s = re.sub(r'<link href="(?:\./|\.\./)?styles\.css(?:\?v=\d+)?" rel="stylesheet"/?>',
@@ -186,7 +185,8 @@ def apply_chrome(rel):
     assert n1 == 1 and n2 == 1, (rel, n1, n2)
     # flotante y barra móvil: se quitan las versiones antiguas y se pone la estándar tras el pie
     s = re.sub(r'(?s)\n?<div class="floating-whatsapp".*?</button>\s*</div>', '', s)
-    s = re.sub(r'(?s)\n?<div class="sticky-mobile-bar">.*?</button>\s*</div>', '', s)
+    # la barra tiene enlaces (antes un botón): se quitan todas las copias, también las que quedaron repetidas
+    s = re.sub(r'(?s)\n*<div class="sticky-mobile-bar">.*?</(?:a|button)>\s*</div>', '', s)
     msg = MSG.get(rel, MSG_DEFAULT)
     if rel.startswith("comunas/"):
         name = dict(COMUNAS)[pathlib.Path(rel).stem]
@@ -194,7 +194,7 @@ def apply_chrome(rel):
     visita = "#formulario" if 'id="formulario"' in s else f"{p}index.html#formulario"
     s = s.replace("</footer>", "</footer>\n\n" + contact_bits(msg, visita), 1)
     # sin líneas en blanco acumuladas entre la barra móvil y lo que sigue (antes crecían en cada ejecución)
-    s = re.sub(r'(?s)(<div class="sticky-mobile-bar">.*?</button>\s*</div>)\s*', lambda m: m.group(1) + "\n\n", s, count=1)
+    s = re.sub(r'(?s)(<div class="sticky-mobile-bar">.*?</(?:a|button)>\s*</div>)\s*', lambda m: m.group(1) + "\n\n", s, count=1)
     # esquema de aguas lluvias y datos del equipo: la misma versión en todas las páginas
     s = re.sub(r'(?s)(<figure class="esquema"[^>]*>\s*)<svg\b.*?</svg>', lambda m: m.group(1) + ESQUEMA_SVG, s)
     s = re.sub(r'(?s)<ul class="ed-hero__datos".*?</ul>', lambda m: HERO_DATOS, s)
@@ -338,7 +338,7 @@ def business_schema(area):
 def form_section(heading, sub=None, p="./", preset=None):
     """El mismo formulario por pasos del inicio. preset: opciones ya elegidas, p. ej. {"recinto": "Edificio o condominio"}."""
     idx = read("index.html")
-    m = re.search(r'(?s)<section class="section" id="formulario".*?</section>', idx)
+    m = re.search(r'(?s)<section class="section[^"]*" id="formulario".*?</section>', idx)
     sec = m.group(0).replace('href="./', f'href="{p}')
     sec = re.sub(r'(<h2[^>]*>)[^<]*(</h2>)', lambda m: m.group(1) + heading + m.group(2), sec, count=1)
     if sub:
@@ -368,6 +368,72 @@ def items_html(items):
       </div>""" for t, x in items)
 
 
+def recorrido_html(items):
+    """Qué revisamos, de arriba abajo: una tubería al costado por la que baja la cámara al avanzar la página (app.js)."""
+    lis = "\n".join(f"""          <li class="ed-recorrido__punto">
+            <span class="ed-recorrido__nodo" aria-hidden="true"></span>
+            <h3>{t}</h3>
+            <p>{x}</p>
+          </li>""" for t, x in items)
+    return f"""      <div class="ed-recorrido" data-recorrido>
+        <span class="ed-recorrido__cam" aria-hidden="true"></span>
+        <ol class="ed-recorrido__lista">
+{lis}
+        </ol>
+      </div>"""
+
+
+# Dibujos de "Qué recibe", con el mismo trazo del esquema del inicio. Se animan una vez al aparecer
+# (app.js agrega .is-vivo a la lista y .is-visto a cada columna); sin JavaScript o con movimiento
+# reducido se ven completos y quietos. Cada dibujo aparece una sola vez por página (ids únicos).
+DIBUJOS = {
+    # La cámara avanza por la tubería con su cable y encuentra una fisura
+    "camara": """<svg class="dibujo dibujo--camara" viewBox="0 0 240 150" aria-hidden="true" focusable="false"><defs><linearGradient id="dLuzCamara"><stop offset="0" class="d-luz-ini"/><stop offset="1" class="d-luz-fin"/></linearGradient></defs><rect class="d-tubo" x="0" y="36" width="240" height="78"/><rect class="d-agua-capa" x="0" y="104" width="240" height="10"/><path class="d-agua-fina" d="M0 104H240"/><path class="d-trazo" d="M0 36H240M0 114H240"/><path class="d-tenue" d="M76 29v7M76 114v7M156 29v7M156 114v7"/><path class="d-cable" d="M0 75H136"/><g class="d-cam"><path class="d-luz" fill="url(#dLuzCamara)" d="M172 70L206 37H238V113H206L172 80Z"/><rect class="d-cuerpo" x="136" y="66" width="34" height="18" rx="9"/><circle class="d-lente" cx="162" cy="75" r="6.5"/><circle class="d-ojo" cx="162" cy="75" r="3.2"/></g><path class="d-fisura" pathLength="1" d="M209 36l2 8 4-3 2 9"/><circle class="d-pulso" cx="213" cy="46" r="12"/></svg>""",
+    # La pantalla en terreno: el interior de la tubería y el video que se graba
+    "pantalla": """<svg class="dibujo dibujo--pantalla" viewBox="0 0 240 150" aria-hidden="true" focusable="false"><rect class="d-pantalla" x="34" y="10" width="172" height="108" rx="4"/><path class="d-agua-sup" d="M86 82L112.7 63.1H127.3L154 82Z"/><circle class="d-anillo d-i1" cx="120" cy="58" r="42"/><circle class="d-anillo d-i2" cx="120" cy="58" r="28"/><circle class="d-anillo d-i3" cx="120" cy="58" r="17"/><circle class="d-anillo d-i4" cx="120" cy="58" r="9"/><circle class="d-hueco" cx="120" cy="58" r="4.5"/><circle class="d-rec" cx="48" cy="24" r="3.5"/><path class="d-tenue" d="M48 108H192"/><path class="d-progreso" d="M48 108H150"/><path class="d-trazo" d="M120 118v12M98 132h44"/></svg>""",
+    # El informe: líneas, una foto, la firma y el visto bueno
+    "informe": """<svg class="dibujo dibujo--informe" viewBox="0 0 240 150" aria-hidden="true" focusable="false"><rect class="d-hoja" x="68" y="8" width="104" height="134" rx="3"/><path class="d-titulo d-linea d-i1" pathLength="1" d="M82 24H134"/><g class="d-foto-g"><rect class="d-foto" x="82" y="34" width="38" height="26" rx="1.5"/><circle class="d-anillo-mini" cx="101" cy="47" r="8.5"/><circle class="d-anillo-mini" cx="101" cy="47" r="3.5"/></g><path class="d-tenue d-linea d-i2" pathLength="1" d="M128 38H158"/><path class="d-tenue d-linea d-i3" pathLength="1" d="M128 46H152"/><path class="d-tenue d-linea d-i4" pathLength="1" d="M128 54H156"/><path class="d-tenue d-linea d-i5" pathLength="1" d="M82 72H158"/><path class="d-tenue d-linea d-i6" pathLength="1" d="M82 80H150"/><path class="d-tenue d-linea d-i7" pathLength="1" d="M82 88H156"/><path class="d-tenue d-linea d-i8" pathLength="1" d="M82 96H136"/><path class="d-firma d-linea d-i9" pathLength="1" d="M82 124c4-9 8 4 12-3s6-6 10-1 4 3 8-3"/><path class="d-sello d-linea d-i10" pathLength="1" d="M158 121a10 10 0 1 1-20 0a10 10 0 1 1 20 0"/><path class="d-visto d-linea d-i11" pathLength="1" d="M143.5 121l4 4 6.5-7.5"/></svg>""",
+    # Una foto y el estado de cada tramo; el del medio tiene un hallazgo
+    "fotos": """<svg class="dibujo dibujo--fotos" viewBox="0 0 240 150" aria-hidden="true" focusable="false"><g class="d-fila d-i1"><rect class="d-foto" x="30" y="14" width="48" height="32" rx="1.5"/><circle class="d-anillo-mini" cx="54" cy="30" r="10"/><circle class="d-anillo-mini" cx="54" cy="30" r="4"/><path class="d-titulo" d="M90 23H148"/><path class="d-tenue" d="M90 36H180"/><circle class="d-estado" cx="204" cy="30" r="5"/></g><g class="d-fila d-i2"><rect class="d-foto" x="30" y="59" width="48" height="32" rx="1.5"/><circle class="d-anillo-mini" cx="54" cy="75" r="10"/><circle class="d-anillo-mini" cx="54" cy="75" r="4"/><path class="d-titulo" d="M90 68H140"/><path class="d-tenue" d="M90 81H176"/><circle class="d-estado d-estado--hallazgo" cx="204" cy="75" r="5"/></g><g class="d-fila d-i3"><rect class="d-foto" x="30" y="104" width="48" height="32" rx="1.5"/><circle class="d-anillo-mini" cx="54" cy="120" r="10"/><circle class="d-anillo-mini" cx="54" cy="120" r="4"/><path class="d-titulo" d="M90 113H152"/><path class="d-tenue" d="M90 126H170"/><circle class="d-estado" cx="204" cy="120" r="5"/></g><circle class="d-pulso" cx="204" cy="75" r="10"/></svg>""",
+    # Qué hacer primero: tres prioridades ordenadas
+    "prioridades": """<svg class="dibujo dibujo--prioridades" viewBox="0 0 240 150" aria-hidden="true" focusable="false"><g class="d-num"><circle cx="46" cy="36" r="10"/><text x="46" y="36">1</text></g><rect class="d-pista" x="68" y="31" width="140" height="10" rx="5"/><rect class="d-barra d-barra--1 d-i1" x="68" y="31" width="140" height="10" rx="5"/><g class="d-num"><circle cx="46" cy="75" r="10"/><text x="46" y="75">2</text></g><rect class="d-pista" x="68" y="70" width="140" height="10" rx="5"/><rect class="d-barra d-barra--2 d-i2" x="68" y="70" width="94" height="10" rx="5"/><g class="d-num"><circle cx="46" cy="114" r="10"/><text x="46" y="114">3</text></g><rect class="d-pista" x="68" y="109" width="140" height="10" rx="5"/><rect class="d-barra d-barra--3 d-i3" x="68" y="109" width="52" height="10" rx="5"/></svg>""",
+    # La cámara se detiene en el hallazgo y la marca baja a la escala de metros
+    "ubicacion": """<svg class="dibujo dibujo--ubicacion" viewBox="0 0 240 150" aria-hidden="true" focusable="false"><rect class="d-tubo" x="0" y="30" width="240" height="44"/><rect class="d-agua-capa" x="0" y="67" width="240" height="7"/><path class="d-agua-fina" d="M0 67H240"/><path class="d-trazo" d="M0 30H240M0 74H240"/><path class="d-tenue" d="M20 104H220M20 99v10M86.7 99v10M153.3 99v10M220 99v10"/><text class="d-txt" x="20" y="126">0 m</text><text class="d-txt" x="86.7" y="126">10 m</text><text class="d-txt" x="153.3" y="126">20 m</text><text class="d-txt" x="220" y="126">30 m</text><path class="d-cable" d="M0 52H119"/><g class="d-cam"><circle class="d-halo" cx="128" cy="52" r="9"/><circle class="d-ojo" cx="128" cy="52" r="3.5"/></g><path class="d-fisura" pathLength="1" d="M124 30l2 7 4-3 2 8"/><path class="d-marca" pathLength="1" d="M128 77V95"/><path class="d-punta" d="M128 101l-5-7h10z"/><circle class="d-pulso" cx="128" cy="40" r="11"/></svg>""",
+}
+
+# Qué dibujo va con cada cosa que se entrega
+RECIBE_DIBUJO = {
+    "Inspección con cámara": "camara",
+    "Video del recorrido": "pantalla",
+    "Video HD del recorrido": "pantalla",
+    "Informe revisado por un ingeniero": "informe",
+    "Informe técnico": "informe",
+    "Fotos y estado de cada tramo": "fotos",
+    "Prioridades para la mantención": "prioridades",
+    "Ubicación por tramo": "ubicacion",
+}
+
+
+def recibe_section(sid, title, sub, items):
+    """Qué recibe: el título arriba y tres columnas, cada una con su dibujo."""
+    cols = "\n".join(f"""      <li class="ed-recibe__item">
+        <div class="ed-recibe__dibujo">{DIBUJOS[RECIBE_DIBUJO[t]]}</div>
+        <h3>{t}</h3>
+        <p>{x}</p>
+      </li>""" for t, x in items)
+    sub_html = f"\n      <p>{sub}</p>" if sub else ""
+    return f"""<section class="ed-sec ed-recibe-sec" id="{sid}" aria-labelledby="{sid}-t">
+  <div class="ed-wrap">
+    <div class="ed-sec__head ed-recibe__head">
+      <h2 id="{sid}-t">{title}</h2>{sub_html}
+    </div>
+    <ul class="ed-recibe" data-recibe>
+{cols}
+    </ul>
+  </div>
+</section>"""
+
+
 VISITA_PRECIO = '<p class="ed-pasos__precio"><strong>$35.000</strong>, que se descuenta completo del valor de la inspección si la contrata.</p>'
 
 # El informe no incluye reparar en el momento; la cotización de reparación va solo si la piden
@@ -382,19 +448,12 @@ NOTA_VALOR = ('El valor de la inspección depende de los accesos, de los metros 
 
 
 def pasos_html(items):
-    """Pasos del servicio. El primero es siempre la visita técnica: va destacada, con su precio y el botón para pedirla."""
+    """Pasos del servicio. El primero es siempre la visita técnica, con su precio en una línea."""
     lis = []
     for i, (t, x) in enumerate(items):
-        if i == 0:
-            lis.append(f"""        <li id="precio" class="ed-pasos__visita">
-          <h3>{t}</h3>
-          {VISITA_PRECIO}
-          <p>{x}</p>
-          <a class="ed-btn ed-btn--primary" href="#formulario">Pedir visita técnica</a>
-        </li>""")
-        else:
-            lis.append(f"""        <li>
-          <h3>{t}</h3>
+        ident, precio = (' id="precio"', f"\n          {VISITA_PRECIO}") if i == 0 else ("", "")
+        lis.append(f"""        <li{ident}>
+          <h3>{t}</h3>{precio}
           <p>{x}</p>
         </li>""")
     return '      <ol class="ed-pasos">\n' + "\n".join(lis) + '\n      </ol>'
@@ -416,6 +475,40 @@ def ed_section(sid, title, sub, body, extra_class=""):
 </section>"""
 
 
+# Después del inicio oscuro las secciones alternan turquesa, blanco y oscuro, sin repetir color seguido.
+# Qué revisamos va en turquesa, Qué recibe en oscuro (sus dibujos son claros) y las preguntas en blanco;
+# las del medio toman el siguiente color del ciclo que no choque con sus vecinas. El pie es oscuro.
+COLOR_FIJO = {"deteccion": "banda", "servicio": "oscuro", "faq": "blanco"}
+CICLO = ("blanco", "banda", "oscuro")
+
+
+def colores(ids):
+    out, prev, k = [], "oscuro", 0
+    for n, sid in enumerate(ids):
+        if sid in COLOR_FIJO:
+            c = COLOR_FIJO[sid]
+        else:
+            sig = COLOR_FIJO.get(ids[n + 1]) if n + 1 < len(ids) else "oscuro"
+            while CICLO[k % 3] in (prev, sig):
+                k += 1
+            c = CICLO[k % 3]
+            k += 1
+        assert c != prev, ("dos secciones seguidas del mismo color", ids)
+        out.append(c)
+        prev = c
+    assert out[-1] != "oscuro", ("la última sección quedaría igual que el pie", ids)
+    return out
+
+
+def banda(sec, tema):
+    """Pone la clase de color (ed-sec--banda, --blanco u --oscuro) en la sección."""
+    def poner(m):
+        clases = [c for c in m.group(1).split() if not c.startswith("ed-sec--")]
+        clases.insert(1, f"ed-sec--{tema}")
+        return f'<section class="{" ".join(clases)}"'
+    return re.sub(r'<section class="([^"]*)"', poner, sec, count=1)
+
+
 def nota(x):
     return f'\n      <p class="ed-sec__nota">{x}</p>' if x else ""
 
@@ -432,16 +525,19 @@ def landing(rel, d):
                         for x in d.get("extra", []))
     schema = d.get("schema") or business_schema(d["area"])
     secciones = [
-        ed_section("deteccion", d["revisamos_titulo"], d.get("revisamos_sub"), intro + items_html(d["revisamos"]) + nota(d.get("nota_revisamos"))),
-        ed_section("servicio", d.get("recibe_titulo", "Qué recibe"), d.get("recibe_sub", "Lo mismo en cada inspección."), items_html(d["recibe"])),
+        ed_section("deteccion", d["revisamos_titulo"], d.get("revisamos_sub"),
+                   intro + (recorrido_html if d.get("recorrido") else items_html)(d["revisamos"]) + nota(d.get("nota_revisamos"))),
+        recibe_section("servicio", d.get("recibe_titulo", "Qué recibe"), d.get("recibe_sub", "Lo mismo en cada inspección."), d["recibe"]),
         extra,
         ed_section("proceso", d.get("pasos_titulo", "Cómo trabajamos"), d.get("pasos_sub", "Del primer mensaje al informe."),
                    pasos_html(d["pasos"]) + nota(d.get("nota_pasos", NOTA_VALOR.format(p=p)))),
+        form_section(d["form_h"], None, p, d.get("preset")),
         ed_section("faq", d.get("faq_titulo", "Preguntas frecuentes"),
                    f'Más respuestas en nuestras <a href="{p}blog/index.html">guías de aguas lluvias</a>.', faq_html(faq), "ed-faq"),
-        form_section(d["form_h"], None, p, d.get("preset")),
     ]
-    cuerpo = "\n\n".join(x for x in secciones if x)
+    bloques = [x for x in secciones if x]
+    ids = [re.search(r'<section[^>]* id="([^"]+)"', x).group(1) for x in bloques]
+    cuerpo = "\n\n".join(banda(x, c) for x, c in zip(bloques, colores(ids)))
     return f"""<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -460,7 +556,7 @@ def landing(rel, d):
   <meta content="1200" property="og:image:width"/>
   <meta content="630" property="og:image:height"/>
   <meta content="summary_large_image" name="twitter:card"/>
-  <meta content="#1B1D3A" name="theme-color"/>
+  <meta content="#0B1A2E" name="theme-color"/>
   <link href="{p}assets/solo-icono.png" rel="icon" type="image/png"/>
   <link href="{p}assets/solo-icono.png" rel="apple-touch-icon"/>
   <link href="{p}styles.css?v={CSS_VER}" rel="stylesheet"/>
@@ -515,6 +611,7 @@ EMPRESAS = dict(
     caption="Esquema de un sistema de aguas lluvias: los puntos que revisamos en un edificio.",
     msg=MSG["empresas.html"],
     revisamos_titulo="Qué revisamos en un edificio",
+    recorrido=True,
     revisamos_sub="Los puntos donde suelen empezar los problemas con la lluvia.",
     revisamos=[("Cubiertas y terrazas", "Embudos y canaletas obstruidos que hacen que el agua se acumule y busque otro camino."),
                ("Bajadas", "Obstrucciones, uniones abiertas y fisuras en bajadas exteriores o embutidas en muros y shafts."),
@@ -545,6 +642,7 @@ DANOS = dict(
     hero_desc=["Revisamos con cámara bajadas, drenes y sumideros para encontrar el tramo donde empezó el problema. El informe trae fotos, video y la ubicación de cada hallazgo, revisado por un ingeniero en construcción, para decidir qué reparar."],
     caption="Esquema de un sistema de aguas lluvias: los puntos que revisamos después de un temporal.",
     revisamos_titulo="Dónde suele empezar el daño",
+    recorrido=True,
     revisamos_sub="Lo que más vemos cuando el agua de una lluvia fuerte termina dentro del edificio.",
     revisamos=[("Filtraciones en el último piso", "Embudos obstruidos, canaletas que rebalsan o uniones de bajada abiertas cerca de la cubierta."),
                ("Manchas junto a shafts o bajadas", "Una unión abierta en un tramo embutido deja escapar agua con cada lluvia, a veces varios pisos más abajo."),
@@ -690,7 +788,7 @@ def page_404():
   <title>Página no encontrada | Visión Inspección</title>
   <base href="/"/>
   <meta content="noindex,follow" name="robots"/>
-  <meta content="#1B1D3A" name="theme-color"/>
+  <meta content="#0B1A2E" name="theme-color"/>
   <link href="./assets/solo-icono.png" rel="icon" type="image/png"/>
   <link href="./styles.css?v=''' + CSS_VER + '''" rel="stylesheet"/>
 </head>

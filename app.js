@@ -1,7 +1,8 @@
 /* ============================================================
    Visión Inspección - app.js
    Aviso de cookies, origen de campañas, WhatsApp, formulario de
-   visita técnica, preguntas frecuentes y pie de página.
+   visita técnica, preguntas frecuentes, pie de página y las animaciones
+   de Qué revisamos, Qué recibe y el visor del caso real.
    ============================================================ */
 
 const BRAND = {
@@ -348,7 +349,7 @@ function bindFooter() {
     mobileNav.addEventListener("click", e => {
       if (e.target && e.target.matches("a, button")) closeMobile();
     });
-    window.addEventListener("resize", () => { if (window.innerWidth > 1080) closeMobile(); });
+    window.addEventListener("resize", () => { if (window.innerWidth > 860) closeMobile(); });
   }
 })();
 
@@ -368,6 +369,109 @@ function initSmoothFAQ() {
   });
 }
 
+/* ---------- Qué revisamos: la cámara baja por la tubería mientras se avanza en la página ----------
+   Mide el centro de cada punto, ajusta el tubo a esos extremos y mueve la cámara según una
+   línea de lectura a media pantalla. Con movimiento reducido el tubo queda lleno y quieto. */
+function initRecorrido() {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll("[data-recorrido]").forEach(caja => {
+    const puntos = Array.from(caja.querySelectorAll(".ed-recorrido__punto"));
+    const nodos = puntos.map(li => li.querySelector(".ed-recorrido__nodo"));
+    if (nodos.length < 2 || nodos.some(n => !n)) return;
+    let ys = [];
+    let pendiente = false;
+    function pintar() {
+      pendiente = false;
+      if (reduce || !ys.length) return;
+      const ini = ys[0], fin = ys[ys.length - 1];
+      const linea = window.innerHeight * 0.55 - caja.getBoundingClientRect().top;
+      const y = Math.min(Math.max(linea, ini), fin);
+      caja.style.setProperty("--agua", ((y - ini) / (fin - ini)).toFixed(4));
+      caja.style.setProperty("--y", y.toFixed(1) + "px");
+      ys.forEach((v, i) => puntos[i].classList.toggle("is-mojado", v <= y + 1));
+    }
+    function medir() {
+      const arriba = caja.getBoundingClientRect().top;
+      ys = nodos.map(n => { const r = n.getBoundingClientRect(); return r.top + r.height / 2 - arriba; });
+      caja.style.setProperty("--ini", ys[0].toFixed(1) + "px");
+      caja.style.setProperty("--largo", (ys[ys.length - 1] - ys[0]).toFixed(1) + "px");
+      pintar();
+    }
+    const pedir = () => { if (!pendiente) { pendiente = true; requestAnimationFrame(pintar); } };
+    if (!reduce) caja.classList.add("is-vivo");
+    medir();
+    if ("ResizeObserver" in window) new ResizeObserver(medir).observe(caja);
+    else window.addEventListener("resize", medir);
+    if (reduce) return;
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(entradas => {
+        entradas.forEach(e => {
+          if (e.isIntersecting) { window.addEventListener("scroll", pedir, { passive: true }); pedir(); }
+          else window.removeEventListener("scroll", pedir);
+        });
+      }, { rootMargin: "25% 0px" }).observe(caja);
+    } else {
+      window.addEventListener("scroll", pedir, { passive: true });
+    }
+  });
+}
+
+/* ---------- Qué recibe: cada dibujo se anima una vez, cuando aparece en pantalla ---------- */
+function initRecibe() {
+  const listas = document.querySelectorAll("[data-recibe]");
+  if (!listas.length || !("IntersectionObserver" in window)) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const io = new IntersectionObserver(entradas => {
+    entradas.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add("is-visto"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.45 });
+  listas.forEach(ul => {
+    ul.classList.add("is-vivo");
+    ul.querySelectorAll(".ed-recibe__item").forEach(li => io.observe(li));
+  });
+}
+
+/* ---------- Caso real: visor de capturas (miniaturas, flechas del teclado y deslizar) ---------- */
+function initVisor() {
+  document.querySelectorAll("[data-visor]").forEach(visor => {
+    const fotos = Array.from(visor.querySelectorAll(".ed-visor__foto"));
+    const minis = visor.querySelector(".ed-visor__minis");
+    const botones = minis ? Array.from(minis.querySelectorAll("button")) : [];
+    const escena = visor.querySelector(".ed-visor__escena");
+    const pie = visor.querySelector(".ed-visor__pie");
+    if (fotos.length < 2 || botones.length !== fotos.length || !escena) return;
+    let actual = 0;
+    function ver(i, foco) {
+      actual = (i + fotos.length) % fotos.length;
+      fotos.forEach((f, k) => f.classList.toggle("is-activa", k === actual));
+      botones.forEach((b, k) => b.setAttribute("aria-pressed", String(k === actual)));
+      if (pie) pie.textContent = fotos[actual].getAttribute("data-pie") || "";
+      if (foco) botones[actual].focus();
+    }
+    botones.forEach((b, k) => b.addEventListener("click", () => ver(k)));
+    minis.addEventListener("keydown", e => {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        e.preventDefault();
+        ver(actual + (e.key === "ArrowRight" ? 1 : -1), true);
+      }
+    });
+    // Deslizar en el celular; un toque o clic en la foto pasa a la siguiente
+    let x0 = null, deslizo = false;
+    escena.addEventListener("pointerdown", e => { x0 = e.clientX; deslizo = false; });
+    escena.addEventListener("pointerup", e => {
+      if (x0 === null) return;
+      const dx = e.clientX - x0;
+      x0 = null;
+      if (Math.abs(dx) > 40) { deslizo = true; ver(actual + (dx < 0 ? 1 : -1)); }
+    });
+    escena.addEventListener("pointercancel", () => { x0 = null; });
+    escena.addEventListener("click", () => { if (!deslizo) ver(actual + 1); deslizo = false; });
+    minis.hidden = false;
+    visor.classList.add("is-vivo");
+  });
+}
+
 /* ---------- Init ---------- */
 persistUTMs();
 document.addEventListener("DOMContentLoaded", () => {
@@ -378,4 +482,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFloatingHide();
   bindFooter();
   initSmoothFAQ();
+  initRecorrido();
+  initRecibe();
+  initVisor();
 });
