@@ -352,7 +352,7 @@ COMMON_FAQ = [
     ("¿Qué incluye la inspección?", "Recorrido con cámara de las bajadas, drenes o tramos acordados, video completo, fotos de cada hallazgo, en qué tramo y a cuántos metros está cada problema, y la recomendación. Todo va en un informe revisado por un ingeniero en construcción."),
     ("¿Cuándo conviene revisar?", "Lo ideal es en primavera o verano, con tiempo para limpiar o reparar antes de las lluvias. También después de un temporal, si aparecieron filtraciones o anegamientos."),
     ("¿Pueden indicar dónde está el problema?", "Indicamos en qué tramo está y a cuántos metros del punto de acceso, según las marcas del cable. Con eso la reparación se hace solo en esa zona."),
-    ("¿Cuánto cuesta la visita técnica?", "$35.000, y se descuenta del valor de la inspección si la contrata. En la visita, un ingeniero en construcción revisa el caso en terreno y, con lo que ve, le entregamos el valor de la inspección."),
+    ("¿Cuánto cuesta la visita técnica?", "$35.000, y se descuenta completo del valor de la inspección si la contrata. En la visita, un ingeniero en construcción revisa el caso en terreno y, con lo que ve, le entregamos el valor de la inspección."),
     ("¿Me pueden dar un valor por WhatsApp?", "No. El valor de la inspección depende de los accesos, de los metros por recorrer y del estado de la red, y eso se ve en terreno; por eso partimos con la visita técnica. Si quiere, envíenos por WhatsApp fotos o un video corto de la mancha, el embudo, la bajada o el sumidero, e intentaremos orientarle sobre qué revisar."),
     ("¿Qué necesitan para la visita?", "Acceso a la cubierta, los embudos, los registros, los sumideros o las cámaras que haya que revisar, y coordinación con la conserjería si es un edificio."),
     ("¿Qué documento emiten?", "Por ahora emitimos boleta de honorarios."),
@@ -368,11 +368,16 @@ def items_html(items):
       </div>""" for t, x in items)
 
 
-VISITA_PRECIO = '<p class="ed-pasos__precio"><strong>$35.000</strong>, que se descuenta del valor de la inspección si la contrata.</p>'
+VISITA_PRECIO = '<p class="ed-pasos__precio"><strong>$35.000</strong>, que se descuenta completo del valor de la inspección si la contrata.</p>'
+
+# El informe no incluye reparar en el momento; la cotización de reparación va solo si la piden
+REPARACION = ("No reparamos durante la inspección, para que el diagnóstico sea independiente; si lo pide, junto al informe "
+              "le enviamos una cotización para reparar lo encontrado.")
 
 # Por qué no hay valores por WhatsApp, bajo los pasos de las páginas de servicio y comuna
 NOTA_VALOR = ('El valor de la inspección depende de los accesos, de los metros de bajadas y drenes por recorrer y del estado de la red, '
-              'y eso se ve en terreno: por eso no lo damos por WhatsApp ni con fotos. Más detalle en '
+              'y eso se ve en terreno: por eso no lo damos por WhatsApp ni con fotos. El informe y el video se los enviamos cuando '
+              'terminamos de revisar las imágenes, y las fechas se coordinan con usted. Más detalle en '
               '<a href="{p}blog/cuanto-cuesta-videoinspeccion-tuberias.html">qué determina el valor de la inspección</a>.')
 
 
@@ -477,7 +482,7 @@ def landing(rel, d):
         <a class="ed-btn ed-btn--primary" href="#formulario">Pedir visita técnica</a>
         <a class="ed-btn ed-btn--line" href="tel:{TEL}" data-call data-placement="hero">Llamar al {TEL_VISIBLE}</a>
       </div>
-      <p class="ed-hero__note"><strong>Visita técnica: $35.000</strong>, que se descuenta del valor de la inspección si la contrata.</p>
+      <p class="ed-hero__note"><strong>Visita técnica: $35.000</strong>, que se descuenta completo del valor de la inspección si la contrata.</p>
     </div>
     <div class="ed-hero__visual">
       {esquema_figure(d["caption"])}
@@ -520,9 +525,9 @@ EMPRESAS = dict(
     recibe=[("Inspección con cámara", "Recorremos bajadas y drenes por dentro desde embudos, registros, sumideros o cámaras, sin picar."),
             ("Informe revisado por un ingeniero", "Fotos y video de cada tramo, a cuántos metros del acceso está cada problema y qué se recomienda. Sirve para el comité o la asamblea."),
             ("Prioridades para la mantención", "Qué conviene limpiar o reparar primero y qué puede esperar, para llegar al invierno con el sistema revisado.")],
-    pasos=[("Visita técnica", "Un ingeniero en construcción revisa en terreno el caso y los accesos, coordinado con la administración o la conserjería. Con lo que ve, le entregamos el valor de la inspección."),
+    pasos=[("Visita técnica", "Un ingeniero en construcción revisa en terreno el caso y los accesos, coordinado con la administración o la conserjería, y evalúa si la cámara puede entrar o si antes hay que sacar sedimento. Con lo que ve, le entregamos el valor de la inspección; si no es viable, se lo decimos."),
            ("Inspeccionamos", "Entramos con la cámara y recorremos los tramos acordados. Usted puede ver la pantalla en terreno."),
-           ("Informamos", "Le enviamos el informe con fotos, el video del recorrido y las recomendaciones.")],
+           ("Informamos", "Le enviamos el informe con fotos, el video del recorrido y las recomendaciones. " + REPARACION)],
     faq=[("¿Sirve el informe para la asamblea?", "Sí. Incluye fotos, video y la ubicación de cada hallazgo por tramo, para que el comité decida con evidencia."),
          ("¿Pueden saber si una filtración viene de una bajada común o de una terraza?", "En muchos casos sí: recorremos la bajada y la conexión del embudo de la terraza, y vemos en qué tramo está el daño. Queda en el informe para conversarlo con la administración."),
          ("¿Tienen una lista para revisar el edificio antes del invierno?", 'Sí. Descargue la <a href="./assets/lista-revision-aguas-lluvias.pdf" download>lista de revisión para administradores</a> (PDF de 2 páginas) y úsela para recorrer cubiertas, bajadas, estacionamientos y drenes con el personal del edificio.')] + COMMON_FAQ,
@@ -550,9 +555,9 @@ DANOS = dict(
     recibe=[("Video del recorrido", "El recorrido completo de la cámara por los tramos revisados, en formato digital."),
             ("Fotos y estado de cada tramo", "Una foto de cada hallazgo, con su descripción y lo que conviene reparar primero."),
             ("Ubicación por tramo", "En qué tramo está cada hallazgo y a cuántos metros del punto de acceso, según las marcas del cable.")],
-    pasos=[("Visita técnica", "Un ingeniero en construcción revisa los daños y los accesos. Con lo que ve, le entregamos el valor de la inspección."),
+    pasos=[("Visita técnica", "Un ingeniero en construcción revisa los daños y los accesos, y evalúa si la cámara puede entrar o si antes hay que sacar sedimento. Con lo que ve, le entregamos el valor de la inspección; si no es viable, se lo decimos."),
            ("Inspeccionamos", "Recorremos con la cámara los tramos relacionados con el daño y grabamos todo el recorrido."),
-           ("Informamos", "Le enviamos el informe en PDF y el video, con lo que conviene reparar y en qué tramo.")],
+           ("Informamos", "Le enviamos el informe en PDF y el video, con lo que conviene reparar y en qué tramo. " + REPARACION)],
     faq=[("¿Pueden revisar si ya se limpió o se reparó?", "Sí, pero conviene revisar antes de intervenir: así queda registro de cómo estaba el sistema cuando ocurrió el daño."),
          ("¿El informe dice quién debe pagar la reparación?", "No. Muestra qué se encontró y en qué tramo. Quién asume la reparación lo definen las partes.")] + COMMON_FAQ,
     form_h="Pida una visita técnica",
@@ -597,10 +602,10 @@ CONSTRUCTORAS = dict(
                        ("Drenes aplastados por el relleno", "Tubos deformados por compactación o tránsito de maquinaria. Se detectan antes de que el sistema entre en servicio.")],
                 nota="Detectar un defecto antes de la entrega cuesta una fracción de repararlo después.")],
     pasos_titulo="Cómo trabajamos con constructoras", pasos_sub="De la visita técnica al informe para la carpeta de obra.",
-    pasos=[("Visita técnica", "Un ingeniero en construcción revisa el proyecto, los accesos y el alcance. Con eso le entregamos el valor de la inspección."),
+    pasos=[("Visita técnica", "Un ingeniero en construcción revisa el proyecto, los accesos y el alcance, y evalúa si la cámara puede entrar. Con eso le entregamos el valor de la inspección; si no es viable, se lo decimos."),
            ("Coordinación", "Agendamos la inspección según el calendario de obra. Nos adaptamos a los horarios de faena y a los accesos disponibles."),
            ("Inspección", "Recorremos bajadas y drenes con cámara HD sumergible (IP68) y grabamos el recorrido completo."),
-           ("Informe", "Informe técnico en PDF y video del recorrido, listos para la carpeta de obra o la postventa.")],
+           ("Informe", "Informe técnico en PDF y video del recorrido, listos para la carpeta de obra o la postventa. " + REPARACION)],
     faq_titulo="Preguntas frecuentes de constructoras",
     faq=[("¿El informe sirve para la recepción municipal?", "El informe documenta con video y fotografías el estado interno de bajadas y drenes. Es un respaldo técnico de referencia que puede complementar la documentación de recepción. Consulte con su ITO o con la DOM los requisitos específicos de su proyecto."),
          ("¿Pueden inspeccionar antes de la entrega a los propietarios?", "Sí. La inspección pre-entrega documenta el estado del sistema de aguas lluvias antes de transferir la responsabilidad al comprador. Esto protege a la constructora ante reclamos posteriores por vicios ocultos."),
@@ -608,7 +613,7 @@ CONSTRUCTORAS = dict(
          ("¿Qué documento emiten?", "Por ahora emitimos boleta de honorarios."),
          ("¿Cuánto toma inspeccionar un edificio completo?", "Depende de la cantidad de bajadas, de los metros de dren y de los accesos. Después de la visita técnica le proponemos un calendario de inspección según su proyecto."),
          ("¿Qué pasa si encuentran un problema?", "El informe documenta en qué tramo está, qué se encontró y una recomendación técnica. La decisión de intervenir es siempre del cliente."),
-         ("¿Cuánto cuesta la visita técnica?", "$35.000, y se descuenta del valor de la inspección si la contrata. En la visita, un ingeniero en construcción revisa el proyecto en terreno y, con lo que ve, le entregamos el valor de la inspección."),
+         ("¿Cuánto cuesta la visita técnica?", "$35.000, y se descuenta completo del valor de la inspección si la contrata. En la visita, un ingeniero en construcción revisa el proyecto en terreno y, con lo que ve, le entregamos el valor de la inspección."),
          ("¿Me pueden dar un valor por WhatsApp?", "No. El valor de la inspección depende de los accesos, de los metros por recorrer y del estado de la red, y eso se ve en terreno; por eso partimos con la visita técnica. Si quiere, envíenos por WhatsApp fotos o un video corto del embudo, la bajada, el sumidero o la zona con problemas, e intentaremos orientarle sobre qué revisar.")],
     form_h="Pida una visita técnica para su proyecto",
     preset={"recinto": "Obra o inmobiliaria"},
@@ -668,9 +673,9 @@ def comuna_data(slug, name):
         recibe=[("Inspección con cámara", "Entramos por un embudo, un registro, un sumidero o una cámara, y recorremos la tubería por dentro, sin picar."),
                 ("Informe revisado por un ingeniero", "Fotos y video de cada tramo, a cuántos metros del acceso está cada problema y qué se recomienda."),
                 ("Prioridades para la mantención", "Qué conviene limpiar o reparar primero, para llegar al invierno con el sistema revisado.")],
-        pasos=[("Visita técnica", f"Coordinamos una visita en {name}: un ingeniero en construcción revisa el caso y los accesos. Con lo que ve, le entregamos el valor de la inspección."),
+        pasos=[("Visita técnica", f"Coordinamos una visita en {name}: un ingeniero en construcción revisa el caso y los accesos, y evalúa si la cámara puede entrar o si antes hay que sacar sedimento. Con lo que ve, le entregamos el valor de la inspección; si no es viable, se lo decimos."),
                ("Inspeccionamos", "Entramos con la cámara y recorremos bajadas y drenes. Usted ve en la pantalla lo mismo que nosotros."),
-               ("Informamos", "Le enviamos el informe con fotos, el video del recorrido y las recomendaciones.")],
+               ("Informamos", "Le enviamos el informe con fotos, el video del recorrido y las recomendaciones. " + REPARACION)],
         faq=COMMON_FAQ,
         form_h=f"Pida su visita técnica en {name}",
     )
