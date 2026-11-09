@@ -23,7 +23,7 @@ TEL = "+56959492372"
 TEL_VISIBLE = "+56 9 5949 2372"
 EMAIL = "hola@visioninspeccion.cl"
 CSS_VER = "12"
-JS_VER = "9"
+JS_VER = "10"
 OG_IMG = "https://visioninspeccion.cl/assets/og-aguas-lluvias.png"  # 1200 x 630
 
 def fonts(p):
@@ -347,7 +347,7 @@ COMMON_FAQ = [
     ("¿Qué incluye la inspección?", "Recorrido con cámara de las bajadas, drenes o tramos acordados, video completo, fotos de cada hallazgo, en qué tramo y a cuántos metros está cada problema, y la recomendación. Todo va en un informe revisado por un ingeniero en construcción."),
     ("¿Cuándo conviene revisar?", "Lo ideal es en primavera o verano, con tiempo para limpiar o reparar antes de las lluvias. También después de un temporal, si aparecieron filtraciones o anegamientos."),
     ("¿Pueden indicar dónde está el problema?", "Indicamos en qué tramo está y a cuántos metros del punto de acceso, según las marcas del cable. Con eso la reparación se hace solo en esa zona."),
-    ("¿Cuánto cuesta la visita técnica?", "$35.000 + IVA, y se descuenta del valor de la inspección si la contrata. En la visita, un ingeniero en construcción revisa el caso en terreno y, con lo que ve, le entregamos el valor de la inspección."),
+    ("¿Cuánto cuesta la visita técnica?", "$35.000, y se descuenta del valor de la inspección si la contrata. En la visita, un ingeniero en construcción revisa el caso en terreno y, con lo que ve, le entregamos el valor de la inspección."),
     ("¿Me pueden dar un valor por WhatsApp?", "No. El valor de la inspección depende de los accesos, de los metros por recorrer y del estado de la red, y eso se ve en terreno; por eso partimos con la visita técnica. Si quiere, envíenos por WhatsApp fotos o un video corto de la mancha, el embudo, la bajada o el sumidero, e intentaremos orientarle sobre qué revisar."),
     ("¿Qué necesitan para la visita?", "Acceso a la cubierta, los embudos, los registros, los sumideros o las cámaras que haya que revisar, y coordinación con la conserjería si es un edificio."),
     ("¿Qué documento emiten?", "Por ahora emitimos boleta de honorarios."),
@@ -363,7 +363,7 @@ def items_html(items):
       </div>""" for t, x in items)
 
 
-VISITA_PRECIO = '<p class="ed-pasos__precio"><strong>$35.000 + IVA</strong>, que se descuenta del valor de la inspección si la contrata.</p>'
+VISITA_PRECIO = '<p class="ed-pasos__precio"><strong>$35.000</strong>, que se descuenta del valor de la inspección si la contrata.</p>'
 
 # Por qué no hay valores por WhatsApp, bajo los pasos de las páginas de servicio y comuna
 NOTA_VALOR = ('El valor de la inspección depende de los accesos, de los metros de bajadas y drenes por recorrer y del estado de la red, '
@@ -472,7 +472,7 @@ def landing(rel, d):
         <a class="ed-btn ed-btn--primary" href="#formulario">Pedir visita técnica</a>
         <a class="ed-btn ed-btn--line" href="tel:{TEL}" data-call data-placement="hero">Llamar al {TEL_VISIBLE}</a>
       </div>
-      <p class="ed-hero__note"><strong>Visita técnica: $35.000 + IVA</strong>, que se descuenta del valor de la inspección si la contrata.</p>
+      <p class="ed-hero__note"><strong>Visita técnica: $35.000</strong>, que se descuenta del valor de la inspección si la contrata.</p>
     </div>
     <div class="ed-hero__visual">
       {esquema_figure(d["caption"])}
@@ -603,7 +603,7 @@ CONSTRUCTORAS = dict(
          ("¿Qué documento emiten?", "Por ahora emitimos boleta de honorarios."),
          ("¿Cuánto toma inspeccionar un edificio completo?", "Depende de la cantidad de bajadas, de los metros de dren y de los accesos. Después de la visita técnica le proponemos un calendario de inspección según su proyecto."),
          ("¿Qué pasa si encuentran un problema?", "El informe documenta en qué tramo está, qué se encontró y una recomendación técnica. La decisión de intervenir es siempre del cliente."),
-         ("¿Cuánto cuesta la visita técnica?", "$35.000 + IVA, y se descuenta del valor de la inspección si la contrata. En la visita, un ingeniero en construcción revisa el proyecto en terreno y, con lo que ve, le entregamos el valor de la inspección."),
+         ("¿Cuánto cuesta la visita técnica?", "$35.000, y se descuenta del valor de la inspección si la contrata. En la visita, un ingeniero en construcción revisa el proyecto en terreno y, con lo que ve, le entregamos el valor de la inspección."),
          ("¿Me pueden dar un valor por WhatsApp?", "No. El valor de la inspección depende de los accesos, de los metros por recorrer y del estado de la red, y eso se ve en terreno; por eso partimos con la visita técnica. Si quiere, envíenos por WhatsApp fotos o un video corto del embudo, la bajada, el sumidero o la zona con problemas, e intentaremos orientarle sobre qué revisar.")],
     form_h="Pida una visita técnica para su proyecto",
     preset={"recinto": "Obra o inmobiliaria"},

@@ -205,8 +205,9 @@ function bindLeadForm() {
   }
 
   function buildMessage() {
-    const lines = ["Solicitud de visita técnica — Visión Inspección"];
-    const add = (label, value) => { if (value) lines.push(`${label}: ${value}`); };
+    // *texto* sale en negrita en WhatsApp (y en la vista previa del formulario)
+    const lines = ["*Solicitud de visita técnica*"];
+    const add = (label, value) => { if (value) lines.push(`*${label}:* ${value}`); };
     const nec = val("necesidad");
     add("Recinto", val("recinto"));
     add("Necesita", nec);
@@ -219,10 +220,14 @@ function bindLeadForm() {
     add("Administración o empresa", field("organizacion"));
     add("Detalles", field("detalles"));
     if (nec === "No estoy seguro") lines.push("", "Puedo enviarles fotos por aquí.");
-    lines.push("", "Quedo atento/a para coordinar la visita técnica.");
+    lines.push("", "Entiendo que la visita técnica cuesta $35.000 y que se descuenta si contrato la inspección. Quedo atento/a para coordinarla.");
     return lines.join("\n");
   }
-  function updateResumen() { if (resumen) resumen.textContent = whatsappText(buildMessage()); }
+  function updateResumen() {
+    if (!resumen) return;
+    const esc = whatsappText(buildMessage()).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    resumen.innerHTML = esc.replace(/\*([^*\n]+)\*/g, "<strong>$1</strong>");
+  }
 
   // Elegir con el mouse o el dedo avanza solo en el paso 1; con el teclado se usa "Continuar"
   form.addEventListener("pointerdown", e => { if (e.target.closest(".vf__opt")) pointerAt = Date.now(); });
