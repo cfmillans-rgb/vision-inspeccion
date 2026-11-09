@@ -22,7 +22,7 @@
   <link href="assets/solo-icono.png" rel="apple-touch-icon"/>
 <link rel="preload" href="./assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" href="./assets/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin/>
-<link href="./styles.css?v=15" rel="stylesheet"/>
+<link href="./styles.css?v=17" rel="stylesheet"/>
   <script type="application/ld+json">{
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -219,19 +219,13 @@
     </div>
   </div>
   <div class="ed-wrap">
-    <figure class="ed-caso ed-visor" data-visor>
-      <div class="ed-visor__escena">
-        <img class="ed-visor__foto is-activa" src="./assets/casos/pelota.jpg" alt="Pelota atrapada dentro de una tubería de aguas lluvias, vista con la cámara de inspección" width="1024" height="478" loading="lazy" data-pie="Una pelota atrapada en el tramo horizontal.">
-        <img class="ed-visor__foto" src="./assets/casos/bolsas.jpg" alt="Bolsas plásticas y sedimento tapando el paso dentro de la tubería de aguas lluvias" width="1024" height="478" loading="lazy" data-pie="Bolsas plásticas y sedimento tapando el paso.">
-        <img class="ed-visor__foto" src="./assets/casos/escombros.jpg" alt="Escombros y bolsas con agua estancada dentro de la tubería de aguas lluvias" width="1024" height="478" loading="lazy" data-pie="Escombros y bolsas con agua estancada.">
-        <p class="ed-visor__pie" aria-live="polite">Una pelota atrapada en el tramo horizontal.</p>
+    <figure class="ed-caso">
+      <div class="ed-caso__fotos">
+        <div class="ed-caso__marco ed-caso__principal"><img src="./assets/casos/pelota.jpg" alt="Pelota atrapada dentro de una tubería de aguas lluvias, vista con la cámara de inspección" width="1024" height="478" loading="lazy"></div>
+        <div class="ed-caso__marco"><img src="./assets/casos/bolsas.jpg" alt="Bolsas plásticas y sedimento tapando el paso dentro de la tubería de aguas lluvias" width="1024" height="478" loading="lazy"></div>
+        <div class="ed-caso__marco"><img src="./assets/casos/escombros.jpg" alt="Escombros y bolsas con agua estancada dentro de la tubería de aguas lluvias" width="1024" height="478" loading="lazy"></div>
       </div>
-      <div class="ed-visor__minis" role="group" aria-label="Capturas del caso" hidden>
-        <button type="button" class="ed-visor__mini" aria-pressed="true"><img src="./assets/casos/pelota.jpg" alt="" width="1024" height="478" loading="lazy"><span>Pelota</span></button>
-        <button type="button" class="ed-visor__mini" aria-pressed="false"><img src="./assets/casos/bolsas.jpg" alt="" width="1024" height="478" loading="lazy"><span>Bolsas plásticas</span></button>
-        <button type="button" class="ed-visor__mini" aria-pressed="false"><img src="./assets/casos/escombros.jpg" alt="" width="1024" height="478" loading="lazy"><span>Escombros</span></button>
-      </div>
-      <figcaption>Capturas de nuestra cámara en esa red: una pelota, bolsas plásticas y escombros que tapaban el paso.</figcaption>
+      <figcaption>Capturas de nuestra cámara en esa red.</figcaption>
     </figure>
   </div>
 </section>
@@ -489,6 +483,6 @@
   </a>
 </div>
 
-<script src="./app.js?v=12"></script>
+<script src="./app.js?v=13"></script>
 </body>
 </html>

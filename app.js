@@ -2,7 +2,7 @@
    Visión Inspección - app.js
    Aviso de cookies, origen de campañas, WhatsApp, formulario de
    visita técnica, preguntas frecuentes, pie de página y las animaciones
-   de Qué revisamos, Qué recibe y el visor del caso real.
+   de Qué revisamos y Qué recibe.
    ============================================================ */
 
 const BRAND = {
@@ -432,46 +432,6 @@ function initRecibe() {
   });
 }
 
-/* ---------- Caso real: visor de capturas (miniaturas, flechas del teclado y deslizar) ---------- */
-function initVisor() {
-  document.querySelectorAll("[data-visor]").forEach(visor => {
-    const fotos = Array.from(visor.querySelectorAll(".ed-visor__foto"));
-    const minis = visor.querySelector(".ed-visor__minis");
-    const botones = minis ? Array.from(minis.querySelectorAll("button")) : [];
-    const escena = visor.querySelector(".ed-visor__escena");
-    const pie = visor.querySelector(".ed-visor__pie");
-    if (fotos.length < 2 || botones.length !== fotos.length || !escena) return;
-    let actual = 0;
-    function ver(i, foco) {
-      actual = (i + fotos.length) % fotos.length;
-      fotos.forEach((f, k) => f.classList.toggle("is-activa", k === actual));
-      botones.forEach((b, k) => b.setAttribute("aria-pressed", String(k === actual)));
-      if (pie) pie.textContent = fotos[actual].getAttribute("data-pie") || "";
-      if (foco) botones[actual].focus();
-    }
-    botones.forEach((b, k) => b.addEventListener("click", () => ver(k)));
-    minis.addEventListener("keydown", e => {
-      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-        e.preventDefault();
-        ver(actual + (e.key === "ArrowRight" ? 1 : -1), true);
-      }
-    });
-    // Deslizar en el celular; un toque o clic en la foto pasa a la siguiente
-    let x0 = null, deslizo = false;
-    escena.addEventListener("pointerdown", e => { x0 = e.clientX; deslizo = false; });
-    escena.addEventListener("pointerup", e => {
-      if (x0 === null) return;
-      const dx = e.clientX - x0;
-      x0 = null;
-      if (Math.abs(dx) > 40) { deslizo = true; ver(actual + (dx < 0 ? 1 : -1)); }
-    });
-    escena.addEventListener("pointercancel", () => { x0 = null; });
-    escena.addEventListener("click", () => { if (!deslizo) ver(actual + 1); deslizo = false; });
-    minis.hidden = false;
-    visor.classList.add("is-vivo");
-  });
-}
-
 /* ---------- Init ---------- */
 persistUTMs();
 document.addEventListener("DOMContentLoaded", () => {
@@ -484,5 +444,4 @@ document.addEventListener("DOMContentLoaded", () => {
   initSmoothFAQ();
   initRecorrido();
   initRecibe();
-  initVisor();
 });
