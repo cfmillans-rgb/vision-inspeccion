@@ -457,8 +457,8 @@ main .vf-sec__head a, main .vf-sec__head a:hover { color: #fff; }
 .sticky-mobile-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 998; padding: 0; background: var(--m-tinta); border-top: 1px solid var(--m-linea-azul); }
 .sticky-mobile-bar__btn--call { background: var(--m-tinta); color: #fff; }
 .sticky-mobile-bar__btn--call:hover { background: var(--m-tinta-clara); }
-.sticky-mobile-bar__btn--wa { background: var(--m-azul); color: #fff; }
-.sticky-mobile-bar__btn--wa:hover { background: var(--m-azul-osc); }
+.sticky-mobile-bar__btn--visita { background: var(--m-azul); color: #fff; }
+.sticky-mobile-bar__btn--visita:hover { background: var(--m-azul-osc); }
 .floating-whatsapp { position: fixed; right: 20px; bottom: 20px; z-index: 1000; transition: opacity .2s ease, visibility .2s ease; }
 .floating-whatsapp.is-oculto { opacity: 0; visibility: hidden; pointer-events: none; }
 @media (max-width: 768px) {

@@ -309,11 +309,16 @@ function initFloatingHide() {
   targets.forEach(t => io.observe(t));
 }
 
-/* ---------- Call link tracking ---------- */
+/* ---------- Call link tracking (y botones que llevan al formulario) ---------- */
 function bindCallLinks() {
   document.querySelectorAll("[data-call]").forEach(a => {
     a.addEventListener("click", () => {
       trackEvent("click_call", { placement: a.getAttribute("data-placement") || "unknown" });
+    });
+  });
+  document.querySelectorAll('a[href$="#formulario"]').forEach(a => {
+    a.addEventListener("click", () => {
+      trackEvent("click_pedir_visita", { placement: a.getAttribute("data-placement") || "unknown", page: location.pathname });
     });
   });
 }
