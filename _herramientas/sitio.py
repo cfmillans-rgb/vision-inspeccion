@@ -22,7 +22,7 @@ WA = "56959492372"
 TEL = "+56959492372"
 TEL_VISIBLE = "+56 9 5949 2372"
 EMAIL = "hola@visioninspeccion.cl"
-CSS_VER = "13"
+CSS_VER = "14"
 JS_VER = "11"
 OG_IMG = "https://visioninspeccion.cl/assets/og-aguas-lluvias.png"  # 1200 x 630
 
