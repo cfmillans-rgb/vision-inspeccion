@@ -699,3 +699,83 @@ body:has(.ed-sec--oscuro, .ed-sec--banda) .floating-whatsapp__btn:hover { backgr
     justify-content: center;
   }
 }
+
+/* ---------- HUD / Visor de Control en el Hero ---------- */
+.ed-hud {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 152, 216, 0.4);
+  box-shadow: 0 20px 40px -10px rgba(3, 9, 18, 0.7), 0 0 30px rgba(16, 152, 216, 0.15);
+  background: #0B101D;
+}
+.ed-hud__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #141B30;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--m-claro);
+}
+.ed-hud__rec {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.05em;
+}
+.ed-hud__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #EF4444;
+  animation: pulseLive 2s infinite ease-in-out;
+}
+@keyframes pulseLive {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.9); }
+}
+.ed-hud__depth {
+  font-weight: 700;
+  color: var(--m-agua);
+}
+.ed-hud__visor {
+  position: relative;
+  padding: 24px 24px 16px;
+  background: radial-gradient(circle at center top, rgba(16, 152, 216, 0.08), transparent 70%), #0A0D18;
+}
+.ed-hud__scanline {
+  position: absolute;
+  inset: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, rgba(16, 152, 216, 0.08), transparent);
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+.ed-hud__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #141B30;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 11px;
+  color: var(--m-claro-suave);
+}
+.ed-hud__badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(16, 104, 176, 0.3);
+  border: 1px solid rgba(16, 152, 216, 0.4);
+  color: #fff;
+  font-weight: 600;
+}
