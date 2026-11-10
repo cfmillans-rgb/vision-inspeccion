@@ -150,7 +150,7 @@
   <div class="ed-wrap ed-sec__grid">
     <div class="ed-sec__head">
       <h2 id="servicios-t">Qué revisamos</h2>
-      <p>Trabajamos solo con sistemas de aguas lluvias.</p>
+      <p>Especialistas en sistemas pluviales y diagnóstico técnico de redes.</p>
     </div>
     <div class="ed-sec__body">
       <div class="ed-recorrido" data-recorrido>
@@ -174,6 +174,26 @@
         </ol>
       </div>
       <p class="ed-sec__nota">¿Ya tuvo daños por lluvia? Vea <a href="./danos-por-temporal.html">qué revisamos después de un temporal</a>.</p>
+      <!-- BLOQUE DE FACTIBILIDAD TÉCNICA PARA OTRAS TUBERÍAS -->
+      <div class="ed-otros-trabajos">
+        <div class="ed-otros-trabajos__body">
+          <span class="ed-otros-trabajos__badge">Factibilidad técnica caso a caso</span>
+          <h3 class="ed-otros-trabajos__title">¿Necesita inspeccionar agua potable u otras tuberías?</h3>
+          <p class="ed-otros-trabajos__desc">
+            Evaluamos requerimientos en <strong>redes de agua potable, cámaras de proceso/decantación, ductos de obra o filtraciones no identificadas</strong>. 
+            Escríbanos por WhatsApp con los antecedentes de su instalación y le confirmamos si es viable técnicamente en terreno.
+          </p>
+        </div>
+        <div class="ed-otros-trabajos__action">
+          <a href="https://wa.me/56959492372?text=Hola%20Visi%C3%B3n%20Inspecci%C3%B3n%2C%20tengo%20una%20consulta%20por%20una%20inspecci%C3%B3n%20t%C3%A9cnica%20de%20tuber%C3%ADas%20(no%20es%20de%20aguas%20lluvias).%20Quisiera%20consultar%20factibilidad%20t%C3%A9cnica." 
+             class="ed-btn ed-otros-trabajos__btn" 
+             target="_blank" 
+             rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.524 5.842L0 24l6.335-1.524A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.796 9.796 0 01-4.994-1.365l-.358-.212-3.76.904.921-3.665-.233-.376A9.797 9.797 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+            Consultar factibilidad por WhatsApp
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -267,6 +287,7 @@
             <label class="vf__opt"><input type="radio" name="necesidad" value="Revisión preventiva"><span class="vf__opt-t">Revisión preventiva</span><span class="vf__opt-d">Antes de las lluvias, para planificar la mantención</span></label>
             <label class="vf__opt"><input type="radio" name="necesidad" value="Daños después de una lluvia"><span class="vf__opt-t">Daños después de una lluvia</span><span class="vf__opt-d">Filtraciones, anegamientos o agua en subterráneos</span></label>
             <label class="vf__opt"><input type="radio" name="necesidad" value="Recepción de obra o postventa"><span class="vf__opt-t">Recepción de obra o postventa</span><span class="vf__opt-d">Revisar el sistema antes de recibir o durante la garantía</span></label>
+            <label class="vf__opt"><input type="radio" name="necesidad" value="Otra red o caso especial"><span class="vf__opt-t">Otra red o caso especial</span><span class="vf__opt-d">Agua potable, decantación u otras tuberías</span></label>
             <label class="vf__opt"><input type="radio" name="necesidad" value="No estoy seguro"><span class="vf__opt-t">No estoy seguro</span><span class="vf__opt-d">Cuéntenos qué ve y le ayudamos a definirlo</span></label>
           </div>
           <p class="vf__error" id="vf-err-necesidad" hidden>Elija una opción para continuar.</p>
@@ -299,6 +320,11 @@
               <label class="vf__marca"><input type="radio" name="etapa" value="Postventa"><span>Postventa</span></label>
             </div>
           </fieldset>
+          <div class="vf__sub" data-para="Otra red o caso especial" hidden>
+            <p>Para redes de agua potable, cámaras de proceso o proyectos especiales, revisamos la factibilidad técnica según diámetro y accesos.</p>
+            <button type="button" class="vf__fotos" data-whatsapp data-placement="formulario_especial" data-message="Hola, tengo una consulta por una inspección de tuberías especial (no es aguas lluvias). Quisiera consultar factibilidad técnica.">Consultar factibilidad por WhatsApp</button>
+            <p class="vf__opc">O continúe el formulario para dejarnos sus datos.</p>
+          </div>
           <div class="vf__sub" data-para="No estoy seguro" hidden>
             <p>Envíenos fotos o un video corto de lo que ve (la mancha, el embudo, la bajada o el sumidero) e intentaremos orientarle sobre qué revisar.</p>
             <button type="button" class="vf__fotos" data-whatsapp data-placement="formulario_fotos" data-message="Hola, no sé bien qué necesito revisar. Les envío fotos de lo que está pasando.">Enviar fotos por WhatsApp</button>

@@ -221,7 +221,10 @@ function bindLeadForm() {
     add("Administración o empresa", field("organizacion"));
     add("Detalles", field("detalles"));
     if (nec === "No estoy seguro") lines.push("", "Puedo enviarles fotos por aquí.");
-    lines.push("", "Entiendo que la visita técnica cuesta $35.000 y que se descuenta si contrato la inspección. Quedo atento/a para coordinarla.");
+    if (nec === "Otra red o caso especial") lines.push("", "Quisiera evaluar la factibilidad técnica y cotización para este requerimiento.");
+    if (nec !== "Otra red o caso especial") {
+      lines.push("", "Entiendo que la visita técnica cuesta $35.000 y que se descuenta si contrato la inspección. Quedo atento/a para coordinarla.");
+    }
     return lines.join("\n");
   }
   function updateResumen() {
