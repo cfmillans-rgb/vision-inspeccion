@@ -104,8 +104,10 @@
       <img alt="Visión Inspección" class="brand-logo" src="./assets/logo-sin-fondo.png" width="216" height="40"/>
     </a>
     <nav class="site-header__nav" id="mobileNav" aria-label="Navegación principal">
+      <a class="site-header__nav-link" href="#servicios">Qué revisamos</a>
       <a class="site-header__nav-link" href="#proceso">Cómo funciona</a>
-      <a class="site-header__nav-link" href="#precio">Precio</a>
+      <a class="site-header__nav-link" href="#caso">Caso real</a>
+      <a class="site-header__nav-link" href="#faq">Preguntas</a>
       <a class="site-header__nav-link" href="./blog/index.html">Blog</a>
     </nav>
     <div class="site-header__cta">
@@ -369,35 +371,8 @@
             </div>
             <div class="vf__campo">
               <label for="comuna">Comuna</label>
-              <select id="comuna" name="comuna" required aria-describedby="vf-err-comuna">
-                <option value="">Seleccione su comuna</option>
-                <optgroup label="Región Metropolitana">
-                  <option>Cerrillos</option><option>Cerro Navia</option><option>Colina</option>
-                  <option>Conchalí</option><option>El Bosque</option><option>Estación Central</option>
-                  <option>Huechuraba</option><option>Independencia</option><option>La Cisterna</option>
-                  <option>La Florida</option><option>La Granja</option><option>La Pintana</option>
-                  <option>La Reina</option><option>Las Condes</option><option>Lo Barnechea</option>
-                  <option>Lo Espejo</option><option>Lo Prado</option><option>Macul</option>
-                  <option>Maipú</option><option>Ñuñoa</option><option>Pedro Aguirre Cerda</option>
-                  <option>Peñalolén</option><option>Providencia</option><option>Pudahuel</option>
-                  <option>Quilicura</option><option>Quinta Normal</option><option>Recoleta</option>
-                  <option>Renca</option><option>San Bernardo</option><option>San Joaquín</option>
-                  <option>San Miguel</option><option>San Ramón</option><option>Santiago</option>
-                  <option>Vitacura</option><option>Puente Alto</option><option>Buin</option>
-                  <option>Paine</option><option>Peñaflor</option><option>Talagante</option>
-                </optgroup>
-                <optgroup label="V Región">
-                  <option>Valparaíso</option><option>Viña del Mar</option><option>Quilpué</option>
-                  <option>Villa Alemana</option><option>Concón</option><option>Limache</option>
-                  <option>Quillota</option><option>San Antonio</option>
-                </optgroup>
-                <optgroup label="VI Región">
-                  <option>Rancagua</option><option>Machalí</option><option>San Fernando</option>
-                  <option>Rengo</option><option>Graneros</option>
-                </optgroup>
-                <option value="Otra">Otra comuna</option>
-              </select>
-              <p class="vf__error" id="vf-err-comuna" hidden>Elija la comuna.</p>
+              <input type="text" id="comuna" name="comuna" placeholder="Ej.: Las Condes, Santiago, Viña, Rancagua..." required autocomplete="address-level2" aria-describedby="vf-err-comuna">
+              <p class="vf__error" id="vf-err-comuna" hidden>Escriba su comuna.</p>
             </div>
             <div class="vf__campo">
               <label for="plazo">¿Para cuándo? <span class="vf__opc">(opcional)</span></label>

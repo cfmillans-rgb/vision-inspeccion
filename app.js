@@ -248,6 +248,7 @@ function bindLeadForm() {
   });
   form.addEventListener("input", e => {
     if (e.target.name === "nombre" && field("nombre")) mark(e.target, "vf-err-nombre", false);
+    if (e.target.name === "comuna" && field("comuna")) mark(e.target, "vf-err-comuna", false);
     if (current === total) updateResumen();
   });
   form.addEventListener("click", e => {
